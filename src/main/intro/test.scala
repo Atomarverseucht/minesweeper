@@ -2,7 +2,7 @@ package main.intro
 
 import scala.io.StdIn
 
-@main def main(): Unit = {
+@main def run() = {
   println("Folgende Inputs: \n Breite \n Höhe \n Text, welcher in der Mitte steht\n")
   val x = StdIn.readInt()
   val y = StdIn.readInt()
