@@ -17,5 +17,5 @@ case object Number extends FieldKind {
 }
 case object Bomb extends FieldKind {
   val isBomb = true
-  val symbol = "💣"
+  val symbol = "🍾"
 }
