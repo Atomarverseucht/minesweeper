@@ -2,12 +2,11 @@ package main.intro
 
 import scala.io.StdIn
 
-@main def run() = {
-  println("Folgende Inputs: \n Breite \n Höhe \n Text, welcher in der Mitte steht\n")
+@main def run =
+  println("Folgende Inputs: \n Breite \n Höhe \n Text,cgcj welcher in der Mitte steht\n")
   val x = StdIn.readInt()
   val y = StdIn.readInt()
   test.rectangle(x, y, StdIn.readLine())
-}
 
 object test:
   def rectangle(col_ : Int, row_ : Int, text : String) =
@@ -32,5 +31,3 @@ object test:
     for i <- 0 until l do
       print("-")
     print("+\n")
-
-  def hi = 5
