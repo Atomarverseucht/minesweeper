@@ -1,7 +1,7 @@
-package de.htwg.se
+package de.htwg
 
-import scala.util.Random
 import scala.io.StdIn.readInt
+import scala.util.Random
 
 @main def start(): Unit =
   val start = new Array[Int](2) 
@@ -14,9 +14,5 @@ import scala.io.StdIn.readInt
       case 1 => 
         println("Please enter your starting y coordinate between 0 and " + boardY)
     start(i) = readInt()
-
-  val gameBoard: Vector[Vector[Field]] = 
-    Vector.tabulate(boardX, boardY)((x, y) => Field(false, x, y, if (Random().nextInt(10) != start(0) + start(1)) Bomb else Number))
-
-  for (row <- gameBoard) println(row.map(_.toString()).mkString)
+  val gameBoard = Board(start(0), start(1), boardX, boardY, 10)
   
