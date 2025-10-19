@@ -45,12 +45,12 @@ class Board(xStart : Int, yStart : Int, xSize : Int, ySize : Int, BombCount : In
       inGame = false
       'b'
     else
-      'k'
+      'k' // Hier kommt noch die Berechnung der Bomben-Nachbarn
   }
 
-  def getField(x: Int, y: Int) = Board(x)(y).getField()
+  def getField(x: Int, y: Int): String = Board(x)(y).getField()
   
-  def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =
+  private def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =
     ((x0-x1).abs <= 1) && ((y0-y1).abs <= 1)
 }
 
