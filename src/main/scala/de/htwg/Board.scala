@@ -18,14 +18,22 @@ class Board(xStart : Int, yStart : Int, xSize : Int, ySize : Int, BombCount : In
       isBomb
     }
   }
-
+  
   // Konstruktor
+  // Errors
+  val bMax = ((xSize * ySize) - 9)
+  if xSize < 10 || ySize < 10 then throw new IllegalArgumentException("x and y size must be >= 10!")
+  if xStart >= xSize || xStart < 0 || yStart >= ySize || yStart < 0 then throw new IllegalArgumentException("Starting position must be on the field")
+  if BombCount < 1 || BombCount > bMax then throw new IllegalArgumentException("Bomb Count must be between 1 and " + bMax)
+  
   private val Board : Array[Array[Field]] = Array.ofDim(xSize,ySize)
   private var inGame : Boolean = true
+  
+  
   initBoard
 
   private def initBoard: Unit = {
-    var gfieldCount = (xSize * ySize) - 9
+    var gfieldCount = bMax
     var bombCount = BombCount
     for x <- 0 until xSize
         y <- 0 until ySize do
@@ -39,7 +47,7 @@ class Board(xStart : Int, yStart : Int, xSize : Int, ySize : Int, BombCount : In
         gfieldCount -= 1
   }
 
-  def openField(x: Int, y: Int) : Char =
+  override def openField(x: Int, y: Int) : Char =
     if !inGame then throw new IllegalArgumentException("You cannot open a field after loosing")
     val bomb: Boolean = Board(x)(y).openField
     if bomb then
@@ -57,7 +65,7 @@ class Board(xStart : Int, yStart : Int, xSize : Int, ySize : Int, BombCount : In
       if x_ >= 0 && y_ >= 0 && Board(x_)(y_).isBomb then bc += 1
     bc
   }
-  def getField(x: Int, y: Int): Char =
+  override def getField(x: Int, y: Int): Char =
     var out : Char = Board(x)(y).getField
     if out.equals('f') then
       getBombNeighbour(x, y).toString.head
@@ -66,5 +74,7 @@ class Board(xStart : Int, yStart : Int, xSize : Int, ySize : Int, BombCount : In
 
   private def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =
     ((x0-x1).abs <= 1) && ((y0-y1).abs <= 1)
+    
+  override def getSize: (Int, Int) = (Board.length, Board(0).length)
 }
 
