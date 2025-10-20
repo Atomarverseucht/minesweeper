@@ -1,7 +1,6 @@
 package de.htwg
 
 import scala.io.StdIn.readInt
-import scala.util.Random
 
 @main def start(): Unit =
   val start = new Array[Int](5)
@@ -15,9 +14,9 @@ import scala.util.Random
       case 1 =>
         println("Please enter the size of the y coordinate. It must be >= 10")
       case 2 =>
-        println("Please enter your x starting coordinate between 0 and " + start(0))
+        println("Please enter your x starting coordinate between 0 and " + (start(0) - 1))
       case 3 =>
-        println("Please enter your starting y coordinate between 0 and " + start(1))
+        println("Please enter your starting y coordinate between 0 and " + (start(1) - 1))
       case 4 =>
         println("Please enter the count of bombs. It must be between 1 and " + (start(0) * start(1) - 9))
       start(i) = readInt()
@@ -29,4 +28,5 @@ import scala.util.Random
       println()
     println(gameBoard.getSize)
   catch
-  case e: Error => e.printStackTrace
+    case iae: IllegalArgumentException => println(iae.getMessage)
+    case e: Error => e.printStackTrace
