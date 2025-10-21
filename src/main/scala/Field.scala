@@ -1,21 +1,21 @@
 package de.htwg.se
 
-case class Field(isHidden: Boolean, x: Int, y: Int, figure: FieldKind) {
+case class Field(isHidden: Boolean, x: Int, y: Int, figure: FieldType) {
   override def toString(): String = figure.symbol 
   /*if (figure.isBomb) {
     gameOver()
   }*/
 
 }
-sealed trait FieldKind {
+sealed trait FieldType {
   val isBomb: Boolean
   val symbol: String
 }
-case object Number extends FieldKind {
+case class Number(val surroundingBombs: Int) extends FieldType {
   val isBomb = false
-  val symbol = "5"
+  val symbol = surroundingBombs.toString()
 }
-case object Bomb extends FieldKind {
+case class Bomb() extends FieldType {
   val isBomb = true
-  val symbol = "🍾"
+  val symbol = "💣"
 }
