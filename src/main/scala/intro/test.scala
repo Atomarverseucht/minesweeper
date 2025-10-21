@@ -1,4 +1,4 @@
-package main.intro
+package intro
 
 import scala.io.StdIn
 
