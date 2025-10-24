@@ -6,6 +6,7 @@ import scala.io.StdIn.readInt
   val start = new Array[Int](5)
   val boardX: Int = 10
   val boardY: Int = 11
+
   try
     for i <- 0 until 5 do
       i match
@@ -22,11 +23,12 @@ import scala.io.StdIn.readInt
       start(i) = readInt()
 
     val gameBoard = Board(start(2), start(3), start(0), start(1), start(4))
+
     for y <- 0 until start(1) do
       for x <- 0 until start(0) do
-        print(gameBoard.getField(x, y))
+        val gb = gameBoard
+        print(gb.getField(x, y))
       println()
     println(gameBoard.getSize)
   catch
-    case iae: IllegalArgumentException => println(iae.getMessage)
-    case e: Error => e.printStackTrace
+    case _ => println("")
