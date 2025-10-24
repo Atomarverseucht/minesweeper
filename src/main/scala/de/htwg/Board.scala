@@ -22,14 +22,15 @@ class Board(xStart : Int, yStart : Int, xSize : Int, ySize : Int, BombCount : In
   // Konstruktor
   // Errors
   val bMax = ((xSize * ySize) - 9)
+
   if xSize < 10 || ySize < 10 then throw new IllegalArgumentException("x and y size must be >= 10!")
   if xStart >= xSize || xStart < 0 || yStart >= ySize || yStart < 0 then throw new IllegalArgumentException("Starting position must be on the field")
-  if BombCount < 1 || BombCount > bMax then throw new IllegalArgumentException("Bomb Count must be between 1 and " + bMax)
+  if BombCount < 1 || BombCount > bMax then throw new IllegalArgumentException(s"Bomb Count must be between 1 and $bMax")
   
   private val Board : Array[Array[Field]] = Array.ofDim(xSize,ySize)
-  private var inGame : Boolean = true
-  
-  
+  private var inGame : Boolean = true 
+
+   
   initBoard
 
   private def initBoard: Unit = {
