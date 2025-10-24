@@ -1,1 +1,0 @@
-@main def hello() = print("hello")

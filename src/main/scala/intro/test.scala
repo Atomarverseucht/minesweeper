@@ -3,7 +3,7 @@ package intro
 import scala.io.StdIn
 
 @main def run =
-  println("Folgende Inputs: \n Breite \n Höhe \n Text,cgcj welcher in der Mitte steht\n")
+  println("Folgende Inputs: \n Breite \n Höhe \n Text, welcher in der Mitte steht\n")
   val x = StdIn.readInt()
   val y = StdIn.readInt()
   test.rectangle(x, y, StdIn.readLine())

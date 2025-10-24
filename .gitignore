@@ -4,3 +4,4 @@ target/*
 .bsp/*
 project/*
 minesweeper.iml
+src/main/scala/intro/*

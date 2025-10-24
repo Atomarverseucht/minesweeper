@@ -1,11 +1,11 @@
 package de.htwg
 import scala.util.Random
 
-class Board(xStart : Int, yStart : Int, xSize : Int, ySize : Int, BombCount : Int) extends GameBoard {
+class Board(xStart : Int, yStart : Int, xSize : Int , ySize : Int, BombCount : Int) extends GameBoard {
 
   private class Field(Bomb: Boolean) {
     val isBomb: Boolean = this.Bomb
-    private var isOpened : Boolean = false
+    private var isOpened : Boolean = true
 
     def getField : Char = {
       if !isOpened then 'c'
