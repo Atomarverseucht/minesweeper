@@ -22,14 +22,16 @@ class Board(xStart : Int, yStart : Int, xSize : Int, ySize : Int, BombCount : In
   // Konstruktor
   // Errors
   val bMax = ((xSize * ySize) - 9)
-  if xSize < 10 || ySize < 10 then throw new IllegalArgumentException("x and y size must be >= 10!")
-  if xStart >= xSize || xStart < 0 || yStart >= ySize || yStart < 0 then throw new IllegalArgumentException("Starting position must be on the field")
-  if BombCount < 1 || BombCount > bMax then throw new IllegalArgumentException("Bomb Count must be between 1 and " + bMax)
+  if xSize < 10 || ySize < 10 then
+    throw new IllegalArgumentException("x and y size must be >= 10!")
+  if xStart >= xSize || xStart < 0 || yStart >= ySize || yStart < 0 then
+    throw new IllegalArgumentException("Starting position must be on the field")
+  if BombCount < 1 || BombCount > bMax then
+    throw new IllegalArgumentException("Bomb Count must be between 1 and " + bMax)
   
   private val Board : Array[Array[Field]] = Array.ofDim(xSize,ySize)
   private var inGame : Boolean = true
-  
-  
+
   initBoard
 
   private def initBoard: Unit = {
@@ -62,9 +64,11 @@ class Board(xStart : Int, yStart : Int, xSize : Int, ySize : Int, BombCount : In
         vy <- -1 to 1 do
       val x_ = x + vx
       val y_ = y + vy
-      if x_ >= 0 && y_ >= 0 && Board(x_)(y_).isBomb then bc += 1
+      if inRange(x_, y_) && Board(x_)(y_).isBomb then bc += 1
     bc
   }
+
+  def inRange(x: Int, y: Int): Boolean = x >= 0 && y >= 0 && x < Board.length && y < Board(1).length
   override def getField(x: Int, y: Int): Char =
     var out : Char = Board(x)(y).getField
     if out.equals('f') then
