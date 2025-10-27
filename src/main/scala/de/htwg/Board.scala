@@ -1,11 +1,11 @@
 package de.htwg
 import scala.util.Random
 
-class Board(xStart : Int, yStart : Int, xSize : Int , ySize : Int, BombCount : Int) extends GameBoard {
+class Board(xStart : Int = 5, yStart : Int = 5, xSize : Int = 10 , ySize : Int = 10, BombCount : Int = 10) extends GameBoard {
 
   private class Field(Bomb: Boolean) {
     val isBomb: Boolean = this.Bomb
-    private var isOpened : Boolean = true
+    private var isOpened : Boolean = false
 
     def getField : Char = {
       if !isOpened then 'c'
@@ -29,8 +29,8 @@ class Board(xStart : Int, yStart : Int, xSize : Int , ySize : Int, BombCount : I
   if BombCount < 1 || BombCount > bMax then
     throw new IllegalArgumentException("Bomb Count must be between 1 and " + bMax)
   
-  private val Board : Array[Array[Field]] = Array.ofDim(xSize,ySize)
-  private var inGame : Boolean = true
+  private val gameBoard : Array[Array[Field]] = Array.ofDim(xSize,ySize)
+  val inGame : Boolean = true
 
   initBoard
 
@@ -40,20 +40,20 @@ class Board(xStart : Int, yStart : Int, xSize : Int , ySize : Int, BombCount : I
     for x <- 0 until xSize
         y <- 0 until ySize do
       if isNeighbour(xStart, yStart, x, y) then {
-        Board(x)(y) = Field(false)
-        Board(x)(y).openField
+        gameBoard(x)(y) = Field(false)
+        gameBoard(x)(y).openField
       } else
         val b = Random.nextInt(gfieldCount) < bombCount
-        Board(x)(y) = Field(b)
+        gameBoard(x)(y) = Field(b)
         if b then bombCount -= 1
         gfieldCount -= 1
   }
 
   override def openField(x: Int, y: Int) : Char =
     if !inGame then throw new IllegalArgumentException("You cannot open a field after loosing")
-    val bomb: Boolean = Board(x)(y).openField
+    val bomb: Boolean = gameBoard(x)(y).openField
     if bomb then
-      inGame = false
+
       'b'
     else
       getBombNeighbour(x, y).toString.head
@@ -64,13 +64,13 @@ class Board(xStart : Int, yStart : Int, xSize : Int , ySize : Int, BombCount : I
         vy <- -1 to 1 do
       val x_ = x + vx
       val y_ = y + vy
-      if inRange(x_, y_) && Board(x_)(y_).isBomb then bc += 1
+      if inRange(x_, y_) && gameBoard(x_)(y_).isBomb then bc += 1
     bc
   }
 
-  def inRange(x: Int, y: Int): Boolean = x >= 0 && y >= 0 && x < Board.length && y < Board(1).length
+  def inRange(x: Int, y: Int): Boolean = x >= 0 && y >= 0 && x < gameBoard.length && y < gameBoard(1).length
   override def getField(x: Int, y: Int): Char =
-    var out : Char = Board(x)(y).getField
+    val out : Char = gameBoard(x)(y).getField
     if out.equals('f') then
       getBombNeighbour(x, y).toString.head
     else out
@@ -79,6 +79,7 @@ class Board(xStart : Int, yStart : Int, xSize : Int , ySize : Int, BombCount : I
   private def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =
     ((x0-x1).abs <= 1) && ((y0-y1).abs <= 1)
     
-  override def getSize: (Int, Int) = (Board.length, Board(0).length)
+  override def getSize: (Int, Int) = (gameBoard.length, gameBoard(0).length)
+    
 }
 

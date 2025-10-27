@@ -4,8 +4,7 @@ import scala.io.StdIn.readInt
 
 @main def start(): Unit =
   val start = new Array[Int](5)
-  val boardX: Int = 10
-  val boardY: Int = 11
+
   try
     for i <- 0 until 5 do
       i match
@@ -34,8 +33,8 @@ import scala.io.StdIn.readInt
 def emojify(field: Char): String =
   field match
     case 'b' => "\uD83C\uDF77"
-    case 'c' => "\uD83D\uDFE8"
-    case '0' => "\uD83D\uDFE6"
+    case 'c' => "⬛"
+    case '0' => "⬜"
     case '1' => "1\uFE0F⃣"
     case '2' => "2\uFE0F⃣"
     case '3' => "3\uFE0F⃣"
