@@ -2,7 +2,6 @@ out/*
 target/*
 .idea/*
 .bsp/*
-project/*
 minesweeper.iml
 .bloop
 .metals
