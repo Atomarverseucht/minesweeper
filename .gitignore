@@ -4,4 +4,6 @@ target/*
 .bsp/*
 minesweeper.iml
 .bloop
+minesweeper.iml.metals
+.vscode
 .metals
