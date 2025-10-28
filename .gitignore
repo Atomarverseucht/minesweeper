@@ -9,3 +9,5 @@ minesweeper.iml.metals
 .metals
 project/project/
 project/target/
+src/main/scala/de/htwg/.scala-build/*
+src/main/scala/intro
