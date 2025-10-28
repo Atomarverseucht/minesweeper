@@ -23,9 +23,9 @@ case class Board private (
 
   override def checkGameState: Boolean = inGame
 
-  def decreaseBombCount(count: Int): Int = count - 1
+  //def decreaseBombCount(count: Int): Int = count - 1
 
-  def decreaseFieldCount(count: Int): Int = count - 1
+  //def decreaseFieldCount(count: Int): Int = count - 1
 
   override def openField(x: Int, y: Int) : Char =
     require(inGame, "You cannot open a field after the game is over")

@@ -7,3 +7,5 @@ minesweeper.iml
 minesweeper.iml.metals
 .vscode
 .metals
+project/project/
+project/target/
