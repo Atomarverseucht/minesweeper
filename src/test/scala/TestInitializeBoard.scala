@@ -20,11 +20,14 @@ class TestInitializeBoard extends AnyWordSpec with Matchers {
                 equal('1') or equal('2') or equal('3') or equal('4') or
                 equal('5') or equal('6') or equal('7') or equal('8'))
 
+            b.getField(3, 4) shouldBe '0'
             
             b.getSize should not equal 0
-            val bomb = b.findBomb(0, 0)
-            //bomb should not be (0, 0)
-            //b.openField(bomb._1, bomb._2) shouldBe 'b'
+
+            //neu:
+            val bomb = b.findBomb(11, 0)
+            an [Exception] should be thrownBy b.findBomb(11,11)
+            //alt:
             b.openField(bomb._1, bomb._2) shouldBe b.getField(bomb._1, bomb._2)
             b.getField(bomb._1, bomb._2) shouldBe 'b'
             b.getField(bomb._1+1, bomb._2+1) shouldBe 'c'
