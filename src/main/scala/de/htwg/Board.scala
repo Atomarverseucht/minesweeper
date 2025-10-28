@@ -52,7 +52,6 @@ case class Board private (
     require(x >= 0 && y >= 0 && x < xSize && y < ySize, "Coordinates out of range")
     board(x)(y)
 
-  
 
   override def getSize: (Int, Int) = (board.length, if board.isEmpty then 0 else board(0).length)
 }
@@ -80,5 +79,6 @@ object Board:
 
   private def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =
     ((x0-x1).abs <= 1) && ((y0-y1).abs <= 1)
+
 
 
