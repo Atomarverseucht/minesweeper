@@ -2,6 +2,7 @@ out/*
 target/*
 .idea/*
 .bsp/*
+project/*
 minesweeper.iml
 .bloop
 minesweeper.iml.metals
@@ -12,3 +13,4 @@ project/target/
 src/main/scala/de/htwg/.scala-build/*
 src/main/scala/intro
 htmlReport/*
+src/main/scala/intro/*

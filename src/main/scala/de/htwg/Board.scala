@@ -82,4 +82,3 @@ object Board:
 
   def emojify(field: Int): String = s"${field}\ufe0f\u20e3"
 
-
