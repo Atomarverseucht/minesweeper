@@ -55,13 +55,14 @@ case class Board (
 
   override def getSize: (Int, Int) = (board.length, board(0).length)
 
-  def findBomb: (Int, Int) = {
+  def findBomb(x: Int, y: Int): (Int, Int) = if getFieldAt(x, y).isBomb then (x, y) else if x < xSize-1 then findBomb(x + 1, y) else if y < ySize-1 then findBomb(0, y + 1) else throw Exception("No bombs found")
+  /*def findBomb: (Int, Int) = {
     var b : (Int, Int) = (0,0)
     for x <- 0 until xSize
       y <- 0 until ySize do 
       if board(x)(y).isBomb then b = (x, y)
     b
-  }
+  }*/
 }
 
 object Board:
@@ -83,6 +84,7 @@ object Board:
         else
           val isBomb = rand.nextInt(bMax) < bombCount
           Field(isBomb, isOpened = false)
+          
       }
     new Board(xStart, yStart, xSize, ySize, bombCount, board, inGame = true)
 
