@@ -8,10 +8,10 @@ sealed trait GameBoard {
   def checkGameState: Boolean
 }
 
-case class Field(isBomb: Boolean, isOpened: Boolean)
+case class Field(isBomb: Boolean, var isOpened: Boolean)
 
 
-case class Board private (
+case class Board (
   xStart : Int,
   yStart : Int,
   xSize : Int,
@@ -30,6 +30,7 @@ case class Board private (
   override def openField(x: Int, y: Int) : Char =
     require(inGame, "You cannot open a field after the game is over")
     val f = getFieldAt(x, y)
+    f.isOpened = true
     if f.isBomb then 'b' else getBombNeighbour(x, y).toString.head
 
   def getBombNeighbour(x: Int, y: Int): Int =
@@ -52,7 +53,15 @@ case class Board private (
     require(x >= 0 && y >= 0 && x < xSize && y < ySize, "Coordinates out of range")
     board(x)(y)
 
-  override def getSize: (Int, Int) = (board.length, if board.isEmpty then 0 else board(0).length)
+  override def getSize: (Int, Int) = (board.length, board(0).length)
+
+  def findBomb: (Int, Int) = {
+    var b : (Int, Int) = (0,0)
+    for x <- 0 until xSize
+      y <- 0 until ySize do 
+      if board(x)(y).isBomb then b = (x, y)
+    b
+  }
 }
 
 object Board:
@@ -81,4 +90,5 @@ object Board:
     ((x0-x1).abs <= 1) && ((y0-y1).abs <= 1)
 
   def emojify(field: Int): String = s"${field}\ufe0f\u20e3"
+
 
