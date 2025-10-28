@@ -11,3 +11,4 @@ project/project/
 project/target/
 src/main/scala/de/htwg/.scala-build/*
 src/main/scala/intro
+htmlReport/*
