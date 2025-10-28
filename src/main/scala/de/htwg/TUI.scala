@@ -4,8 +4,6 @@ import scala.io.StdIn.readInt
 
 @main def start(): Unit =
   val start = new Array[Int](5)
-  val boardX: Int = 10
-  val boardY: Int = 11
 
   try
     for i <- 0 until 5 do
@@ -26,8 +24,7 @@ import scala.io.StdIn.readInt
 
     for y <- 0 until start(1) do
       for x <- 0 until start(0) do
-        val gb = gameBoard
-        print(gb.getField(x, y))
+        print(gameBoard.getField(x, y))
       println()
     println(gameBoard.getSize)
   catch

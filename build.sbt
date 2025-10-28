@@ -16,7 +16,6 @@ lazy val root = project
     coverageHighlighting := true,
     coverageExcludedPackages := ".*Main.*;.*Routes.*;.*Config.*",
 
-    libraryDependencies += "org.scalameta" %% "munit" % "1.1.0" % Test,
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14",
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % Test,
   )
