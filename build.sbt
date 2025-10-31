@@ -14,7 +14,8 @@ lazy val root = project
     coverageMinimumStmtTotal := 100,
     coverageFailOnMinimum := true,
     coverageHighlighting := true,
-    coverageExcludedPackages := ".*Main.*;.*Routes.*;.*Config.*",
+    coverageExcludedPackages := ".*Main.*;.*Routes.*;.*Config.*;",
+    coverageExcludedFiles := "*Main*",
 
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14",
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % Test,

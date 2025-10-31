@@ -23,7 +23,7 @@ case class Board private (
 
   override def checkGameState: Boolean = inGame
 
-  //def decreaseBombCount(count: Int): Int = count - 1
+  def decreaseBombCount(count: Int): Int = count - 1
 
   //def decreaseFieldCount(count: Int): Int = count - 1
 
@@ -53,6 +53,9 @@ case class Board private (
     board(x)(y)
 
   override def getSize: (Int, Int) = (board.length, if board.isEmpty then 0 else board(0).length)
+
+  def findBomb: (Int, Int) =
+    board.zipWithIndex.flatMap((x: Int, y: Int) => if getField(x, y) == 'b' then (x, y) else (0, 0) )
 }
 
 object Board:
@@ -73,6 +76,7 @@ object Board:
         if isNeighbour(xStart, yStart, x, y) then Field(isBomb = false, isOpened = true)
         else
           val isBomb = rand.nextInt(bMax) < bombCount
+          decreaseBombCount(bombCount)
           Field(isBomb, isOpened = false)
       }
     new Board(xStart, yStart, xSize, ySize, bombCount, board, inGame = true)
