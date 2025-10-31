@@ -10,6 +10,7 @@ class TestInitializeBoard extends AnyWordSpec with Matchers {
             val b = Board(3, 4, 12, 12, 10)
             an [IllegalArgumentException] should be thrownBy Board(3, 4, 12, 12, 1000)
 
+
             b.getSize should be (12, 12)
             b.bombCount should (be > 1 and be < maxBombs(b.xSize, b.ySize))
             emojify(8) should not be empty
@@ -24,10 +25,8 @@ class TestInitializeBoard extends AnyWordSpec with Matchers {
             
             b.getSize should not equal 0
 
-            //neu:
-            val bomb = b.findBomb(11, 0)
-            an [Exception] should be thrownBy b.findBomb(11,11)
-            //alt:
+            val bomb = b.findBomb
+            
             b.openField(bomb._1, bomb._2) shouldBe b.getField(bomb._1, bomb._2)
             b.getField(bomb._1, bomb._2) shouldBe 'b'
             b.getField(bomb._1+1, bomb._2+1) shouldBe 'c'
