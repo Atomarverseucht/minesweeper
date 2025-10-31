@@ -55,10 +55,15 @@ case class Board (
 
   override def getSize: (Int, Int) = (board.length, board(0).length)
 
+  /*
+  def findBomb(x: Int, y: Int): (Int, Int) = if getFieldAt(x, y).isBomb then (x, y) else if x < xSize-1 then findBomb(x + 1, y)
+    else if y < ySize-1 then findBomb(0, y + 1) else throw Exception("No bombs found")
+   */
+
   def findBomb: (Int, Int) = {
-    var b : (Int, Int) = (0,0)
+    var b : (Int, Int) = (0, 0)
     for x <- 0 until xSize
-      y <- 0 until ySize do 
+      y <- 0 until ySize do
       if board(x)(y).isBomb then b = (x, y)
     b
   }
@@ -76,14 +81,19 @@ object Board:
     require(xStart <= xSize && xStart > 0 && yStart <= ySize && yStart > 0, "Starting position must be on the field")
     val bMax = maxBombs(xSize, ySize)
     require(bombCount > 1 && bombCount < bMax, s"Bomb Count must be between 1 and $bMax")
-
-    val board: Vector[Vector[Field]] =
+    var bC = bombCount
+    var fC = bMax
+    val board: Vector[Vector[Field]] = {
       Vector.tabulate(xSize, ySize) { (x, y) =>
-        if isNeighbour(xStart, yStart, x, y) then Field(isBomb = false, isOpened = true)
+        if isNeighbour(xStart, yStart, x, y) then
+          Field(isBomb = false, isOpened = true)
         else
-          val isBomb = rand.nextInt(bMax) < bombCount
+          val isBomb = rand.nextInt(fC) < bombCount
+          fC -= 1
+          if(isBomb) bC -= 1
           Field(isBomb, isOpened = false)
       }
+    }
     new Board(xStart, yStart, xSize, ySize, bombCount, board, inGame = true)
 
   private def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =
