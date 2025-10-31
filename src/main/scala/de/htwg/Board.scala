@@ -61,7 +61,7 @@ case class Board (
    */
 
   def findBomb: (Int, Int) = {
-    var b : (Int, Int) = (0,0)
+    var b : (Int, Int) = (0, 0)
     for x <- 0 until xSize
       y <- 0 until ySize do
       if board(x)(y).isBomb then b = (x, y)
