@@ -23,7 +23,7 @@ case class Board (
 
   override def checkGameState: Boolean = inGame
 
-  def decreaseBombCount(count: Int): Int = count - 1
+  //def decreaseBombCount(count: Int): Int = count - 1
 
   //def decreaseFieldCount(count: Int): Int = count - 1
 
