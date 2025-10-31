@@ -1,0 +1,27 @@
+{
+  "name": "scala",
+  "argv": [
+    "/usr/share/scala3/libexec/scala-cli.jar",
+    "--cli-default-scala-version",
+    "3.7.3",
+    "--repository",
+    "file:///usr/share/scala3/maven2",
+    "--prog-name",
+    "scala",
+    "--skip-cli-updates",
+    "bsp",
+    "--json-options",
+    "/home/ciphercorsair/Programming/FH/htwg/sem3/se/project/minesweeper/src/main/scala/de/htwg/.scala-build/ide-options-v2.json",
+    "--json-launcher-options",
+    "/home/ciphercorsair/Programming/FH/htwg/sem3/se/project/minesweeper/src/main/scala/de/htwg/.scala-build/ide-launcher-options.json",
+    "--envs-file",
+    "/home/ciphercorsair/Programming/FH/htwg/sem3/se/project/minesweeper/src/main/scala/de/htwg/.scala-build/ide-envs.json",
+    "/home/ciphercorsair/Programming/FH/htwg/sem3/se/project/minesweeper/src/main/scala/de/htwg/GameBoard.scala"
+  ],
+  "version": "1.9.0",
+  "bspVersion": "2.1.1",
+  "languages": [
+    "scala",
+    "java"
+  ]
+}
