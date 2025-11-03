@@ -1,70 +1,104 @@
 package de.htwg
 import scala.util.Random
 
-class Board(xStart : Int, yStart : Int, xSize : Int, ySize : Int, BombCount : Int) extends GameBoard {
+sealed trait GameBoard {
+  def openField(x: Int, y: Int) : Char
+  def getField(x: Int, y: Int): Char
+  def getSize: (Int, Int)
+  def checkGameState: Boolean
+}
 
-  private class Field(Bomb: Boolean) {
-    val isBomb: Boolean = this.Bomb
-    private var isOpened : Boolean = false
+case class Field(isBomb: Boolean, var isOpened: Boolean)
 
-    def getField : Char = {
-      if !isOpened then 'c'
-      else if isBomb then 'b'
-      else 'f'
-    }
 
-    def openField : Boolean = {
-      isOpened = true
-      isBomb
-    }
-  }
+case class Board (
+  xStart : Int,
+  yStart : Int,
+  xSize : Int,
+  ySize : Int,
+  bombCount : Int,
+  board: Vector[Vector[Field]],
+  inGame: Boolean
+) extends GameBoard {
 
-  // Konstruktor
-  private val Board : Array[Array[Field]] = Array.ofDim(xSize,ySize)
-  private var inGame : Boolean = true
-  initBoard
+  override def checkGameState: Boolean = inGame
 
-  private def initBoard: Unit = {
-    var gfieldCount = (xSize * ySize) - 9
-    var bombCount = BombCount
+  //def decreaseBombCount(count: Int): Int = count - 1
+
+  //def decreaseFieldCount(count: Int): Int = count - 1
+
+  override def openField(x: Int, y: Int) : Char =
+    require(inGame, "You cannot open a field after the game is over")
+    val f = getFieldAt(x, y)
+    f.isOpened = true
+    if f.isBomb then 'b' else getBombNeighbour(x, y).toString.head
+
+  def getBombNeighbour(x: Int, y: Int): Int =
+    (for
+      vx <- -1 to 1;
+      vy <- -1 to 1
+    yield {
+      val nx = x + vx
+      val ny = y + vy
+      if nx >= 0 && ny >= 0 && nx < xSize && ny < ySize && board(nx)(ny).isBomb then 1 else 0
+    }).sum
+
+  override def getField(x: Int, y: Int): Char =
+    val f = getFieldAt(x, y)
+    if !f.isOpened then 'c'
+    else if f.isBomb then 'b'
+    else getBombNeighbour(x, y).toString.head
+
+  private def getFieldAt(x: Int, y: Int): Field =
+    require(x >= 0 && y >= 0 && x < xSize && y < ySize, "Coordinates out of range")
+    board(x)(y)
+
+  override def getSize: (Int, Int) = (board.length, board(0).length)
+
+  /*
+  def findBomb(x: Int, y: Int): (Int, Int) = if getFieldAt(x, y).isBomb then (x, y) else if x < xSize-1 then findBomb(x + 1, y)
+    else if y < ySize-1 then findBomb(0, y + 1) else throw Exception("No bombs found")
+   */
+
+  def findBomb: (Int, Int) = {
+    var b : (Int, Int) = (0, 0)
     for x <- 0 until xSize
-        y <- 0 until ySize do
-      if isNeighbour(xStart, yStart, x, y) then {
-        Board(x)(y) = Field(false)
-        Board(x)(y).openField
-      } else
-        val b = Random.nextInt(gfieldCount) < bombCount
-        Board(x)(y) = Field(b)
-        if b then bombCount -= 1
-        gfieldCount -= 1
+      y <- 0 until ySize do
+      if board(x)(y).isBomb then b = (x, y)
+    b
   }
+}
 
-  def openField(x: Int, y: Int) : Char =
-    if !inGame then throw new IllegalArgumentException("You cannot open a field after loosing")
-    val bomb: Boolean = Board(x)(y).openField
-    if bomb then
-      inGame = false
-      'b'
-    else
-      getBombNeighbour(x, y).toString.head
+object Board:
 
-  private def getBombNeighbour(x: Int, y: Int): Int = {
-    var bc : Int = 0
-    for vx <- -1 to 1
-        vy <- -1 to 1 do
-      val x_ = x + vx
-      val y_ = y + vy
-      if x_ >= 0 && y_ >= 0 && Board(x_)(y_).isBomb then bc += 1
-    bc
-  }
-  def getField(x: Int, y: Int): Char =
-    var out : Char = Board(x)(y).getField
-    if out.equals('f') then
-      getBombNeighbour(x, y).toString.head
-    else out
+  def maxBombs(xSize: Int, ySize: Int): Int = (xSize * ySize) - 9
 
+  def apply(xStart : Int, yStart : Int, xSize : Int, ySize : Int, bombCount : Int): Board =
+    apply(xStart, yStart, xSize, ySize, bombCount, Random)
+
+  def apply(xStart : Int, yStart : Int, xSize : Int, ySize : Int, bombCount : Int, rand: Random): Board =
+    require(xSize >= 10 && ySize >= 10, "x and y size must be >= 10")
+    require(xStart <= xSize && xStart > 0 && yStart <= ySize && yStart > 0, "Starting position must be on the field")
+    val bMax = maxBombs(xSize, ySize)
+    require(bombCount > 1 && bombCount < bMax, s"Bomb Count must be between 1 and $bMax")
+    var bC = bombCount
+    var fC = bMax
+    val board: Vector[Vector[Field]] = {
+      Vector.tabulate(xSize, ySize) { (x, y) =>
+        if isNeighbour(xStart, yStart, x, y) then
+          Field(isBomb = false, isOpened = true)
+        else
+          val isBomb = rand.nextInt(fC) < bombCount
+          fC -= 1
+          if(isBomb) bC -= 1
+          Field(isBomb, isOpened = false)
+      }
+    }
+    new Board(xStart, yStart, xSize, ySize, bombCount, board, inGame = true)
 
   private def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =
     ((x0-x1).abs <= 1) && ((y0-y1).abs <= 1)
-}
+
+  def emojify(field: Int): String = s"${field}\ufe0f\u20e3"
+
 
