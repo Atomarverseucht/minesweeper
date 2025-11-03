@@ -1,7 +1,5 @@
 # CONTRIBUTORS
 
-Original Author:
+Authors:
 - Atomarverseucht
-
-Additional Contributors:
 - [Guakocius](https://github.com/Guakocius)
