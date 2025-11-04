@@ -1,21 +1,24 @@
 package de.htwg
 import scala.util.Random
 
+// all in some cases useful functions of the Board in a short overview.
+//    Names should be self-explanatory
 sealed trait GameBoard {
-  def openField(x: Int, y: Int) : Char
-  def getField(x: Int, y: Int): Char
+  def openField(x: Int, y: Int) : Board
+  def getField(x: Int, y: Int): Int
   def getSize: (Int, Int)
   def checkGameState: Boolean
+  def getBombNeighbour(x: Int, y: Int): Int
+  def findBomb: (Int, Int)
 }
 
-case class Field(isBomb: Boolean, var isOpened: Boolean)
-
+case class Field(isBomb: Boolean, isOpened: Boolean)
 
 case class Board (
-  xStart : Int,
-  yStart : Int,
   xSize : Int,
   ySize : Int,
+  xStart : Int,
+  yStart : Int,
   bombCount : Int,
   board: Vector[Vector[Field]],
   inGame: Boolean
@@ -27,13 +30,13 @@ case class Board (
 
   //def decreaseFieldCount(count: Int): Int = count - 1
 
-  override def openField(x: Int, y: Int) : Char =
+  override def openField(x: Int, y: Int): Board =
     require(inGame, "You cannot open a field after the game is over")
-    val f = getFieldAt(x, y)
-    f.isOpened = true
-    if f.isBomb then 'b' else getBombNeighbour(x, y).toString.head
+    val f = getFieldAt(x, y).isBomb
+    val newVector = board.updated(x, board(x).updated(y,Field(f, true)))
+    new Board(xSize, ySize, xStart, yStart, bombCount, newVector, inGame && !f)
 
-  def getBombNeighbour(x: Int, y: Int): Int =
+  override def getBombNeighbour(x: Int, y: Int): Int =
     (for
       vx <- -1 to 1;
       vy <- -1 to 1
@@ -43,11 +46,11 @@ case class Board (
       if nx >= 0 && ny >= 0 && nx < xSize && ny < ySize && board(nx)(ny).isBomb then 1 else 0
     }).sum
 
-  override def getField(x: Int, y: Int): Char =
+  override def getField(x: Int, y: Int): Int =
     val f = getFieldAt(x, y)
-    if !f.isOpened then 'c'
-    else if f.isBomb then 'b'
-    else getBombNeighbour(x, y).toString.head
+    if !f.isOpened then -1
+    else if f.isBomb then -2
+    else getBombNeighbour(x, y)
 
   private def getFieldAt(x: Int, y: Int): Field =
     require(x >= 0 && y >= 0 && x < xSize && y < ySize, "Coordinates out of range")
@@ -60,12 +63,18 @@ case class Board (
     else if y < ySize-1 then findBomb(0, y + 1) else throw Exception("No bombs found")
    */
 
-  def findBomb: (Int, Int) = {
+  override def findBomb: (Int, Int) = {
     var b : (Int, Int) = (0, 0)
     for x <- 0 until xSize
       y <- 0 until ySize do
       if board(x)(y).isBomb then b = (x, y)
     b
+  }
+  
+  def getBoard: Vector[Vector[Int]] = {
+    (for x <- 0 until xSize yield
+      (for y <- 0 until ySize yield
+        getField(x, y)).toVector).toVector
   }
 }
 
@@ -94,7 +103,7 @@ object Board:
           Field(isBomb, isOpened = false)
       }
     }
-    new Board(xStart, yStart, xSize, ySize, bombCount, board, inGame = true)
+    new Board(xSize, ySize, xStart, yStart, bombCount, board, inGame = true)
 
   private def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =
     ((x0-x1).abs <= 1) && ((y0-y1).abs <= 1)

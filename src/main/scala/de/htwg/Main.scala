@@ -1,6 +1,7 @@
 package de.htwg
 
 import scala.io.StdIn.readInt
+import scala.io.StdIn.readLine
 import de.htwg.TUI
 
 @main def start = {
@@ -8,4 +9,9 @@ import de.htwg.TUI
     println(TUI.getPrintString(i))
     TUI.setStart(i, readInt)
   var gb = TUI.initGameBoard
+  while(gb.inGame){
+    println(TUI.getBoardString(gb))
+    gb = TUI.turn(readLine(), gb)
+  }
+  println("Game lost!")
 }

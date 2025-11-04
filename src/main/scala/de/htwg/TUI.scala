@@ -5,7 +5,7 @@ import scala.io.StdIn.readInt
 object TUI:
   val start = new Array[Int](5)
 
-  def getPrintString(indx: Int) =
+  def getPrintString(indx: Int): String =
     indx match
       case 0 =>
         "Please enter the size of the x coordinate. It must be >= 10"
@@ -25,3 +25,20 @@ object TUI:
 
   def initGameBoard: Board = Board(start(2), start(3), start(0), start(1), start(4))
 
+  def getBoardString(gb: Board): String =
+    val b = gb.getBoard
+    val size = gb.getSize
+    (for y <- 0 until size._2
+      x <- 0 until size._1
+    yield
+      emojify(b(x)(y)) + (if x == (size._1-1) then "\n" else "")
+    ).mkString
+
+  def emojify(field: Int): String = if(field < 0) "⬛" else s"${field}\ufe0f\u20e3"
+
+  def turn(input: String, gb: Board): Board =
+    try
+     val coordinates = input.split(' ')
+      gb.openField(coordinates(0).toInt, coordinates(1).toInt)
+    catch
+      case _ => gb
