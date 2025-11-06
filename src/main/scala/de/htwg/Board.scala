@@ -24,17 +24,26 @@ case class Board (
   inGame: Boolean
 ) extends GameBoard {
 
-  override def checkGameState: Boolean = inGame
+  override def checkGameState: Boolean = inGame && !isVictory
 
-  //def decreaseBombCount(count: Int): Int = count - 1
-
-  //def decreaseFieldCount(count: Int): Int = count - 1
+  def isVictory: Boolean =
+    0 == (for x <- board
+        f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
 
   override def openField(x: Int, y: Int): Board =
     require(inGame, "You cannot open a field after the game is over")
     val f = getFieldAt(x, y).isBomb
     val newVector = board.updated(x, board(x).updated(y,Field(f, true)))
-    new Board(xSize, ySize, xStart, yStart, bombCount, newVector, inGame && !f)
+    var newB = new Board(xSize, ySize, xStart, yStart, bombCount, newVector, inGame && !f)
+    if getBombNeighbour(x, y) == 0 then
+      for ix <- -1 to 1
+          iy <- -1 to 1 do
+          val fx = x + ix
+          val fy = y + iy
+          if fx >= 0 && fy >= 0 && fx < xSize && fy < ySize && !newB.board(fx)(fy).isOpened then {
+            newB = newB.openField(fx, fy)
+          }
+    newB
 
   override def getBombNeighbour(x: Int, y: Int): Int =
     (for
@@ -89,7 +98,7 @@ object Board:
     require(xSize >= 10 && ySize >= 10, "x and y size must be >= 10")
     require(xStart <= xSize && xStart > 0 && yStart <= ySize && yStart > 0, "Starting position must be on the field")
     val bMax = maxBombs(xSize, ySize)
-    require(bombCount > 1 && bombCount < bMax, s"Bomb Count must be between 1 and $bMax")
+    require(bombCount >= 1 && bombCount <= bMax, s"Bomb Count must be between 1 and $bMax")
     var bC = bombCount
     var fC = bMax
     val board: Vector[Vector[Field]] = {
@@ -97,7 +106,7 @@ object Board:
         if isNeighbour(xStart, yStart, x, y) then
           Field(isBomb = false, isOpened = true)
         else
-          val isBomb = rand.nextInt(fC) < bombCount
+          val isBomb = rand.nextInt(fC) < bC
           fC -= 1
           if(isBomb) bC -= 1
           Field(isBomb, isOpened = false)
@@ -107,7 +116,5 @@ object Board:
 
   private def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =
     ((x0-x1).abs <= 1) && ((y0-y1).abs <= 1)
-
-  def emojify(field: Int): String = s"${field}\ufe0f\u20e3"
 
 
