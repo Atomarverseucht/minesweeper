@@ -1,7 +1,5 @@
 package de.htwg
 
-import scala.io.StdIn.readInt
-
 object TUI:
   val start = new Array[Int](5)
 
@@ -18,11 +16,7 @@ object TUI:
       case 4 =>
         "Please enter the count of bombs. It must be between 1 and " + (start(0) * start(1) - 9)
 
-  def setStart(indx: Int, value: Int): Int =
-    start(indx) = value
-    value
-
-
+  def setStart(vek: Vector[Int]): Unit = for i <- start.indices do start(i) = vek(i)
   def initGameBoard: Board = Board(start(2), start(3), start(0), start(1), start(4))
 
   def getBoardString(gb: Board): String =
@@ -38,7 +32,7 @@ object TUI:
 
   def turn(input: String, gb: Board): Board =
     try
-     val coordinates = input.split(' ')
+     val coordinates = input.split("[ ,_:;]")
       gb.openField(coordinates(0).toInt, coordinates(1).toInt)
     catch
       case _ => gb
