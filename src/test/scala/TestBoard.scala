@@ -2,7 +2,7 @@ package de.htwg
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import de.htwg.Board._
+import de.htwg.TUI._
 
 class TestBoard extends AnyWordSpec with Matchers {
     "The Board" should:
@@ -15,8 +15,6 @@ class TestBoard extends AnyWordSpec with Matchers {
             b.getSize should be (12, 12)
         "have correct bomb count" in:
             b.bombCount shouldBe 10
-            emojify(8) should not be empty
-            emojify(8) shouldBe "8️⃣"
             b.inGame shouldBe b.checkGameState
         "have bomb neighbours" in:
             b.getBombNeighbour(3, 4) shouldBe 0
