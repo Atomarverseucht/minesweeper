@@ -17,7 +17,9 @@ object TUI:
         "Please enter the count of bombs. It must be between 1 and " + (start(0) * start(1) - 9)
 
   def setStart(vek: Vector[Int]): Unit = for i <- start.indices do start(i) = vek(i)
-  def initGameBoard: Board = Board(start(2), start(3), start(0), start(1), start(4))
+  def initGameBoard: Board = {
+    Board(start(2), start(3), start(0), start(1), start(4))
+  }
 
   def getBoardString(gb: Board): String =
     val b = gb.getBoard
@@ -28,7 +30,7 @@ object TUI:
       emojify(b(x)(y)) + (if x == (size._1-1) then "\n" else "")
     ).mkString
 
-  def emojify(field: Int): String = if(field < 0) "⬛" else s"${field}\ufe0f\u20e3"
+  def emojify(field: Int): String = field match {case -1 => "⬛" case -2 => "\uD83C\uDF77" case _ => s"${field}\ufe0f\u20e3"}
 
   def turn(input: String, gb: Board): Board =
     try
@@ -36,3 +38,9 @@ object TUI:
       gb.openField(coordinates(0).toInt, coordinates(1).toInt)
     catch
       case _ => gb
+
+  def gameEndMsg(gb: Board): String =
+    (if !gb.inGame then "Game lost!"
+    else if gb.isVictory then "You have won!"
+    else "???")
+    + "\n" + getBoardString(gb)

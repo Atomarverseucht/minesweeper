@@ -9,8 +9,8 @@ import de.htwg.TUI
     println(TUI.getPrintString(i))
     TUI.start(i) = readInt
   var gb = TUI.initGameBoard
-  while gb.inGame do
+  while gb.checkGameState do
     println(TUI.getBoardString(gb))
-    gb = TUI.turn(readLine(), gb)
-  println("Game lost!")
+    gb = TUI.turn(readLine, gb)
+  println(TUI.gameEndMsg(gb))
 }
