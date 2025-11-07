@@ -1,4 +1,4 @@
-package de.htwg.winesmeeper
+package de.htwg
 
 import scala.io.StdIn.{readInt, readLine}
 

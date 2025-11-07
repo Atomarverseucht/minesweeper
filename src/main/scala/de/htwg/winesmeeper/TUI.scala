@@ -43,7 +43,7 @@ object TUI:
       case _ => gb
     
   def gameEndMsg(gb: Board): String =
-    (if !gb.inGame then "Game lost!"
-    else if gb.isVictory then "You have won!"
+    (if !gb.inGame then "\u001b[1;31mGame lost\u001b[0m!"
+    else if gb.isVictory then "\u001b[1;32mYou have won\u001b[0m!"
     else "???")
     + "\n" + getBoardString(gb)

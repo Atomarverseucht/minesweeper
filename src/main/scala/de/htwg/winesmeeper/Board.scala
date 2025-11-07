@@ -1,6 +1,4 @@
 package de.htwg.winesmeeper
-
-//model
 import scala.util.Random
 
 // all in some cases useful functions of the Board in a short overview.
@@ -69,11 +67,6 @@ case class Board (
 
   override def getSize: (Int, Int) = (board.length, board(0).length)
 
-  /*
-  def findBomb(x: Int, y: Int): (Int, Int) = if getFieldAt(x, y).isBomb then (x, y) else if x < xSize-1 then findBomb(x + 1, y)
-    else if y < ySize-1 then findBomb(0, y + 1) else throw Exception("No bombs found")
-   */
-
   override def findBomb: (Int, Int) = {
     var b : (Int, Int) = (0, 0)
     for x <- 0 until xSize
@@ -109,9 +102,8 @@ object Board:
           Field(isBomb = false, isOpened = true)
         else
           val isBomb = rand.nextInt(fC) < bC
-          fC -= 1
-          if(isBomb) bC -= 1
-          Field(isBomb, isOpened = false)
+          fC -= 1 // Change later to functional
+          if(isBomb) bC = bC - 1; /* Change later to functional*/ Field(isBomb, isOpened = false)
       }
     }
     new Board(xSize, ySize, xStart, yStart, bombCount, board, inGame = true)
