@@ -45,3 +45,7 @@ build/
 
 ### Scala ###
 .bsp/
+.bloop
+.metals
+src/main/scala/de/htwg/.metals
+src/main/scala/de/htwg/.scala-build/.bloop
