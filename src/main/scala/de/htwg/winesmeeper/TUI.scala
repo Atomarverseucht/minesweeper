@@ -1,4 +1,4 @@
-package de.htwg
+package de.htwg.winesmeeper
 
 object TUI:
   val start = new Array[Int](5)

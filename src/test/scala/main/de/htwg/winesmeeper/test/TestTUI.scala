@@ -1,7 +1,7 @@
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import de.htwg.TUI.*
-import de.htwg.Board
+import de.htwg.winesmeeper.TUI._
+import de.htwg.winesmeeper.Board
 
 class TestTUI extends AnyWordSpec with Matchers {
   "The TUI" should:
@@ -29,9 +29,9 @@ class TestTUI extends AnyWordSpec with Matchers {
 
     "have right end-msgs" in:
       val w = Board(5, 5, 10, 10, 91)
-      gameEndMsg(w) shouldBe "You have won!\n" + getBoardString(w)
+      gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!\n" + getBoardString(w)
       val l = Board(5, 5, 10, 10, 90).openField(2, 2)
-      gameEndMsg(l) shouldBe "Game lost!\n" + getBoardString(l)
+      gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!\n" + getBoardString(l)
       gameEndMsg(gb) shouldBe "???\n" + getBoardString(gb)
 
     "dont change if unvalid turn" in:

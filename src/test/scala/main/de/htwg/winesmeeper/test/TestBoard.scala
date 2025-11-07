@@ -1,8 +1,8 @@
-package de.htwg
+package de.htwg.winesmeeper
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import de.htwg.TUI._
+import de.htwg.winesmeeper.TUI._
 
 class TestBoard extends AnyWordSpec with Matchers {
     "The Board" should:

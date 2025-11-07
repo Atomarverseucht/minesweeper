@@ -1,9 +1,9 @@
-package de.htwg
+package de.htwg.winesmeeper
 
 import scala.io.StdIn.readInt
 
 import scala.io.StdIn.readLine
-import de.htwg.TUI
+import de.htwg.winesmeeper.TUI
 
 @main def start(): Unit =
   for i <- 0 until 5 do
