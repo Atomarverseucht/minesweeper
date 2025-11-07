@@ -1,5 +1,8 @@
-package de.htwg
+package de.htwg.winesmeeper
 
+import de.htwg.winesmeeper.Board
+
+// View
 object TUI:
   val start = new Array[Int](5)
 
@@ -34,11 +37,11 @@ object TUI:
 
   def turn(input: String, gb: Board): Board =
     try
-     val coordinates = input.split("[ ,_:;]")
+     val coordinates = input.split("[^\\d]")
       gb.openField(coordinates(0).toInt, coordinates(1).toInt)
     catch
       case _ => gb
-
+    
   def gameEndMsg(gb: Board): String =
     (if !gb.inGame then "Game lost!"
     else if gb.isVictory then "You have won!"

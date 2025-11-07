@@ -1,4 +1,6 @@
-package de.htwg
+package de.htwg.winesmeeper
+
+//model
 import scala.util.Random
 
 // all in some cases useful functions of the Board in a short overview.
