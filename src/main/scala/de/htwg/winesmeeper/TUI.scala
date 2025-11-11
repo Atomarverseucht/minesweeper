@@ -41,7 +41,7 @@ object TUI:
       gb.openField(coordinates(0).toInt, coordinates(1).toInt)
     catch
       case _ => gb
-    
+
   def gameEndMsg(gb: Board): String =
     (if !gb.inGame then "\u001b[1;31mGame lost\u001b[0m!"
     else if gb.isVictory then "\u001b[1;32mYou have won\u001b[0m!"
