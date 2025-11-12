@@ -2,14 +2,15 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import de.htwg.winesmeeper.TUI._
 import de.htwg.winesmeeper.Board
+import de.htwg.winesmeeper.Controller
 
 class TestTUI extends AnyWordSpec with Matchers {
   "The TUI" should:
     setStart(Vector(10, 10, 5, 5, 10))
-    val gb = initGameBoard
+    val gb = initController
     "have the right size" in:
-      start(0) = gb.xSize
-      start(1) = gb.ySize
+      start(0) = gb.getSize._1
+      start(1) = gb.getSize._2
 
     "have output strings" in:
       (for i <- 0 until 5 yield getPrintString(i)).toVector shouldBe
@@ -28,9 +29,9 @@ class TestTUI extends AnyWordSpec with Matchers {
       turn("1 1", gb) shouldBe a[Board]
 
     "have right end-msgs" in:
-      val w = Board(5, 5, 10, 10, 91)
+      val w = Controller.initController(5, 5, 10, 10, 91)
       gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!\n" + getBoardString(w)
-      val l = Board(5, 5, 10, 10, 90).openField(2, 2)
+      val l = Controller.initController(5, 5, 10, 10, 90).openField(2, 2)
       gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!\n" + getBoardString(l)
       gameEndMsg(gb) shouldBe "???\n" + getBoardString(gb)
 

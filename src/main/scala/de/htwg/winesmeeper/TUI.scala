@@ -1,6 +1,7 @@
 package de.htwg.winesmeeper
 
-import de.htwg.winesmeeper.Board
+import de.htwg.winesmeeper.Controller
+
 
 // View
 object TUI:
@@ -19,14 +20,14 @@ object TUI:
       case 4 =>
         "Please enter the count of bombs. It must be between 1 and " + (start(0) * start(1) - 9)
 
-  def setStart(vek: Vector[Int]): Unit = for i <- start.indices do start(i) = vek(i)
-  def initGameBoard: Board = {
-    Board(start(2), start(3), start(0), start(1), start(4))
+  def setStart(vec: Vector[Int]): Unit = for i <- start.indices do start(i) = vec(i)
+  def initController: Controller = {
+    Controller.initController(start(0), start(1), start(2), start(3), start(4))
   }
 
-  def getBoardString(gb: Board): String =
-    val b = gb.getBoard
-    val size = gb.getSize
+  def getBoardString(ctrl: Controller): String =
+    val b = ctrl.getBoard
+    val size = ctrl.getSize
     (for y <- 0 until size._2
       x <- 0 until size._1
     yield
@@ -35,15 +36,20 @@ object TUI:
 
   def emojify(field: Int): String = field match {case -1 => "⬛" case -2 => "\uD83C\uDF77" case _ => s"${field}\ufe0f\u20e3"}
 
-  def turn(input: String, gb: Board): Board =
+  def turn(input: String, ctrl: Controller): Controller =
     try
-     val coordinates = input.split("[^\\d]")
-      gb.openField(coordinates(0).toInt, coordinates(1).toInt)
+      val coordinates = input.split("[^\\d]")
+      ctrl.openField(coordinates(0).toInt, coordinates(1).toInt)
     catch
-      case _ => gb
+      case _ => ctrl
 
-  def gameEndMsg(gb: Board): String =
-    (if !gb.inGame then "\u001b[1;31mGame lost\u001b[0m!"
-    else if gb.isVictory then "\u001b[1;32mYou have won\u001b[0m!"
-    else "???")
-    + "\n" + getBoardString(gb)
+  def gameEndMsg(ctrl: Controller): String = {
+    val out = ctrl.gameState match
+      case "loose" => 
+        "\u001b[1;31mGame lost\u001b[0m!"
+      case "win" => 
+        "\u001b[1;32mYou have won\u001b[0m!"
+      case _ => 
+        "???"
+    out + "\n" + getBoardString(ctrl)
+  }
