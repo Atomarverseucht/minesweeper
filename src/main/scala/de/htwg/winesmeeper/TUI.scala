@@ -45,11 +45,11 @@ object TUI:
 
   def gameEndMsg(ctrl: Controller): String = {
     val out = ctrl.gameState match
-      case "loose" => 
+      case "loose" =>
         "\u001b[1;31mGame lost\u001b[0m!"
-      case "win" => 
+      case "win" =>
         "\u001b[1;32mYou have won\u001b[0m!"
-      case _ => 
+      case _ =>
         "???"
     out + "\n" + getBoardString(ctrl)
   }

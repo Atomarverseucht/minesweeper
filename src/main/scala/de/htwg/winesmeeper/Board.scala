@@ -66,9 +66,9 @@ case class Board (
   override def getSize: (Int, Int) = (board.length, board(0).length)
 
   override def findBomb: (Int, Int) = {
-    var b: (Int, Int) = (0, 0)
-    for x <- 0 to board.length
-      y <- 0 to board(0).length do
+    var b : (Int, Int) = (0, 0)
+    for x <- board.indices
+      y <- board(0).indices do
       if board(x)(y).isBomb then b = (x, y)
     b
   }
@@ -78,7 +78,7 @@ case class Board (
       (for y <- board(0).indices yield
         getField(x, y)).toVector).toVector
   }
-  
+
   def in(x: Int, y: Int): Boolean = x >= 0 && y >= 0 && x < board.length && y < board(0).length
 }
 
