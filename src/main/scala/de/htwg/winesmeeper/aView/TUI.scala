@@ -1,6 +1,6 @@
-package de.htwg.winesmeeper
+package de.htwg.winesmeeper.aView
 
-import de.htwg.winesmeeper.Controller
+import de.htwg.winesmeeper.Controller.Controller
 
 
 // View
@@ -21,11 +21,10 @@ object TUI:
         "Please enter the count of bombs. It must be between 1 and " + (start(0) * start(1) - 9)
 
   def setStart(vec: Vector[Int]): Unit = for i <- start.indices do start(i) = vec(i)
-  def initController: Controller = {
-    Controller.initController(start(0), start(1), start(2), start(3), start(4))
-  }
+  
+  def initController: Controller = Controller.initController(start(0), start(1), start(2), start(3), start(4))
 
-  def getBoardString(ctrl: Controller): String =
+  def getBoardString(ctrl: Controller): String = // TUI-design for the Board
     val b = ctrl.getBoard
     val size = ctrl.getSize
     (for y <- 0 until size._2
@@ -34,6 +33,7 @@ object TUI:
       emojify(b(x)(y)) + (if x == (size._1-1) then "\n" else "")
     ).mkString
 
+  // TUI-design of one specific field
   def emojify(field: Int): String = field match {case -1 => "⬛" case -2 => "\uD83C\uDF77" case _ => s"${field}\ufe0f\u20e3"}
 
   def turn(input: String, ctrl: Controller): Controller =
@@ -43,7 +43,7 @@ object TUI:
     catch
       case _ => ctrl
 
-  def gameEndMsg(ctrl: Controller): String = {
+  def gameEndMsg(ctrl: Controller): String =
     val out = ctrl.gameState match
       case "loose" =>
         "\u001b[1;31mGame lost\u001b[0m!"
@@ -52,4 +52,3 @@ object TUI:
       case _ =>
         "???"
     out + "\n" + getBoardString(ctrl)
-  }

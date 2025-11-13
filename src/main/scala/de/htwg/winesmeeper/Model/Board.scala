@@ -1,5 +1,4 @@
-package de.htwg.winesmeeper
-import scala.util.Random
+package de.htwg.winesmeeper.Model
 
 // all in some cases useful functions of the Board in a short overview.
 //    Names should be self-explanatory
@@ -7,7 +6,6 @@ sealed trait GameBoard {
   def openField(x: Int, y: Int) : Board
   def getField(x: Int, y: Int): Int
   def getSize: (Int, Int)
-  def checkGameState: Boolean
   def getBombNeighbour(x: Int, y: Int): Int
   def findBomb: (Int, Int)
 }
@@ -19,30 +17,27 @@ case class Board (
   inGame: Boolean
 ) extends GameBoard {
 
-  override def checkGameState: Boolean = inGame && !isVictory
-
   def isVictory: Boolean =
     0 == (for x <- board
         f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
 
   override def openField(x: Int, y: Int): Board =
     require(inGame, "You cannot open a field after the game is over")
-    if !in(x, y) then this
-    else
-      val xSize = board.length
-      val ySize = board(0).length
-      val f = getFieldAt(x, y).isBomb
-      val newVector = board.updated(x, board(x).updated(y,Field(f, true)))
-      val newB = new Board(newVector, inGame && !f)
-      if getBombNeighbour(x, y) == 0 then
-        (-1 to 1).foldLeft(newB){(b, i) => (-1 to 1).foldLeft(b){(b2, ii) =>
-          val fx = x + i
-          val fy = y + ii
-          if in(fx, fy) && !newB.board(fx)(fy).isOpened then
-            b2.openField(fx, fy)
-          else b2
-        }}
-      else newB
+    val xSize = board.length
+    val ySize = board(0).length
+    val f = getFieldAt(x, y).isBomb
+    val newVector = board.updated(x, board(x).updated(y,Field(f, true)))
+    val newB = new Board(newVector, inGame && !f)
+    if getBombNeighbour(x, y) == 0 then
+      (-1 to 1).foldLeft(newB){(b, i) => (-1 to 1).foldLeft(b){(b2, ii) =>
+        val fx = x + i
+        val fy = y + ii
+        if in(fx, fy) && !newB.board(fx)(fy).isOpened then
+          b2.openField(fx, fy)
+        else b2
+      }}
+    else newB
+
   override def getBombNeighbour(x: Int, y: Int): Int =
     (for
       vx <- -1 to 1;

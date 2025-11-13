@@ -1,5 +1,7 @@
-package de.htwg.winesmeeper
+package de.htwg.winesmeeper.aView
+
 import scala.io.StdIn.{readInt, readLine}
+import de.htwg.winesmeeper.Controller.Controller
 
 @main def start(): Unit =
   for i <- 0 until 5 do
