@@ -1,4 +1,4 @@
-package de.htwg.winesmeeper
+package de.htwg.winesmeeper.aView
 
 import de.htwg.winesmeeper.Board
 
