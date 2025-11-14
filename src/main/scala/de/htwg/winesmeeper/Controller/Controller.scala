@@ -4,23 +4,47 @@ import de.htwg.winesmeeper.Model.*
 import scala.annotation.tailrec
 import scala.util.Random
 
-class Controller(val gb: Board):
-  
-  def openField(x: Int, y:Int): Controller =
+sealed trait gameController:
+  def openField(x: Int, y: Int): Controller
+  def inGame: Boolean
+  def getBoard: Vector[Vector[Int]]
+  def getSize: (Int, Int)
+  def gameState: String
+
+case class Controller(val gb: Board) extends gameController:
+
+  override def openField(x: Int, y: Int): Controller =
     if !gb.in(x, y) then this
-    else new Controller(gb.openField(x, y))
+    else
+      require(inGame, "You cannot open a field after the game is over")
+      val xSize = gb.getSize._1
+      val ySize = gb.getSize._2
+      val f = gb.getFieldAt(x, y).isBomb
+      val newVector = gb.board.updated(x, gb.board(x).updated(y, Field(f, true)))
+      val newC = new Controller(new Board(newVector, inGame && !f))
+      if gb.getBombNeighbour(x, y) == 0 then
+        (-1 to 1).foldLeft(newC) { (b, i) =>
+          (-1 to 1).foldLeft(b) { (b2, ij) =>
+            val fx = x + i
+            val fy = y + ij
+            if gb.in(fx, fy) && !b2.gb.board(fx)(fy).isOpened then
+              b2.openField(fx, fy)
+            else b2
+          }
+        }
+      else newC
     
-  def getBoard: Vector[Vector[Int]] = gb.getBoard
+  override def getBoard: Vector[Vector[Int]] = gb.getBoard
   
-  def getSize: (Int, Int) = gb.getSize
+  override def getSize: (Int, Int) = gb.getSize
   
-  def inGame: Boolean = gb.inGame && !isVictory
+  override def inGame: Boolean = gb.inGame && !isVictory
   
-  def gameState: String = if gb.isVictory then "win" else if gb.inGame then "run" else "loose"
+  override def gameState: String = if isVictory then "win" else if gb.inGame then "run" else "loose"
 
   private def isVictory: Boolean =
     0 == (for x <- gb.board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
-    
+
 object Controller:
   
   def initController(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): Controller =

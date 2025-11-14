@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers
 import de.htwg.winesmeeper.aView.TUI._
 import de.htwg.winesmeeper.Controller.Controller
 
-class TestTUI extends AnyWordSpec with Matchers {
+class TestTUI extends AnyWordSpec with Matchers:
   "The TUI" should:
     setStart(Vector(10, 10, 5, 5, 10))
     val gb = initController
@@ -39,4 +39,6 @@ class TestTUI extends AnyWordSpec with Matchers {
       turn("gfjzgfkf", gb) shouldBe gb
       turn("1000 1000", gb) shouldBe gb
       gb.inGame shouldBe true
-}
+
+    "opens a lot of fields when field zero" in:
+      Controller.initController(20, 20, 1, 1, 1).openField(4, 4)

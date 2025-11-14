@@ -1,9 +1,10 @@
 package de.htwg.winesmeeper.Model
 
+import scala.annotation.tailrec
+
 // all in some cases useful functions of the Board in a short overview.
 //    Names should be self-explanatory
 sealed trait GameBoard {
-  def openField(x: Int, y: Int) : Board
   def getField(x: Int, y: Int): Int
   def getSize: (Int, Int)
   def getBombNeighbour(x: Int, y: Int): Int
@@ -15,28 +16,7 @@ case class Field(isBomb: Boolean, isOpened: Boolean)
 case class Board (
   board: Vector[Vector[Field]],
   inGame: Boolean
-) extends GameBoard {
-
-  def isVictory: Boolean =
-    0 == (for x <- board
-        f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
-
-  override def openField(x: Int, y: Int): Board =
-    require(inGame, "You cannot open a field after the game is over")
-    val xSize = board.length
-    val ySize = board(0).length
-    val f = getFieldAt(x, y).isBomb
-    val newVector = board.updated(x, board(x).updated(y,Field(f, true)))
-    val newB = new Board(newVector, inGame && !f)
-    if getBombNeighbour(x, y) == 0 then
-      (-1 to 1).foldLeft(newB){(b, i) => (-1 to 1).foldLeft(b){(b2, ii) =>
-        val fx = x + i
-        val fy = y + ii
-        if in(fx, fy) && !newB.board(fx)(fy).isOpened then
-          b2.openField(fx, fy)
-        else b2
-      }}
-    else newB
+) extends GameBoard:
 
   override def getBombNeighbour(x: Int, y: Int): Int =
     (for
@@ -54,19 +34,18 @@ case class Board (
     else if f.isBomb then -2
     else getBombNeighbour(x, y)
 
-  private def getFieldAt(x: Int, y: Int): Field =
+  def getFieldAt(x: Int, y: Int): Field =
     require(in(x, y), "Coordinates out of range")
     board(x)(y)
 
   override def getSize: (Int, Int) = (board.length, board(0).length)
 
   override def findBomb: (Int, Int) = {
-    var b : (Int, Int) = (0, 0)
-    for x <- board.indices
-      y <- board(0).indices do
-      if board(x)(y).isBomb then b = (x, y)
-    b
+    findBomb(0, 0)
   }
+  @tailrec
+  private def findBomb(x: Int, y: Int): (Int, Int) = 
+    if board(x)(y).isBomb then (x, y) else {val c: (Int, Int) = nextField(x, y); findBomb(c._1, c._2)}
   
   def getBoard: Vector[Vector[Int]] = {
     (for x <- board.indices yield
@@ -75,7 +54,8 @@ case class Board (
   }
 
   def in(x: Int, y: Int): Boolean = x >= 0 && y >= 0 && x < board.length && y < board(0).length
-}
+
+  def nextField(x: Int, y: Int): (Int, Int) = if x + 1 < board.length then (x + 1, y) else (0, y+1)
 
 object Board:
 
