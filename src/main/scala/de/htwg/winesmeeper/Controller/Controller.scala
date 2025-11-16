@@ -1,38 +1,38 @@
 package de.htwg.winesmeeper.Controller
 
 import de.htwg.winesmeeper.Model.*
+import de.htwg.winesmeeper.{Observable, Observer}
+
 import scala.annotation.tailrec
 import scala.util.Random
 
 sealed trait gameController:
-  def openField(x: Int, y: Int): Controller
+  def openField(x: Int, y: Int): Boolean
   def inGame: Boolean
   def getBoard: Vector[Vector[Int]]
   def getSize: (Int, Int)
   def gameState: String
 
-case class Controller(val gb: Board) extends gameController:
-
-  override def openField(x: Int, y: Int): Controller =
-    if !gb.in(x, y) then this
+class Controller(var gb: Board) extends Observable with gameController:
+  
+  // returns if turn made a change
+  override def openField(x: Int, y: Int): Boolean =
+    if !gb.in(x, y) || gb.getField(x, y) != -1 then false
     else
       require(inGame, "You cannot open a field after the game is over")
       val xSize = gb.getSize._1
       val ySize = gb.getSize._2
       val f = gb.getFieldAt(x, y).isBomb
       val newVector = gb.board.updated(x, gb.board(x).updated(y, Field(f, true)))
-      val newC = new Controller(new Board(newVector, inGame && !f))
+      gb = new Board(newVector, inGame && !f)
       if gb.getBombNeighbour(x, y) == 0 then
-        (-1 to 1).foldLeft(newC) { (b, i) =>
-          (-1 to 1).foldLeft(b) { (b2, ij) =>
-            val fx = x + i
-            val fy = y + ij
-            if gb.in(fx, fy) && !b2.gb.board(fx)(fy).isOpened then
-              b2.openField(fx, fy)
-            else b2
-          }
-        }
-      else newC
+        for i <- -1 to 1; ij <- -1 to 1 do
+          val fx = x + i
+          val fy = y + ij
+          if gb.in(fx, fy) && !gb.board(fx)(fy).isOpened then
+            openField(fx, fy)
+      notifyObservers()
+      true
     
   override def getBoard: Vector[Vector[Int]] = gb.getBoard
   
@@ -44,12 +44,11 @@ case class Controller(val gb: Board) extends gameController:
 
   private def isVictory: Boolean =
     0 == (for x <- gb.board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
-
-object Controller:
   
+object Controller:
   def initController(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): Controller =
     require(xSize >= 10 && ySize >= 10, "x and y size must be >= 10")
-    require(xStart <= xSize && xStart > 0 && yStart <= ySize && yStart > 0, "Starting position must be on the field")
+    require(xStart <= xSize && xStart >= 0 && yStart <= ySize && yStart >= 0, "Starting position must be on the field")
     val bMax = Board.maxBombs(xSize, ySize)
     require(bombCount >= 1 && bombCount <= bMax, s"Bomb Count must be between 1 and $bMax")
     val boardv = initField(0, 0, xStart, yStart, Vector.fill(xSize, ySize)(Field(false, true)), bombCount, bMax)

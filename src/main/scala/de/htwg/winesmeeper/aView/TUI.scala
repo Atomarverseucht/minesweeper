@@ -1,7 +1,7 @@
 package de.htwg.winesmeeper.aView
 
 import de.htwg.winesmeeper.Controller.Controller
-
+import de.htwg.winesmeeper.Observer
 
 // View
 object TUI:
@@ -36,12 +36,12 @@ object TUI:
   // TUI-design of one specific field
   def emojify(field: Int): String = field match {case -1 => "⬛" case -2 => "\uD83C\uDF77" case _ => s"${field}\ufe0f\u20e3"}
 
-  def turn(input: String, ctrl: Controller): Controller =
+  def turn(input: String, ctrl: Controller): Boolean =
     try
-      val coordinates = input.split("[^\\d]")
+      val coordinates = input.split("[^\\d]+")
       ctrl.openField(coordinates(0).toInt, coordinates(1).toInt)
     catch
-      case _ => ctrl
+      case _ => false
 
   def gameEndMsg(ctrl: Controller): String =
     val out = ctrl.gameState match

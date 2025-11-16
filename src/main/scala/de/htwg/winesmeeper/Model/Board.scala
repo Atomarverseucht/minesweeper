@@ -47,11 +47,10 @@ case class Board (
   private def findBomb(x: Int, y: Int): (Int, Int) = 
     if board(x)(y).isBomb then (x, y) else {val c: (Int, Int) = nextField(x, y); findBomb(c._1, c._2)}
   
-  def getBoard: Vector[Vector[Int]] = {
+  def getBoard: Vector[Vector[Int]] =
     (for x <- board.indices yield
       (for y <- board(0).indices yield
         getField(x, y)).toVector).toVector
-  }
 
   def in(x: Int, y: Int): Boolean = x >= 0 && y >= 0 && x < board.length && y < board(0).length
 
