@@ -1,3 +1,5 @@
+import sbt.addSbtPlugin
+
 val scala3Version = "3.7.3"
 
 ThisBuild / libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
@@ -18,5 +20,7 @@ lazy val root = project
     coverageExcludedFiles := "*Main*",
 
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % Test,
-    libraryDependencies += "org.scoverage" % "sbt-scoverage" % "2.3.1"
+    libraryDependencies += "org.scoverage" % "sbt-coveralls_2.12_1.0" % "1.3.15"
   )
+
+
