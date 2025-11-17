@@ -77,7 +77,7 @@
       {
         "assets": [
           {
-            "path": ""
+            "path": "build.sbt"
           }
         ],
         "successComment": false
