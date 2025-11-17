@@ -18,6 +18,5 @@ lazy val root = project
     coverageExcludedFiles := "*Main*",
 
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.19",
-    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % Test,
     libraryDependencies += "org.scoverage" % "sbt-scoverage_2.12_1.0" % "2.4.2"
   )
