@@ -4,6 +4,8 @@ import scala.io.StdIn.{readInt, readLine}
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Observer
 
+import scala.annotation.tailrec
+
 @main def start(): Unit =
   for i <- 0 until 5 do
     println(TUI.getPrintString(i))

@@ -51,4 +51,4 @@ object TUI:
         "\u001b[1;32mYou have won\u001b[0m!"
       case _ =>
         "???"
-    out + "\n" + getBoardString(ctrl)
+    out

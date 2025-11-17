@@ -14,9 +14,10 @@ sealed trait gameController:
   def gameState: String
 
 class Controller(var gb: Board) extends Observable with gameController:
+  override def openField(x: Int, y: Int): Boolean = openField(x, y, true)
   
   // returns if turn made a change
-  override def openField(x: Int, y: Int): Boolean =
+  def openField(x: Int, y: Int, notify: Boolean = true): Boolean =
     if !gb.in(x, y) || gb.getField(x, y) != -1 then false
     else
       require(inGame, "You cannot open a field after the game is over")
@@ -30,8 +31,8 @@ class Controller(var gb: Board) extends Observable with gameController:
           val fx = x + i
           val fy = y + ij
           if gb.in(fx, fy) && !gb.board(fx)(fy).isOpened then
-            openField(fx, fy)
-      notifyObservers()
+            openField(fx, fy, false)
+      if notify then notifyObservers()
       true
     
   override def getBoard: Vector[Vector[Int]] = gb.getBoard
