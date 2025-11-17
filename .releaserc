@@ -47,20 +47,10 @@
         "replacements": [
           {
             "files": [
-              "AutoUpdater.xml",
-              "pseudocodeIdeUpdater/pseudocodeIdeUpdater.csproj",
-              "pseudocodeIde/pseudocodeIde.csproj"
+              "build.sbt"
             ],
-            "from": "<version>.*</version>",
-            "to": "<version>${nextRelease.version.replace('-dev', '')}</version>",
-            "countMatches": true
-          },
-          {
-            "files": [
-              "AutoUpdater.xml"
-            ],
-            "from": "https://github\\.com/PocketMiner82/pseudocode-ide/(.*)/.*/(.*)/",
-            "to": "https://github.com/PocketMiner82/pseudocode-ide/$1/${nextRelease.version}/$2/",
+            "from": "version := \".*\",",
+            "to": "version := \"${nextRelease.version}\",",
             "countMatches": true
           }
         ]
@@ -69,7 +59,7 @@
     [
       "@semantic-release/exec",
       {
-        "publishCmd": ".\\build.cmd"
+        "publishCmd": ""
       }
     ],
     [
@@ -78,9 +68,7 @@
         "assets": [
           "README.md",
           "CHANGELOG.md",
-          "AutoUpdater.xml",
-          "pseudocodeIdeUpdater/pseudocodeIdeUpdater.csproj",
-          "pseudocodeIde/pseudocodeIde.csproj"
+          "build.sbt"
         ]
       }
     ],
@@ -89,7 +77,7 @@
       {
         "assets": [
           {
-            "path": "pseudocode-ide.zip"
+            "path": ""
           }
         ],
         "successComment": false
