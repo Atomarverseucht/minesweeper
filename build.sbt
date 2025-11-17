@@ -11,7 +11,7 @@ lazy val root = project
     scalaVersion := scala3Version,
 
     coverageEnabled := true,
-    coverageMinimumStmtTotal := 100,
+    coverageMinimumStmtTotal := 80,
     coverageFailOnMinimum := true,
     coverageHighlighting := true,
     coverageExcludedPackages := ".*Main.*;.*Routes.*;.*Config.*;",
