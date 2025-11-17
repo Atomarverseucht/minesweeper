@@ -59,7 +59,7 @@
     [
       "@semantic-release/exec",
       {
-        "publishCmd": ""
+        "publishCmd": "echo hallo"
       }
     ],
     [
