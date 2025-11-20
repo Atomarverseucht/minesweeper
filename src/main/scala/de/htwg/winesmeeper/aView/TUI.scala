@@ -34,7 +34,7 @@ object TUI:
     ).mkString
 
   // TUI-design of one specific field
-  def emojify(field: Int): String = field match {case -1 => "⬛" case -2 => "\uD83C\uDF77" case _ => s"${field}\ufe0f\u20e3"}
+  def emojify(field: Int): String = field match {case -1 => "█" case -2 => "*" case _ => s"${field}"}
 
   def turn(input: String, ctrl: Controller): Boolean =
     try

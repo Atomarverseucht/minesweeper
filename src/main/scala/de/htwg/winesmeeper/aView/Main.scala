@@ -7,7 +7,6 @@ import de.htwg.winesmeeper.Observer
 import scala.annotation.tailrec
 
 @main def start(): Unit =
-  println(System.getProperty("file.encoding"))
   for i <- 0 until 5 do
     println(TUI.getPrintString(i))
     TUI.start(i) = readInt
