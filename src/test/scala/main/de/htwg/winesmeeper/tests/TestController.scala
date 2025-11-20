@@ -11,8 +11,9 @@ class TestController extends AnyWordSpec with Matchers:
     val ctrl = new Controller(new Board(bVec, true))
 
     "have an init function" in:
-      val initC = Controller.initController(10,10,10,1,1)
-
+      Controller.initController(10,10,1,1,1).gb.getField(9,9) shouldBe -1
+      Controller.initController(10,10,0,0,1).gb.getField(9,9) shouldBe -1
+      Controller.initController(10,10,0,4,1).gb.getField(9,9) shouldBe -1
     "have an output vector" in:
       ctrl.getBoard shouldBe ctrl.gb.getBoard
 
