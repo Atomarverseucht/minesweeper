@@ -8,6 +8,7 @@ ThisBuild / assemblyMergeStrategy := {
     case x => MergeStrategy.preferProject
 }
 
+
 lazy val root = project
   .in(file("."))
   .settings(
@@ -16,7 +17,6 @@ lazy val root = project
 
     scalaVersion := scala3Version,
     scalacOptions ++= Seq("-encoding", "utf-8"),
-    coverageEnabled := true,
     coverageMinimumStmtTotal := 80,
     coverageFailOnMinimum := true,
     coverageHighlighting := true,
@@ -25,8 +25,8 @@ lazy val root = project
 
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % Test,
     libraryDependencies += "org.scoverage" % "sbt-coveralls_2.12_1.0" % "1.3.15",
-
   )
+
 
 
 
