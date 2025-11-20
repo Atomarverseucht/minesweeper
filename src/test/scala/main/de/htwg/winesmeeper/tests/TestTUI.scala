@@ -29,8 +29,9 @@ class TestTUI extends AnyWordSpec with Matchers:
       getBoardString(gb) shouldBe a[String]
 
     "have the right bomb emoji" in:
-      emojify(-2) shouldBe "\uD83C\uDF77"
-
+      emojify(-2) shouldBe "*"
+      emojify(-1) shouldBe "█"
+      emojify(1) shouldBe "1"
 
     "have right end-msgs" in:
       val w = Controller.initController(10, 10, 5, 5, 91)
