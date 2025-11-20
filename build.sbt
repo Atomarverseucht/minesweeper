@@ -8,7 +8,7 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "minesweeper",
-    version := "0.3.1",
+    version := "0.3.2",
 
     scalaVersion := scala3Version,
 
