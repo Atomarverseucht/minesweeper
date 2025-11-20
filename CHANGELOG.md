@@ -1,3 +1,10 @@
+## [0.3.6](https://github.com/Atomarverseucht/minesweeper/compare/0.3.5...0.3.6) (2025-11-20)
+
+
+### Bug Fixes
+
+* ASCII-update: emojify is now uglier but compatible with most terminals ([7239aab](https://github.com/Atomarverseucht/minesweeper/commit/7239aabb842e76f4e632f2519b4e9c4ef49a1141))
+
 ## [0.3.5](https://github.com/Atomarverseucht/minesweeper/compare/0.3.4...0.3.5) (2025-11-20)
 
 ## [0.3.4](https://github.com/Atomarverseucht/minesweeper/compare/0.3.3...0.3.4) (2025-11-20)
