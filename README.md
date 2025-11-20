@@ -1,6 +1,6 @@
 Minesweeper project for the studies of [Guakocius](https://github.com/Guakocius) and me. 
 
-[![Coverage Status](https://coveralls.io/repos/github/Atomarverseucht/minesweeper/badge.svg?branch=main)](https://coveralls.io/github/Atomarverseucht/minesweeper?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/Atomarverseucht/minesweeper/badge.svg?branch=main)](https://coveralls.io/github/Atomarverseucht/minesweeper)
 
 Branches:
 - [main:](https://github.com/Atomarverseucht/minesweeper/tree/main) stable versions with releases (in future)
