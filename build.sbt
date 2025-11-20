@@ -3,6 +3,10 @@ import sbt.addSbtPlugin
 val scala3Version = "3.7.3"
 
 ThisBuild / libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
+ThisBuild / assemblyMergeStrategy := {
+    case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+    case x => MergeStrategy.preferProject
+}
 
 lazy val root = project
   .in(file("."))
@@ -11,7 +15,7 @@ lazy val root = project
     version := "0.3.2",
 
     scalaVersion := scala3Version,
-
+    scalacOptions ++= Seq("-encoding", "utf-8"),
     coverageEnabled := true,
     coverageMinimumStmtTotal := 80,
     coverageFailOnMinimum := true,
@@ -21,6 +25,8 @@ lazy val root = project
 
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % Test,
     libraryDependencies += "org.scoverage" % "sbt-coveralls_2.12_1.0" % "1.3.15",
+
   )
+
 
 
