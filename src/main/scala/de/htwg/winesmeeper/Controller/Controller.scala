@@ -1,7 +1,7 @@
 package de.htwg.winesmeeper.Controller
 
 import de.htwg.winesmeeper.Model.*
-import de.htwg.winesmeeper.{Observable, Observer}
+import de.htwg.winesmeeper.Observable
 
 import scala.annotation.tailrec
 import scala.util.Random

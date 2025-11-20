@@ -40,7 +40,7 @@ class TestTUI extends AnyWordSpec with Matchers:
 
     "checked unvalid turn" in :
       val c: Controller = Controller.initController(10, 10, 1, 1, 10)
-      turn("gfjzgfkf", c) shouldBe false
+      turn("gfjzgfkf", c) shouldBe false 
       turn("1000 1000", c) shouldBe false
       c.inGame shouldBe true
 

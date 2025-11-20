@@ -14,6 +14,7 @@ import scala.annotation.tailrec
 
 class View extends Observer:
   val ctrl: Controller = TUI.initController
+  print(ctrl.gb.board)
   ctrl.addSub(this)
   println(TUI.getBoardString(ctrl))
 
