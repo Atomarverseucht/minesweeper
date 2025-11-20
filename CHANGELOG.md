@@ -1,3 +1,10 @@
+## [0.3.2](https://github.com/Atomarverseucht/minesweeper/compare/0.3.1...0.3.2) (2025-11-20)
+
+
+### Bug Fixes
+
+* Edge bug fixed ([92388ae](https://github.com/Atomarverseucht/minesweeper/commit/92388ae5ad8b0062b2c954afa441150cc0db7f33))
+
 ## [0.3.1](https://github.com/Atomarverseucht/minesweeper/compare/0.3.0...0.3.1) (2025-11-17)
 
 
