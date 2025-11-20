@@ -59,7 +59,7 @@
     [
       "@semantic-release/exec",
       {
-        "publishCmd": "echo hallo"
+        "publishCmd": "sbt assembly"
       }
     ],
     [
@@ -77,7 +77,7 @@
       {
         "assets": [
           {
-            "path": "build.sbt"
+            "path": "target/scala-*/minesweeper-assembly-*.jar"
           }
         ],
         "successComment": false
