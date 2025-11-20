@@ -1,4 +1,4 @@
-package main.de.htwg.winesmeeper.test
+package main.de.htwg.winesmeeper.tests
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -15,16 +15,17 @@ class TestController extends AnyWordSpec with Matchers:
 
     "have an output vector" in:
       ctrl.getBoard shouldBe ctrl.gb.getBoard
-      
+
     "have the right size" in:
       ctrl.getSize shouldBe(10, 10)
-      
+
     "should be ingame" in:
       ctrl.inGame shouldBe true
-      
+
     "should have the right game-state" in:
       ctrl.gameState shouldBe "run"
       val w = Controller.initController(10, 10, 5, 5, 91)
       w.gameState shouldBe "win"
       val l = Controller.initController(10, 10, 5, 5, 90); l.openField(1,1)
       l.gameState shouldBe "loose"
+      l.getBoard

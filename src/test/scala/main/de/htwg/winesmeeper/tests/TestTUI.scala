@@ -1,7 +1,11 @@
-package main.de.htwg.winesmeeper.test
+package main.de.htwg.winesmeeper.tests
+
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
+import java.io.ByteArrayInputStream
+import org.scalatest.funsuite.AnyFunSuite
 import de.htwg.winesmeeper.aView.TUI.*
+import de.htwg.winesmeeper.aView
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Observer
 
@@ -40,7 +44,7 @@ class TestTUI extends AnyWordSpec with Matchers:
 
     "checked unvalid turn" in :
       val c: Controller = Controller.initController(10, 10, 1, 1, 10)
-      turn("gfjzgfkf", c) shouldBe false 
+      turn("gfjzgfkf", c) shouldBe false
       turn("1000 1000", c) shouldBe false
       c.inGame shouldBe true
 
@@ -49,6 +53,24 @@ class TestTUI extends AnyWordSpec with Matchers:
       ctrl.addSub(dummySub)
       ctrl.openField(4, 4) shouldBe true
       ctrl.removeSub(dummySub)
+
+  "an User Interface" should:
+    "be openable" in:
+      val fakeInput =
+        """10
+          |10
+          |5
+          |5
+          |90
+          |10000usifduoiwstrhfgu9sfh10000
+          |1,1
+          |""".stripMargin
+
+      val in = new ByteArrayInputStream(fakeInput.getBytes())
+
+      Console.withIn(in) {
+         aView.start()
+      }
 
   object dummySub extends Observer:
     override def update(): Unit = {}

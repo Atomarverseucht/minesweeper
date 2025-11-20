@@ -1,4 +1,4 @@
-package main.de.htwg.winesmeeper.test
+package main.de.htwg.winesmeeper.tests
 
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Model.Board
