@@ -1,3 +1,5 @@
+## [0.3.3](https://github.com/Atomarverseucht/minesweeper/compare/0.3.2...0.3.3) (2025-11-20)
+
 ## [0.3.2](https://github.com/Atomarverseucht/minesweeper/compare/0.3.1...0.3.2) (2025-11-20)
 
 
