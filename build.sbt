@@ -17,7 +17,7 @@ lazy val root = project
 
     scalaVersion := scala3Version,
     scalacOptions ++= Seq("-encoding", "utf-8"),
-    coverageMinimumStmtTotal := 80,
+    coverageMinimumStmtTotal := 90, // NOTE: scalable, gradually increase to 100% code coverage
     coverageFailOnMinimum := true,
     coverageHighlighting := true,
     coverageExcludedPackages := ".*Main.*;.*Routes.*;.*Config.*;",
