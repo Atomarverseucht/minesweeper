@@ -6,7 +6,7 @@ import de.htwg.winesmeeper.aView.TUI.*
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class TestBoard extends AnyWordSpec with Matchers:
+class BoardSpec extends AnyWordSpec with Matchers:
     "The Board" should:
         val b: Board = Controller(12, 12, 3, 4, 50).gb
         val bomb = b.findBomb
@@ -14,7 +14,7 @@ class TestBoard extends AnyWordSpec with Matchers:
             an [IllegalArgumentException] should be thrownBy Controller(12, 12, 3, 4, 1000)
 
         "have the correct size" in:
-            b.getSize should be (12, 12)
+            b.getSize shouldBe (12, 12)
 
         "have bomb neighbours" in:
             b.getBombNeighbour(3, 4) shouldBe 0

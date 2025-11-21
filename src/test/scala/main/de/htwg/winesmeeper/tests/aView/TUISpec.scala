@@ -9,7 +9,7 @@ import org.scalatest.wordspec.AnyWordSpec
 
 import java.io.ByteArrayInputStream
 
-class TestTUI extends AnyWordSpec with Matchers:
+class TUISpec extends AnyWordSpec with Matchers:
   "The TUI" should:
     setStart(Vector(25, 25, 5, 5, 20))
     val gb = initController
@@ -42,13 +42,13 @@ class TestTUI extends AnyWordSpec with Matchers:
       gameEndMsg(gb) shouldBe "???"
 
     "checked unvalid turn" in :
-      val c: Controller = Controller(10, 10, 1, 1, 10)
+      val c: Controller = Controller(10, 10, 1, 1, 20)
       turn("gfjzgfkf", c) shouldBe false
       turn("1000 1000", c) shouldBe false
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
-      val ctrl = Controller(20, 20, 1, 1, 1)
+      val ctrl = Controller(20, 20, 1, 1, 100)
       ctrl.addSub(dummySub)
       ctrl.openField(4, 4) shouldBe true
       ctrl.removeSub(dummySub)
