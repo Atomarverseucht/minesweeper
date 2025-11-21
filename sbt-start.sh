@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sbt clean coverage test coverageReport
+sbt clean coverage test coverageReport 
