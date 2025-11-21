@@ -18,8 +18,6 @@ Additional quick badges:
 
 ---
 
-Why "fancy"? Because we like readable code, clear structure, and a README that tells a good story. Expect a functional core, deterministic board generation for tests, and simple tooling to build and run.
-
 Highlights
 - Elegant Scala implementation of Minesweeper logic (board generation, adjacency counting, reveal/flag mechanics).
 - Deterministic board generation options for repeatable tests.
