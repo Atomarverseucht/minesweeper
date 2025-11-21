@@ -17,7 +17,7 @@ class Controller(var gb: Board) extends Observable with gameController:
   override def openField(x: Int, y: Int): Boolean = openField(x, y, true)
   
   // returns if turn made a change
-  def openField(x: Int, y: Int, notify: Boolean = true): Boolean =
+  private def openField(x: Int, y: Int, notify: Boolean = true): Boolean =
     if !gb.in(x, y) || gb.getField(x, y) != -1 then false
     else
       require(inGame, "You cannot open a field after the game is over")
@@ -41,13 +41,13 @@ class Controller(var gb: Board) extends Observable with gameController:
   
   override def inGame: Boolean = gb.inGame && !isVictory
   
-  override def gameState: String = if isVictory then "win" else if gb.inGame then "run" else "loose"
+  override def gameState: String = if isVictory then "win" else if gb.inGame then "run" else "lose"
 
   private def isVictory: Boolean =
     0 == (for x <- gb.board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
   
 object Controller:
-  def initController(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): Controller =
+  def apply(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): Controller =
     require(xSize >= 10 && ySize >= 10, "x and y size must be >= 10")
     require(xStart <= xSize && xStart >= 0 && yStart <= ySize && yStart >= 0, "Starting position must be on the field")
     val ex =

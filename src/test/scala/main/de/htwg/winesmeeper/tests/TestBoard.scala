@@ -8,10 +8,10 @@ import de.htwg.winesmeeper.aView.TUI.*
 
 class TestBoard extends AnyWordSpec with Matchers:
     "The Board" should:
-        val b: Board = Controller.initController(12, 12, 3, 4, 10).gb
+        val b: Board = Controller(12, 12, 3, 4, 10).gb
         val bomb = b.findBomb
         "throw right Exceptions" in:
-            an [IllegalArgumentException] should be thrownBy Controller.initController(12, 12, 3, 4, 1000)
+            an [IllegalArgumentException] should be thrownBy Controller(12, 12, 3, 4, 1000)
 
         "have the correct size" in:
             b.getSize should be (12, 12)
