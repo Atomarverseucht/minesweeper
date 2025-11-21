@@ -1,3 +1,10 @@
+## [0.3.7](https://github.com/Atomarverseucht/minesweeper/compare/0.3.6...0.3.7) (2025-11-21)
+
+
+### Bug Fixes
+
+* opens also neighbours of starting fields, if they have the value == 0 ([8db595e](https://github.com/Atomarverseucht/minesweeper/commit/8db595e1b064a0c2ad1f285df9c55981b6a711c0))
+
 ## [0.3.6](https://github.com/Atomarverseucht/minesweeper/compare/0.3.5...0.3.6) (2025-11-20)
 
 
