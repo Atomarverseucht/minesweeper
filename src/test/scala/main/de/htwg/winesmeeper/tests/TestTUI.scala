@@ -34,9 +34,9 @@ class TestTUI extends AnyWordSpec with Matchers:
       emojify(1) shouldBe "1"
 
     "have right end-msgs" in:
-      val w = Controller.initController(10, 10, 5, 5, 91)
+      val w = Controller(10, 10, 5, 5, 91)
       gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
-      val l = Controller.initController(10, 10, 5, 5, 90)
+      val l = Controller(10, 10, 5, 5, 90)
       l.openField(2, 2) shouldBe true
       gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
       gameEndMsg(gb) shouldBe "???"
@@ -44,19 +44,19 @@ class TestTUI extends AnyWordSpec with Matchers:
       turn("1 1", gb) shouldBe true
 
     "checked unvalid turn" in :
-      val c: Controller = Controller.initController(10, 10, 1, 1, 10)
+      val c: Controller = Controller(10, 10, 1, 1, 10)
       turn("gfjzgfkf", c) shouldBe false
       turn("1000 1000", c) shouldBe false
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
-      val ctrl = Controller.initController(20, 20, 1, 1, 1)
+      val ctrl = Controller(20, 20, 1, 1, 1)
       ctrl.addSub(dummySub)
       ctrl.openField(4, 4) shouldBe true
       ctrl.removeSub(dummySub)
 
   "an User Interface" should:
-    "be openable" in:
+    "be useable" in:
       val fakeInput =
         """10
           |10
@@ -69,7 +69,7 @@ class TestTUI extends AnyWordSpec with Matchers:
 
       val in = new ByteArrayInputStream(fakeInput.getBytes())
 
-      Console.withIn(in) {
+      Console.withIn(in){
          aView.start()
       }
 

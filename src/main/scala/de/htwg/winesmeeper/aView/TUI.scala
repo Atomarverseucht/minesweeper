@@ -22,7 +22,7 @@ object TUI:
 
   def setStart(vec: Vector[Int]): Unit = for i <- start.indices do start(i) = vec(i)
   
-  def initController: Controller = Controller.initController(start(0), start(1), start(2), start(3), start(4))
+  def initController: Controller = Controller(start(0), start(1), start(2), start(3), start(4))
 
   def getBoardString(ctrl: Controller): String = // TUI-design for the Board
     val b = ctrl.getBoard
@@ -45,7 +45,7 @@ object TUI:
 
   def gameEndMsg(ctrl: Controller): String =
     val out = ctrl.gameState match
-      case "loose" =>
+      case "lose" =>
         "\u001b[1;31mGame lost\u001b[0m!"
       case "win" =>
         "\u001b[1;32mYou have won\u001b[0m!"
