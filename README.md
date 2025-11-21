@@ -1,5 +1,5 @@
 
-# Minesweeper — A Scala Study Project
+# Winesmeeper
 
 [![Coverage Status](https://coveralls.io/repos/github/Atomarverseucht/minesweeper/badge.svg?branch=main)](https://coveralls.io/github/Atomarverseucht/minesweeper)
 
