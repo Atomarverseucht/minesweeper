@@ -13,8 +13,8 @@ A polished, study-focused implementation of the classic Minesweeper game — wri
 
 Additional quick badges:
 [![License](https://img.shields.io/badge/License-check?style=flat&logo=open-source-initiative)](./LICENSE)
-[![Contributing](https://img.shields.io/badge/Contributing-check?style=flat&logo=open-source-initiative)](./CONTRIBUTING)
-[![Changelog](https://img.shields.io/badge/Changelog-check?style=flat&logo=open-source-initiative)](./CHANGELOG)
+[![Contributing](https://img.shields.io/badge/Contributing-check?style=flat&logo=open-source-initiative)](./CONTRIBUTING.md)
+[![Changelog](https://img.shields.io/badge/Changelog-check?style=flat&logo=open-source-initiative)](./CHANGELOG.md)
 [![Repo Size](https://img.shields.io/github/repo-size/Atomarverseucht/minesweeper?style=flat)](https://github.com/Atomarverseucht/minesweeper)
 [![Stars](https://img.shields.io/github/stars/Atomarverseucht/minesweeper?style=social)](https://github.com/Atomarverseucht/minesweeper/stargazers)
 
