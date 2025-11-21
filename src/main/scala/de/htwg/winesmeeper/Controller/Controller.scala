@@ -14,10 +14,12 @@ sealed trait gameController:
   def gameState: String
 
 class Controller(var gb: Board) extends Observable with gameController:
-  override def openField(x: Int, y: Int): Boolean = openField(x, y, true)
+  override def openField(x: Int, y: Int): Boolean =
+    val out = openFieldRec(x, y)
+    if out then notifyObservers(); out
   
   // returns if turn made a change
-  private def openField(x: Int, y: Int, notify: Boolean): Boolean =
+  private def openFieldRec(x: Int, y: Int): Boolean =
     if !gb.in(x, y) || gb.getField(x, y) != -1 then false
     else
       require(inGame, "You cannot open a field after the game is over")
@@ -27,12 +29,9 @@ class Controller(var gb: Board) extends Observable with gameController:
       val newVector = gb.board.updated(x, gb.board(x).updated(y, Field(f, true)))
       gb = new Board(newVector, inGame && !f)
       if gb.getBombNeighbour(x, y) == 0 then
-        for i <- -1 to 1; ij <- -1 to 1 do
-          val fx = x + i
-          val fy = y + ij
+        for fx <- x-1 to x+1; fy <- y-1 to y+1 do
           if gb.in(fx, fy) && !gb.board(fx)(fy).isOpened then
-            openField(fx, fy, false)
-      if notify then notifyObservers()
+            openFieldRec(fx, fy)
       true
     
   override def getBoard: Vector[Vector[Int]] = gb.getBoard
@@ -57,7 +56,10 @@ object Controller:
     val bMax: Int = Board.maxBombs(xSize, ySize) + ex
     require(bombCount >= 1 && bombCount <= bMax, s"Bomb Count must be between 1 and $bMax")
     val boardv = initField(0, 0, xStart, yStart, Vector.fill(xSize, ySize)(Field(false, true)), bombCount, bMax)
-    new Controller(new Board(boardv, inGame = true))
+    val out = new Controller(new Board(boardv, inGame = true))
+    for fx <- xStart - 1 to xStart + 1; fy <- yStart - 1 to yStart + 1 do
+        out.openFieldRec(fx, fy)
+    out
 
   @tailrec
   private def initField(indx: Int, indy: Int, xStart: Int, yStart: Int, boardv: Vector[Vector[Field]], bombCount: Int, fieldCount: Int): Vector[Vector[Field]] =
@@ -66,7 +68,7 @@ object Controller:
     else
       val newV: (Boolean, Int, Field) =
         if Board.isNeighbour(xStart, yStart, indx, indy) then
-          (false, fieldCount, Field(false, true))
+          (false, fieldCount, Field(false, false))
         else
           val isBomb = Random.nextInt(fieldCount) < bombCount
           (isBomb, fieldCount - 1, Field(isBomb, false))
