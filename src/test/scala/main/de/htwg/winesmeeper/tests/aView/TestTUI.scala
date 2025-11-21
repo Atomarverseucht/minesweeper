@@ -1,17 +1,17 @@
-package main.de.htwg.winesmeeper.tests
+package main.de.htwg.winesmeeper.tests.aView
 
-import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.matchers.should.Matchers
-import java.io.ByteArrayInputStream
-import org.scalatest.funsuite.AnyFunSuite
-import de.htwg.winesmeeper.aView.TUI.*
-import de.htwg.winesmeeper.aView
 import de.htwg.winesmeeper.Controller.Controller
-import de.htwg.winesmeeper.Observer
+import de.htwg.winesmeeper.{Observer, aView}
+import de.htwg.winesmeeper.aView.TUI.*
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+
+import java.io.ByteArrayInputStream
 
 class TestTUI extends AnyWordSpec with Matchers:
   "The TUI" should:
-    setStart(Vector(25, 25, 5, 5, 1))
+    setStart(Vector(25, 25, 5, 5, 20))
     val gb = initController
     "have the right size" in:
       start(0) = gb.getSize._1
@@ -37,11 +37,9 @@ class TestTUI extends AnyWordSpec with Matchers:
       val w = Controller(10, 10, 5, 5, 91)
       gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
       val l = Controller(10, 10, 5, 5, 90)
-      l.openField(2, 2) shouldBe true
+      turn("2 2", l) shouldBe true
       gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
       gameEndMsg(gb) shouldBe "???"
-    "have made a turn" in:
-      turn("1 1", gb) shouldBe true
 
     "checked unvalid turn" in :
       val c: Controller = Controller(10, 10, 1, 1, 10)

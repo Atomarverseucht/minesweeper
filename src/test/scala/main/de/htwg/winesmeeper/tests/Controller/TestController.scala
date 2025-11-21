@@ -1,9 +1,9 @@
-package main.de.htwg.winesmeeper.tests
+package main.de.htwg.winesmeeper.tests.Controller
 
+import de.htwg.winesmeeper.Controller.Controller
+import de.htwg.winesmeeper.Model.{Board, Field}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import de.htwg.winesmeeper.Controller.Controller
-import de.htwg.winesmeeper.Model.{Field,Board}
 
 class TestController extends AnyWordSpec with Matchers:
   "The Controller" should:
@@ -11,9 +11,9 @@ class TestController extends AnyWordSpec with Matchers:
     val ctrl = new Controller(new Board(bVec, true))
 
     "have an init function" in:
-      Controller(10,10,1,1,1).gb.getField(9,9) shouldBe -1
-      Controller(10,10,0,0,1).gb.getField(9,9) shouldBe -1
-      Controller(10,10,0,4,1).gb.getField(9,9) shouldBe -1
+      Controller(10,10,1,1,94).gb.getField(9,9) shouldBe -1
+      Controller(10,10,0,0,96).gb.getField(9,9) shouldBe -1
+      Controller(10,10,0,4,94).gb.getField(9,9) shouldBe -1
     "have an output vector" in:
       ctrl.getBoard shouldBe ctrl.gb.getBoard
 

@@ -1,14 +1,14 @@
-package main.de.htwg.winesmeeper.tests
+package main.de.htwg.winesmeeper.tests.Model
 
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Model.Board
-import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.matchers.should.Matchers
 import de.htwg.winesmeeper.aView.TUI.*
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
 class TestBoard extends AnyWordSpec with Matchers:
     "The Board" should:
-        val b: Board = Controller(12, 12, 3, 4, 10).gb
+        val b: Board = Controller(12, 12, 3, 4, 50).gb
         val bomb = b.findBomb
         "throw right Exceptions" in:
             an [IllegalArgumentException] should be thrownBy Controller(12, 12, 3, 4, 1000)
