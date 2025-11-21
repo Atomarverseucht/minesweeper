@@ -11,9 +11,9 @@ class TestController extends AnyWordSpec with Matchers:
     val ctrl = new Controller(new Board(bVec, true))
 
     "have an init function" in:
-      Controller.initController(10,10,1,1,1).gb.getField(9,9) shouldBe -1
-      Controller.initController(10,10,0,0,1).gb.getField(9,9) shouldBe -1
-      Controller.initController(10,10,0,4,1).gb.getField(9,9) shouldBe -1
+      Controller(10,10,1,1,1).gb.getField(9,9) shouldBe -1
+      Controller(10,10,0,0,1).gb.getField(9,9) shouldBe -1
+      Controller(10,10,0,4,1).gb.getField(9,9) shouldBe -1
     "have an output vector" in:
       ctrl.getBoard shouldBe ctrl.gb.getBoard
 
@@ -25,8 +25,8 @@ class TestController extends AnyWordSpec with Matchers:
 
     "should have the right game-state" in:
       ctrl.gameState shouldBe "run"
-      val w = Controller.initController(10, 10, 5, 5, 91)
+      val w = Controller(10, 10, 5, 5, 91)
       w.gameState shouldBe "win"
-      val l = Controller.initController(10, 10, 5, 5, 90); l.openField(1,1)
-      l.gameState shouldBe "loose"
+      val l = Controller(10, 10, 5, 5, 90); l.openField(1,1)
+      l.gameState shouldBe "lose"
       l.getBoard
