@@ -60,7 +60,6 @@ sbt test
 Project layout (high level)
 - src/main/scala — core game implementation
 - src/test/scala — unit tests
-- scripts/ — small shell helpers (if present)
 - README.md — this file
 
 Contributing
@@ -82,8 +81,8 @@ Roadmap (short)
 - Optional: small web or GUI front-end to demonstrate the engine
 
 Authors & acknowledgements
-- Atomarverseucht — project owner and co-author — https://github.com/Atomarverseucht
-- Guakocius — co-author and collaborator — https://github.com/Guakocius
+- [Atomarverseucht](https://github.com/Atomarverseucht) — project owner and co-author
+- [Guakocius](https://github.com/Guakocius) — co-author and collaborator
 
 License
 See the LICENSE file in the repository for licensing information. If the repository does not contain a LICENSE, please contact the maintainers before using the code in production.
