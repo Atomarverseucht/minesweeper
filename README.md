@@ -26,22 +26,22 @@ Highlights
 - Small, easy-to-read codebase suitable for learning Scala idioms.
 
 Features
-- Classic Minesweeper rules implemented in Scala
-- Unit and property tests for core logic
+- generate a field via I/O (answering questions)
+- opening fields via I/O (coordinates)
 
 Getting started (jar)
 Prerequisites
 - JDK 11+ (OpenJDK or Oracle)
 - for developing: sbt
 
-How to play the game
+How to play the game:
 - download our newest [.jar](https://github.com/Atomarverseucht/minesweeper/releases/latest)
 - execute following cmd
 ```bash
 java -jar [path to .jar]
 ```
 
-Build and run (sbt)
+Develop with us with git and sbt:
 ```bash
 # clone the repo
 git clone https://github.com/Atomarverseucht/minesweeper.git
@@ -50,7 +50,7 @@ cd minesweeper
 # compile
 sbt compile
 
-# run (if project has an entrypoint)
+# run
 sbt run
 
 # run tests
@@ -63,16 +63,13 @@ Project layout (high level)
 - README.md — this file
 
 Contributing
-We welcome contributions, suggestions, and bug reports. If you'd like to contribute:
-1. Fork the repository.
-2. Create a topic branch: git checkout -b feature/your-feature
-3. Make small, focused commits.
-4. Add or update tests where appropriate.
-5. Open a pull request describing the change.
+If you saw an issue with our project or you want to have a specific feature you can:
+- make a Github-Issue and hoping that we will fix your problem (or implement feature)
+- develop the solution of your problem by your self and make a pull request
 
 Branching model
 - main: stable, release-ready code
-- dev: in-progress features and experiments
+- dev: instable development code
 - feature/*: short-lived branches for isolated features or fixes
 
 Authors & acknowledgements
@@ -87,9 +84,6 @@ Tech stack and environment
   
 License
 See the LICENSE file in the repository for licensing information.
-
-Contact
-For questions, issues, or suggestions: open an issue or reach out to the repository owners via their GitHub profiles.
 
 Enjoy exploring the code — may your flags be true and your guesses few! ⚑💣
 
