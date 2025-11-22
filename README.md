@@ -3,8 +3,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/Atomarverseucht/minesweeper/badge.svg?branch=main)](https://coveralls.io/github/Atomarverseucht/minesweeper)
 
-A polished, study-focused implementation of the classic Minesweeper game — written primarily in Scala with a touch of shell tooling. This repository is a joint learning project by [Atomarverseucht](https://github.com/Atomarverseucht) and [Guakocius](https://github.com/Guakocius). We build clear algorithms, idiomatic Scala, and a compact, testable codebase while keeping the spirit of the original game.
-
+A polished, study-focused implementation of the classic Minesweeper game — written primarily in Scala with a touch of shell tooling. This repository is a joint learning project by [Atomarverseucht](https://github.com/Atomarverseucht) and [Guakocius](https://github.com/Guakocius).
 ## Badges
 
 | Used Languages | Tested Operating Systems | Tech Stack |
@@ -29,7 +28,7 @@ Features
 - generate a field via I/O (answering questions)
 - opening fields via I/O (coordinates)
 
-Getting started (jar)
+## Getting started (jar)
 Prerequisites
 - JDK 11+ (OpenJDK or Oracle)
 - for developing: sbt
@@ -62,19 +61,15 @@ Project layout (high level)
 - src/test/scala — unit tests
 - README.md — this file
 
-Contributing
+## Contributing
 If you saw an issue with our project or you want to have a specific feature you can:
-- make a Github-Issue and hoping that we will fix your problem (or implement feature)
-- develop the solution of your problem by your self and make a pull request
+- make a Github-Issue and hope that we will fix your problem (or implement feature)
+- develop the solution of your problem by yourself and open a pull request
 
-Branching model
+## Branching model
 - main: stable, release-ready code
 - dev: instable development code
-- feature/*: short-lived branches for isolated features or fixes
-
-Authors & acknowledgements
-- [Atomarverseucht](https://github.com/Atomarverseucht) — project owner and co-author
-- [Guakocius](https://github.com/Guakocius) — co-author and collaborator
+- feature/*: branches for experimenting with new features
 
 Tech stack and environment
 - Language: Scala (≈99.7%)
@@ -82,7 +77,7 @@ Tech stack and environment
 - Build: sbt (recommended)
 - Tested on: Arch Linux, Ubuntu, Windows 11 (community-tested)
   
-License
+## License
 See the LICENSE file in the repository for licensing information.
 
 Enjoy exploring the code — may your flags be true and your guesses few! ⚑💣
