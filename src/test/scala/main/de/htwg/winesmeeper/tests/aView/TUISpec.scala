@@ -1,6 +1,7 @@
 package main.de.htwg.winesmeeper.tests.aView
 
 import de.htwg.winesmeeper.Controller.Controller
+import de.htwg.winesmeeper.Model.{Board, Field}
 import de.htwg.winesmeeper.{Observer, aView}
 import de.htwg.winesmeeper.aView.TUI.*
 import org.scalatest.funsuite.AnyFunSuite
@@ -36,7 +37,9 @@ class TUISpec extends AnyWordSpec with Matchers:
     "have right end-msgs" in:
       val w = Controller(10, 10, 5, 5, 91)
       gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
-      val l = Controller(10, 10, 5, 5, 90)
+      val lVec = Vector.fill(10, 10)(Field(true, false))
+      val l = new Controller(Board(lVec.updated(1, lVec(1).updated(1, Field(false, false))), true))
+        Controller(10, 10, 5, 5, 90)
       turn("flag 2 2", l) shouldBe true
       turn("open 2 2", l) shouldBe true
       gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"

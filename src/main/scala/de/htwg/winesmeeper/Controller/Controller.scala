@@ -50,7 +50,7 @@ object Controller:
     val boardv = initField(0, 0, xStart, yStart, Vector.fill(xSize, ySize)(Field(false, true)), bombCount, bMax)
     val out = new Controller(new Board(boardv, notLost = true))
     for fx <- xStart - 1 to xStart + 1; fy <- yStart - 1 to yStart + 1 do
-        out.gb = OpenFieldStrategy.execute(fx, fy, out.gb)
+        if out.gb.in(fx, fy) then out.gb = OpenFieldStrategy.execute(fx, fy, out.gb)
     out
 
   @tailrec
