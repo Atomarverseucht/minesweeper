@@ -37,7 +37,8 @@ class TUISpec extends AnyWordSpec with Matchers:
       val w = Controller(10, 10, 5, 5, 91)
       gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
       val l = Controller(10, 10, 5, 5, 90)
-      turn("2 2", l) shouldBe true
+      turn("flag 2 2", l) shouldBe true
+      turn("open 2 2", l) shouldBe true
       gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
       gameEndMsg(gb) shouldBe "???"
 
@@ -50,7 +51,7 @@ class TUISpec extends AnyWordSpec with Matchers:
     "opens a lot of fields when field zero" in:
       val ctrl = Controller(20, 20, 1, 1, 100)
       ctrl.addSub(dummySub)
-      ctrl.openField(4, 4) shouldBe true
+      ctrl.turn("open", 4, 4) shouldBe true
       ctrl.removeSub(dummySub)
 
   "an User Interface" should:
@@ -61,8 +62,8 @@ class TUISpec extends AnyWordSpec with Matchers:
           |5
           |5
           |90
-          |10000usifduoiwstrhfgu9sfh10000
-          |1,1
+          |open.10000usifduoiwstrhfgu9sfh10000
+          |open.1,1
           |""".stripMargin
 
       val in = new ByteArrayInputStream(fakeInput.getBytes())
