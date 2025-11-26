@@ -55,6 +55,7 @@ class TUISpec extends AnyWordSpec with Matchers:
       val ctrl = Controller(20, 20, 1, 1, 100)
       ctrl.addSub(dummySub)
       ctrl.turn("open", 4, 4) shouldBe true
+      ctrl.turn("flag", 4, 4) shouldBe false
       ctrl.removeSub(dummySub)
 
   "an User Interface" should:
@@ -65,6 +66,7 @@ class TUISpec extends AnyWordSpec with Matchers:
           |5
           |5
           |90
+          |flag 7 7
           |open.10000usifduoiwstrhfgu9sfh10000
           |open.1,1
           |""".stripMargin
