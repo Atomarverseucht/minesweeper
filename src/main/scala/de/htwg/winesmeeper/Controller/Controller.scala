@@ -7,40 +7,32 @@ import scala.annotation.tailrec
 import scala.util.Random
 
 sealed trait gameController:
-  def openField(x: Int, y: Int): Boolean
+  def turn(cmd: String, x: Int, y: Int): Boolean
   def inGame: Boolean
   def getBoard: Vector[Vector[Int]]
   def getSize: (Int, Int)
   def gameState: String
 
 class Controller(var gb: Board) extends Observable with gameController:
-  override def openField(x: Int, y: Int): Boolean =
-    val out = openFieldRec(x, y)
-    if out then notifyObservers(); out
-  
-  // returns if turn made a change
-  private def openFieldRec(x: Int, y: Int): Boolean =
-    if !gb.in(x, y) || gb.getField(x, y) != -1 then false
+  override def turn(cmd: String, x: Int, y: Int): Boolean =
+    require(gb.notLost, "You cannot make a turn if you have lost")
+    if !gb.in(x, y) then false
     else
-      require(inGame, "You cannot open a field after the game is over")
-      val xSize = gb.getSize._1
-      val ySize = gb.getSize._2
-      val f = gb.getFieldAt(x, y).isBomb
-      val newVector = gb.board.updated(x, gb.board(x).updated(y, Field(f, true)))
-      gb = new Board(newVector, inGame && !f)
-      if gb.getBombNeighbour(x, y) == 0 then
-        for fx <- x-1 to x+1; fy <- y-1 to y+1 do
-          if gb.in(fx, fy) && !gb.board(fx)(fy).isOpened then
-            openFieldRec(fx, fy)
-      true
+      val oldGB = gb
+      val strat = stratList.filter(strategy => strategy.cmd == cmd)(0)
+      gb = strat.execute(x, y, gb)
+      if oldGB != gb then
+        notifyObservers(); true
+      else false
+
     
   override def getBoard: Vector[Vector[Int]] = gb.getBoard
   
   override def getSize: (Int, Int) = gb.getSize
   
-  override def inGame: Boolean = gb.inGame && !isVictory
+  override def inGame: Boolean = gb.notLost && !isVictory
   
-  override def gameState: String = if isVictory then "win" else if gb.inGame then "run" else "lose"
+  override def gameState: String = if isVictory then "win" else if gb.notLost then "run" else "lose"
 
   private def isVictory: Boolean =
     0 == (for x <- gb.board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
@@ -56,9 +48,9 @@ object Controller:
     val bMax: Int = Board.maxBombs(xSize, ySize) + ex
     require(bombCount >= 1 && bombCount <= bMax, s"Bomb Count must be between 1 and $bMax")
     val boardv = initField(0, 0, xStart, yStart, Vector.fill(xSize, ySize)(Field(false, true)), bombCount, bMax)
-    val out = new Controller(new Board(boardv, inGame = true))
+    val out = new Controller(new Board(boardv, notLost = true))
     for fx <- xStart - 1 to xStart + 1; fy <- yStart - 1 to yStart + 1 do
-        out.openFieldRec(fx, fy)
+        out.gb = OpenFieldStrategy.execute(fx, fy, out.gb)
     out
 
   @tailrec
@@ -78,4 +70,4 @@ object Controller:
       val nextC = if indx + 1 < boardv.length then (indx + 1, indy) else (0, indy+1)
       initField(nextC._1, nextC._2, xStart, yStart, nboard, nbc, newV._2)
 
-  def isEdge(size: Int, x: Int): Boolean =  x == 0 || x == size - 1
+  private def isEdge(size: Int, x: Int): Boolean =  x == 0 || x == size - 1

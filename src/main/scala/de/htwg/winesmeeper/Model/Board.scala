@@ -11,12 +11,9 @@ sealed trait GameBoard {
   def findBomb: (Int, Int)
 }
 
-case class Field(isBomb: Boolean, isOpened: Boolean)
+case class Field(isBomb: Boolean, isOpened: Boolean, isFlag: Boolean = false)
 
-case class Board (
-  board: Vector[Vector[Field]],
-  inGame: Boolean
-) extends GameBoard:
+case class Board (board: Vector[Vector[Field]], notLost: Boolean) extends GameBoard:
 
   override def getBombNeighbour(x: Int, y: Int): Int =
     (for
@@ -30,7 +27,8 @@ case class Board (
 
   override def getField(x: Int, y: Int): Int =
     val f = getFieldAt(x, y)
-    if !f.isOpened then -1
+    if f.isFlag then -3
+    else if !f.isOpened then -1
     else if f.isBomb then -2
     else getBombNeighbour(x, y)
 

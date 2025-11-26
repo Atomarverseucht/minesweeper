@@ -18,12 +18,13 @@ class View extends Observer:
   println(TUI.getBoardString(ctrl))
 
   def nextTurn: Boolean =
-    if ctrl.inGame then
-      if !TUI.turn(readLine, ctrl) then println("Nice try")
-      nextTurn
-    else
-      println(TUI.gameEndMsg(ctrl))
+    if !TUI.turn(readLine, ctrl) then println("Nice try")
+    if ctrl.inGame then nextTurn
     ctrl.inGame
 
   override def update(): Unit =
-    println(TUI.getBoardString(ctrl))
+    if ctrl.inGame then
+      println(TUI.getBoardString(ctrl))
+    else
+      println(TUI.getBoardString(ctrl))
+      println(TUI.gameEndMsg(ctrl))

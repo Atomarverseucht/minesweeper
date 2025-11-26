@@ -34,12 +34,12 @@ object TUI:
     ).mkString
 
   // TUI-design of one specific field
-  def emojify(field: Int): String = field match {case -1 => "█" case -2 => "*" case _ => s"${field}"}
+  def emojify(field: Int): String = field match {case -1 => "█" case -2 => "*" case -3 => "\u001b[1;31m█\u001b[0m" case _ => s"${field}"}
 
   def turn(input: String, ctrl: Controller): Boolean =
     try
-      val coordinates = input.split("[^\\d]+")
-      ctrl.openField(coordinates(0).toInt, coordinates(1).toInt)
+      val coordinates = input.split("[^\\w\\d]+")
+      ctrl.turn(coordinates(0), coordinates(1).toInt, coordinates(2).toInt)
     catch
       case _ => false
 
