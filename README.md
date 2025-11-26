@@ -28,7 +28,7 @@ Features
 - generate a field via I/O (answering questions)
 - opening fields via I/O (coordinates)
 
-## Getting started (jar)
+## Getting started
 Prerequisites
 - JDK 11+ (OpenJDK or Oracle)
 - for developing: sbt
@@ -71,11 +71,11 @@ If you saw an issue with our project or you want to have a specific feature you 
 - dev: instable development code
 - feature/*: branches for experimenting with new features
 
-Tech stack and environment
+## Tech stack and environment
 - Language: Scala (≈99.7%)
 - Auxiliary: Shell scripts (≈0.3%)
 - Build: sbt (recommended)
-- Tested on: Arch Linux, Ubuntu, Windows 11 (community-tested)
+- Tested on: Arch Linux, Ubuntu, Windows 11
   
 ## License
 See the LICENSE file in the repository for licensing information.
