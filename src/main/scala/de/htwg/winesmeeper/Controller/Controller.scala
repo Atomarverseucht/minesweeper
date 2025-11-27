@@ -14,6 +14,8 @@ sealed trait gameController:
   def gameState: String
 
 class Controller(var gb: Board) extends Observable with gameController:
+  var state: GameState = Running(this)
+  println(help())
   override def turn(cmd: String, x: Int, y: Int): Boolean =
     require(gb.notLost, "You cannot make a turn if you have lost")
     if !gb.in(x, y) then false
@@ -31,8 +33,8 @@ class Controller(var gb: Board) extends Observable with gameController:
   override def getSize: (Int, Int) = gb.getSize
   
   override def inGame: Boolean = gb.notLost && !isVictory
-  
-  override def gameState: String = if isVictory then "win" else if gb.notLost then "run" else "lose"
+
+  override def gameState: String = state.gameState
 
   private def isVictory: Boolean =
     0 == (for x <- gb.board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum

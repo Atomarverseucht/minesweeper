@@ -42,3 +42,6 @@ object FlagStrategy extends TurnStrategy:
     val f = gb.getFieldAt(x, y)
     if(f.isOpened) then gb
     else Board(gb.board.updated(x, gb.board(x).updated(y, Field(f.isBomb, f.isOpened, !f.isFlag))), gb.notLost)
+
+
+def help(): String = stratList.map(i => i.cmd + " - " + i.helpMsg).mkString("\n")
