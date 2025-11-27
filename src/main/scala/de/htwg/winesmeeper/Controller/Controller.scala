@@ -15,29 +15,29 @@ sealed trait gameController:
 
 class Controller(var gb: Board) extends Observable with gameController:
   var state: GameState = Running(this)
-  println(help())
   override def turn(cmd: String, x: Int, y: Int): Boolean =
-    require(gb.notLost, "You cannot make a turn if you have lost")
+    require(inGame, "You cannot make a turn if you have lost")
     if !gb.in(x, y) then false
     else
       val oldGB = gb
       val strat = stratList.filter(strategy => strategy.cmd == cmd)(0)
-      gb = strat.execute(x, y, gb)
+      gb = strat.execute(x, y, this)
       if oldGB != gb then
         notifyObservers(); true
       else false
 
+  def changeState(newState: String): Unit =
+    state = state.changeState(newState)
     
   override def getBoard: Vector[Vector[Int]] = gb.getBoard
   
   override def getSize: (Int, Int) = gb.getSize
   
-  override def inGame: Boolean = gb.notLost && !isVictory
+  override def inGame: Boolean = state.inGame
 
   override def gameState: String = state.gameState
 
-  private def isVictory: Boolean =
-    0 == (for x <- gb.board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
+  def isVictory: Boolean = 0 == (for x <- gb.board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
   
 object Controller:
   def apply(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): Controller =
@@ -50,9 +50,9 @@ object Controller:
     val bMax: Int = Board.maxBombs(xSize, ySize) + ex
     require(bombCount >= 1 && bombCount <= bMax, s"Bomb Count must be between 1 and $bMax")
     val boardv = initField(0, 0, xStart, yStart, Vector.fill(xSize, ySize)(Field(false, true)), bombCount, bMax)
-    val out = new Controller(new Board(boardv, notLost = true))
+    val out = new Controller(new Board(boardv))
     for fx <- xStart - 1 to xStart + 1; fy <- yStart - 1 to yStart + 1 do
-        if out.gb.in(fx, fy) then out.gb = OpenFieldStrategy.execute(fx, fy, out.gb)
+        if out.gb.in(fx, fy) then out.gb = OpenFieldStrategy.execute(fx, fy, out)
     out
 
   @tailrec

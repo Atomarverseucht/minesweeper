@@ -13,7 +13,7 @@ sealed trait GameBoard {
 
 case class Field(isBomb: Boolean, isOpened: Boolean, isFlag: Boolean = false)
 
-case class Board (board: Vector[Vector[Field]], notLost: Boolean) extends GameBoard:
+case class Board (board: Vector[Vector[Field]]) extends GameBoard:
 
   override def getBombNeighbour(x: Int, y: Int): Int =
     (for
