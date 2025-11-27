@@ -13,4 +13,4 @@ class Won(override val context: Controller) extends GameState:
     override def gameState: String = "win"
 
 class Lost(override val context: Controller) extends GameState:
-    override def gameState: String = "lose"
+    override def gameState: String = "lose" 
