@@ -4,6 +4,10 @@ target/
 !**/src/test/**/target/
 *.class
 project/*
+minesweeper.iml.metals
+.vscode
+.metals
+=======
 
 ### IntelliJ IDEA ###
 .idea/*
