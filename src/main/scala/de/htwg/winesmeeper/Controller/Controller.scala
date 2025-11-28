@@ -31,6 +31,7 @@ class Controller(var gb: Board) extends Observable with gameController:
   override def gameState: String = state.gameState
 
   def isVictory: Boolean = 0 == (for x <- gb.board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
+  //def isVictory: Boolean = gb.board.flatten.forall(f => f.isBomb && !f.isOpened)
   
 object Controller:
   def apply(xStart: Int, yStart: Int, gb: Board): Controller =
