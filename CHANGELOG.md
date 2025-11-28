@@ -4,6 +4,24 @@
 ### Features
 
 * better code structure (3 Patterns) ([08a30cf](https://github.com/Atomarverseucht/minesweeper/commit/08a30cf513cc7c854093737989990cabe1c7ff42))
+* better structure (3 patterns) ([1961a85](https://github.com/Atomarverseucht/minesweeper/commit/1961a85fafadefbe32ff1f11e9fc54256529483f))
+* better structure (3 patterns) ([6d172b8](https://github.com/Atomarverseucht/minesweeper/commit/6d172b8ee71fad3e0ffae961d0259def888e5e2a))
+
+# [0.4.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/0.3.7...0.4.0-dev.1) (2025-11-28)
+
+
+### Features
+
+* better code structure (3 Patterns) ([08a30cf](https://github.com/Atomarverseucht/minesweeper/commit/08a30cf513cc7c854093737989990cabe1c7ff42))
+* better structure (3 patterns) ([1961a85](https://github.com/Atomarverseucht/minesweeper/commit/1961a85fafadefbe32ff1f11e9fc54256529483f))
+* better structure (3 patterns) ([6d172b8](https://github.com/Atomarverseucht/minesweeper/commit/6d172b8ee71fad3e0ffae961d0259def888e5e2a))
+
+# [0.4.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/0.3.7...0.4.0-dev.1) (2025-11-28)
+
+
+### Features
+
+* better code structure (3 Patterns) ([08a30cf](https://github.com/Atomarverseucht/minesweeper/commit/08a30cf513cc7c854093737989990cabe1c7ff42))
 * better structure (3 patterns) ([6d172b8](https://github.com/Atomarverseucht/minesweeper/commit/6d172b8ee71fad3e0ffae961d0259def888e5e2a))
 
 # [0.4.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/0.3.7...0.4.0-dev.1) (2025-11-28)
