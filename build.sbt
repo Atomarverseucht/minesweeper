@@ -8,7 +8,6 @@ ThisBuild / assemblyMergeStrategy := {
     case x => MergeStrategy.preferProject
 }
 
-
 lazy val root = project
   .in(file("."))
   .settings(
