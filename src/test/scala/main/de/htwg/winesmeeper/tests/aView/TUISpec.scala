@@ -4,6 +4,7 @@ import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Model.{Board, Field}
 import de.htwg.winesmeeper.{Observer, aView}
 import de.htwg.winesmeeper.aView.TUI.*
+import de.htwg.winesmeeper.start
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -15,8 +16,8 @@ class TUISpec extends AnyWordSpec with Matchers:
     setStart(Vector(25, 25, 5, 5, 20))
     val gb = initController
     "have the right size" in:
-      start(0) = gb.getSize._1
-      start(1) = gb.getSize._2
+      initVals(0) = gb.getSize._1
+      initVals(1) = gb.getSize._2
 
     "have output strings" in:
       (for i <- 0 until 5 yield getPrintString(i)).toVector shouldBe
@@ -76,7 +77,7 @@ class TUISpec extends AnyWordSpec with Matchers:
       val in = new ByteArrayInputStream(fakeInput.getBytes())
 
       Console.withIn(in){
-         aView.start()
+         start()
       }
 
   object dummySub extends Observer:

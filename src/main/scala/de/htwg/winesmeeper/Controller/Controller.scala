@@ -19,8 +19,7 @@ class Controller(var gb: Board) extends Observable with gameController:
   override def turn(cmd: String, x: Int, y: Int): Boolean =
     state.turn(cmd, x, y)
 
-  def changeState(newState: String): Unit =
-    state = state.changeState(newState)
+  def changeState(newState: String): Unit = state.changeState(newState)
     
   override def getBoard: Vector[Vector[Int]] = gb.getBoard
   

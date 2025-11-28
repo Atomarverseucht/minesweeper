@@ -10,7 +10,6 @@ class ControllerSpec extends AnyWordSpec with Matchers:
   "The Controller" should:
     val bVec = Vector(Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,true), Field(false,true), Field(false,true), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,true), Field(false,true), Field(false,true), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,true), Field(false,true), Field(false,true), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(true,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false)))
     val ctrl = new Controller(new Board(bVec))
-
     "have an init function" in:
       Controller(10,10,1,1,91).gb.getField(9,9) shouldBe -1
       Controller(10,10,0,0,91).gb.getField(9,9) shouldBe -1
@@ -33,9 +32,9 @@ class ControllerSpec extends AnyWordSpec with Matchers:
       l.getBoard
 
     "should have a help message" in:
-      help 
+      help
 
     "should have right states" in:
       ctrl.changeState("running")
-      an[IllegalStateException] should be thrownBy ctrl.changeState("fzjhtexhzt")
+      an[IllegalArgumentException] should be thrownBy ctrl.changeState("fzjhtexhzt")
       

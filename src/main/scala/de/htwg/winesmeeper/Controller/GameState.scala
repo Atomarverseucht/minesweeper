@@ -7,12 +7,7 @@ trait GameState:
     def gameState: String
     def inGame: Boolean = false
     def turn(cmd: String, x: Int, y: Int): Boolean = false
-    def changeState(state: String): GameState =
-        state match
-            case "win" => Won(context)
-            case "lose" => Lost(context)
-            case "running" => Running(context)
-            case _ => throw IllegalStateException("No such state")
+    def changeState(state: String): Unit = context.state = CORStatRunning.changeState(state, context)
 
 class Running(override val context: Controller) extends GameState:
     override def gameState: String = "running"
