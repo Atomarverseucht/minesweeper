@@ -54,9 +54,9 @@ class TUISpec extends AnyWordSpec with Matchers:
     "opens a lot of fields when field zero" in:
       val ctrl = Controller(20, 20, 1, 1, 100)
       ctrl.addSub(dummySub)
-      ctrl.turn("flag", 4, 4) shouldBe true
+      ctrl.turn("flag", 10, 10) shouldBe true
       ctrl.turn("open", 1, 1) shouldBe false
-      ctrl.turn("flag", 4, 4) shouldBe false
+      ctrl.turn("flag", 1, 1) shouldBe false
       ctrl.removeSub(dummySub)
 
   "an User Interface" should:
