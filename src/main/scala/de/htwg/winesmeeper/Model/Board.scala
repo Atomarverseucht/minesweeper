@@ -1,5 +1,6 @@
 package de.htwg.winesmeeper.Model
 
+import scala.util.Random
 import scala.annotation.tailrec
 
 // all in some cases useful functions of the Board in a short overview.
@@ -60,3 +61,34 @@ object Board:
 
   def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =
     ((x0-x1).abs <= 1) && ((y0-y1).abs <= 1)
+
+  def apply(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): Board =
+    require(xSize >= 10 && ySize >= 10, "x and y size must be >= 10")
+    require(xStart <= xSize && xStart >= 0 && yStart <= ySize && yStart >= 0, "Starting position must be on the field")
+    val ex =
+      if isEdge(xSize, xStart) && isEdge(ySize, yStart) then 5
+      else if isEdge(xSize, xStart) || isEdge(ySize, yStart) then 3
+      else 0
+    val bMax: Int = Board.maxBombs(xSize, ySize) + ex
+    require(bombCount >= 1 && bombCount <= bMax, s"Bomb Count must be between 1 and $bMax")
+    val boardv = initField(0, 0, xStart, yStart, Vector.fill(xSize, ySize)(Field(false, true)), bombCount, bMax)
+    new Board(boardv)
+    
+  @tailrec
+  private def initField(indx: Int, indy: Int, xStart: Int, yStart: Int, boardv: Vector[Vector[Field]], bombCount: Int, fieldCount: Int): Vector[Vector[Field]] =
+    if fieldCount <= 0 then
+      boardv
+    else
+      val newV: (Boolean, Int, Field) =
+        if Board.isNeighbour(xStart, yStart, indx, indy) then
+          (false, fieldCount, Field(false, false))
+        else
+          val isBomb = Random.nextInt(fieldCount) < bombCount
+          (isBomb, fieldCount - 1, Field(isBomb, false))
+
+      val nboard = boardv.updated(indx, boardv(indx).updated(indy, newV._3))
+      val nbc = if newV._1 then bombCount - 1 else bombCount
+      val nextC = if indx + 1 < boardv.length then (indx + 1, indy) else (0, indy + 1)
+      initField(nextC._1, nextC._2, xStart, yStart, nboard, nbc, newV._2)
+
+  private def isEdge(size: Int, x: Int): Boolean = x == 0 || x == size - 1
