@@ -6,17 +6,11 @@ import de.htwg.winesmeeper.Observer
 
 import scala.annotation.tailrec
 
-@main def start(): Unit =
-  for i <- 0 until 5 do
-    println(TUI.getPrintString(i))
-    TUI.start(i) = readInt
-  (new View).nextTurn
-
-class View extends Observer:
-  val ctrl: Controller = TUI.initController
+class View(ctrl: Controller) extends Observer:
   ctrl.addSub(this)
   println(TUI.getBoardString(ctrl))
-
+  nextTurn
+  
   def nextTurn: Boolean =
     if !TUI.turn(readLine, ctrl) then println("Nice try")
     if ctrl.inGame then nextTurn

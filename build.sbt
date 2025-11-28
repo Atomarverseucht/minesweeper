@@ -8,12 +8,11 @@ ThisBuild / assemblyMergeStrategy := {
     case x => MergeStrategy.preferProject
 }
 
-
 lazy val root = project
   .in(file("."))
   .settings(
     name := "minesweeper",
-    version := "0.3.7",
+    version := "0.4.0-dev.2",
 
     scalaVersion := scala3Version,
     scalacOptions ++= Seq("-encoding", "utf-8"),

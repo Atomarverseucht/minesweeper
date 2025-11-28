@@ -1,11 +1,10 @@
 package de.htwg.winesmeeper.aView
 
 import de.htwg.winesmeeper.Controller.Controller
-import de.htwg.winesmeeper.Observer
 
 // View
 object TUI:
-  val start = new Array[Int](5)
+  val initVals = new Array[Int](5)
 
   def getPrintString(indx: Int): String =
     indx match
@@ -14,15 +13,15 @@ object TUI:
       case 1 =>
         "Please enter the size of the y coordinate. It must be >= 10"
       case 2 =>
-        "Please enter your x starting coordinate between 0 and " + (start(0) - 1)
+        "Please enter your x starting coordinate between 0 and " + (initVals(0) - 1)
       case 3 =>
-        "Please enter your starting y coordinate between 0 and " + (start(1) - 1)
+        "Please enter your starting y coordinate between 0 and " + (initVals(1) - 1)
       case 4 =>
-        "Please enter the count of bombs. It must be between 1 and " + (start(0) * start(1) - 9)
+        "Please enter the count of bombs. It must be between 1 and " + (initVals(0) * initVals(1) - 9)
 
-  def setStart(vec: Vector[Int]): Unit = for i <- start.indices do start(i) = vec(i)
+  def setStart(vec: Vector[Int]): Unit = for i <- initVals.indices do initVals(i) = vec(i)
   
-  def initController: Controller = Controller(start(0), start(1), start(2), start(3), start(4))
+  def initController: Controller = Controller(initVals(0), initVals(1), initVals(2), initVals(3), initVals(4))
 
   def getBoardString(ctrl: Controller): String = // TUI-design for the Board
     val b = ctrl.getBoard
