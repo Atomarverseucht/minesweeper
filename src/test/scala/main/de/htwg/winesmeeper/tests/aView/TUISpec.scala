@@ -44,6 +44,7 @@ class TUISpec extends AnyWordSpec with Matchers:
       turn("open 2 2", l) shouldBe true
       gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
       gameEndMsg(gb) shouldBe "???"
+      turn("open 2 2", l) shouldBe false
 
     "checked unvalid turn" in :
       val c: Controller = Controller(10, 10, 1, 1, 20)

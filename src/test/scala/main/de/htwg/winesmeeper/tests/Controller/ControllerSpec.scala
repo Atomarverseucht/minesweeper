@@ -1,6 +1,7 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
 import de.htwg.winesmeeper.Controller.Controller
+import de.htwg.winesmeeper.Controller.help
 import de.htwg.winesmeeper.Model.{Board, Field}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -30,3 +31,11 @@ class ControllerSpec extends AnyWordSpec with Matchers:
       val l = Controller(10, 10, 5, 5, 90); l.turn("open", 1, 1)
       l.gameState shouldBe "lose"
       l.getBoard
+
+    "should have a help message" in:
+      help 
+
+    "should have right states" in:
+      ctrl.changeState("running")
+      an[IllegalStateException] should be thrownBy ctrl.changeState("fzjhtexhzt")
+      
