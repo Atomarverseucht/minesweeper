@@ -38,7 +38,7 @@ class TUISpec extends AnyWordSpec with Matchers:
       val w = Controller(10, 10, 5, 5, 91)
       gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
       val lVec = Vector.fill(10, 10)(Field(true, false))
-      val l = new Controller(Board(lVec.updated(1, lVec(1).updated(1, Field(false, false))), true))
+      val l = new Controller(new Board(lVec.updated(1, lVec(1).updated(1, Field(false, false)))))
         Controller(10, 10, 5, 5, 90)
       turn("flag 2 2", l) shouldBe true
       turn("open 2 2", l) shouldBe true
