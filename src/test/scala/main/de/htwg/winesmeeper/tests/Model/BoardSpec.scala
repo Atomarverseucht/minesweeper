@@ -2,7 +2,7 @@ package main.de.htwg.winesmeeper.tests.Model
 
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Model.Board
-import de.htwg.winesmeeper.aView.TUI.*
+import de.htwg.winesmeeper.aView.TUIHelper.*
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 

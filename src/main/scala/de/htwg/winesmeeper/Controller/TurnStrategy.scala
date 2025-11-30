@@ -1,4 +1,4 @@
-package de.htwg.winesmeeper.Controller
+/*package de.htwg.winesmeeper.Controller
 
 import de.htwg.winesmeeper.Model.Board
 import de.htwg.winesmeeper.Model.Field
@@ -51,4 +51,4 @@ object FlagStrategy extends TurnStrategy:
     else Board(ctrl.gb.board.updated(x, ctrl.gb.board(x).updated(y, Field(f.isBomb, f.isOpened, !f.isFlag))))
 
 
-def help: String = stratList.map(i => i.cmd + " - " + i.helpMsg).mkString("\n")
+def help: String = stratList.map(i => i.cmd + " - " + i.helpMsg).mkString("\n")*/

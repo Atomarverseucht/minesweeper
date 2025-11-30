@@ -3,7 +3,7 @@ package main.de.htwg.winesmeeper.tests.aView
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Model.{Board, Field}
 import de.htwg.winesmeeper.{Observer, aView}
-import de.htwg.winesmeeper.aView.TUI.*
+import de.htwg.winesmeeper.aView.TUIHelper.*
 import de.htwg.winesmeeper.start
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers

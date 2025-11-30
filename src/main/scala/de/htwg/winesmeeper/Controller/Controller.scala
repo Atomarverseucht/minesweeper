@@ -2,9 +2,7 @@ package de.htwg.winesmeeper.Controller
 
 import de.htwg.winesmeeper.Model.*
 import de.htwg.winesmeeper.Observable
-
-import scala.annotation.tailrec
-import scala.util.Random
+import de.htwg.winesmeeper.Controller.Commands.{OpenFieldCmd, UndoManager}
 
 sealed trait gameController:
   def turn(cmd: String, x: Int, y: Int): Boolean
@@ -16,10 +14,15 @@ sealed trait gameController:
 class Controller(var gb: Board) extends Observable with gameController:
  
   var state: GameState = Running(this)
-  override def turn(cmd: String, x: Int, y: Int): Boolean =
-    state.turn(cmd, x, y)
+  val undo: UndoManager = UndoManager(this)
+  
+  override def turn(cmd: String, x: Int, y: Int): Boolean = state.turn(cmd, x, y)
 
   def changeState(newState: String): Unit = state.changeState(newState)
+
+  def isSysCmd(cmd: String): Boolean = SysCommands.SysCommandHandler.isSysCmd(cmd)
+  
+  def doSysCmd(cmd: String): String = SysCommands.SysCommandHandler.doSysCmd(this, cmd)
     
   override def getBoard: Vector[Vector[Int]] = gb.getBoard
   
@@ -35,7 +38,7 @@ object Controller:
   def apply(xStart: Int, yStart: Int, gb: Board): Controller =
     val out = new Controller(gb)
     for fx <- xStart - 1 to xStart + 1; fy <- yStart - 1 to yStart + 1 do
-      if gb.in(fx, fy) then out.gb = OpenFieldStrategy.execute(fx, fy, out)
+      if gb.in(fx, fy) then OpenFieldCmd(out, fx, fy).doStep()
     out
     
   def apply(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): Controller =
