@@ -1,3 +1,10 @@
+# [0.5.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/0.4.0...0.5.0-dev.1) (2025-11-30)
+
+
+### Features
+
+* new Command and System Command system ([0adde92](https://github.com/Atomarverseucht/minesweeper/commit/0adde9278dd52d2b55f8d383fd63c86b789f91cb))
+
 # [0.4.0](https://github.com/Atomarverseucht/minesweeper/compare/0.3.7...0.4.0) (2025-11-28)
 
 
