@@ -13,7 +13,7 @@ class TUI(ctrl: Controller) extends Observer:
   
   def nextTurn: Boolean =
     println(TUIHelper.turn(readLine, ctrl))
-    if ctrl.inGame then nextTurn
+    if !ctrl.isQuitted then nextTurn
     ctrl.inGame
 
   override def update(): Unit =

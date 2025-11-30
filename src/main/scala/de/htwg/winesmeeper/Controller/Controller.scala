@@ -15,6 +15,7 @@ class Controller(var gb: Board) extends Observable with gameController:
  
   var state: GameState = Running(this)
   val undo: UndoManager = UndoManager(this)
+  var isQuitted = false
   
   override def turn(cmd: String, x: Int, y: Int): Boolean = state.turn(cmd, x, y)
 

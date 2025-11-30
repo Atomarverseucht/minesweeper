@@ -40,9 +40,9 @@ object TUIHelper:
       val in = input.split("[^\\w\\d]+")
       if ctrl.isSysCmd(in(0)) then ctrl.doSysCmd(in(0))
       else
-        ctrl.turn(in(0), in(1).toInt, in(2).toInt); ""
+        if !ctrl.turn(in(0), in(1).toInt, in(2).toInt) then "Invalid command!" else ""
     catch
-      case _ => "Nice try"
+      case _ => "No such command!"
 
   def gameEndMsg(ctrl: Controller): String =
     val out = ctrl.gameState match
