@@ -35,3 +35,4 @@ class ControllerSpec extends AnyWordSpec with Matchers:
       ctrl.changeState("running")
       an[IllegalArgumentException] should be thrownBy ctrl.changeState("fzjhtexhzt")
       
+      

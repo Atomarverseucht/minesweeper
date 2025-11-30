@@ -5,8 +5,8 @@ import scala.util.{Success, Failure}
 import scala.collection.mutable.Stack
 
 case class UndoManager(control: Controller):
-  var undoStack: Stack[Command] = new Stack()
-  var redoStack: Stack[Command] = new Stack()
+  private val undoStack: Stack[Command] = new Stack()
+  private val redoStack: Stack[Command] = new Stack()
 
   def doStep(cmd: Command): Boolean =
     val change = cmd.doStep()
@@ -14,6 +14,12 @@ case class UndoManager(control: Controller):
       undoStack.push(cmd)
       control.notifyObservers()
     change
+
+  def redoStep =
+    val cmd = redoStack.pop
+    cmd.redoStep()
+    undoStack.push(cmd)
+    control.notifyObservers()
 
 
   def undoStep =

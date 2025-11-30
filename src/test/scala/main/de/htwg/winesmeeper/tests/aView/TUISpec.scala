@@ -74,6 +74,7 @@ class TUISpec extends AnyWordSpec with Matchers:
           |open.1,1
           |help
           |undo
+          |redo
           |quit
           |""".stripMargin
 

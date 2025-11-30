@@ -26,7 +26,7 @@ object LastElemSysCommand extends SysCommandCOR:
   override val helpMsg: String = ""
   override val next: SysCommandCOR = this
 
-  override def execute(ctrl: Controller): String = "No such Command"
+  override def execute(ctrl: Controller): String = "No such command"
 
   override def getSysCmd(cmd: String): Option[SysCommandCOR] = None
 
