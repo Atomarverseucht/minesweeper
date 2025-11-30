@@ -17,11 +17,13 @@ class CommandSpec extends AnyWordSpec with Matchers:
       LastElemSysCommand.execute(testCtrl) shouldBe "No such command"
 
     "should discard with undo" in:
-      testCtrl.undo.doCmd("flag", 9, 9)
-      testCtrl.undo.doCmd("open", 9, 9)
+      testCtrl.undo.doCmd("flag", 9, 9) shouldBe true
+      testCtrl.undo.doCmd("open", 9, 9) shouldBe true
       testCtrl.doSysCmd("undo")
       testCtrl.doSysCmd("undo")
 
+    "should be false with unvalid turns" in:
+      testCtrl.undo.doCmd("error", 9, 9) shouldBe false
     "should have redo" in:
       testCtrl.doSysCmd("redo")
       testCtrl.doSysCmd("redo")
