@@ -11,7 +11,7 @@ trait SysCommandCOR:
   def getSysCmd(cmd: String): Option[SysCommandCOR] = if cmd == this.cmd then Some(this) else next.getSysCmd(cmd)
   def listCmds: List[SysCommandCOR] = this::next.listCmds
 
-object SysCommandHandler:
+object SysCommandManager:
   private val firstSysCmd: SysCommandCOR = HelpCmd
 
   def isSysCmd(cmd: String): Boolean =
