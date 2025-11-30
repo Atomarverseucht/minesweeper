@@ -16,13 +16,7 @@ class Running(override val context: Controller) extends GameState:
     override def turn(cmd: String, x: Int, y: Int): Boolean =
       if !context.gb.in(x, y) then false
       else
-        val oldGB = context.gb
-        val strat = stratList.filter(strategy => strategy.cmd == cmd)(0)
-        context.gb = strat.execute(x, y, context)
-        if oldGB != context.gb then
-            context.notifyObservers();
-            true
-        else false
+        context.undo.doCmd(cmd, x, y)
 
 class Won(override val context: Controller) extends GameState:
     override def gameState: String = "win"

@@ -1,3 +1,31 @@
+# [0.5.0-dev.4](https://github.com/Atomarverseucht/minesweeper/compare/0.5.0-dev.3...0.5.0-dev.4) (2025-11-30)
+
+
+### Features
+
+* redo command ([a33760c](https://github.com/Atomarverseucht/minesweeper/commit/a33760ca0167ef0bcfbeed4348967df38c11644c))
+
+# [0.5.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/0.5.0-dev.2...0.5.0-dev.3) (2025-11-30)
+
+
+### Bug Fixes
+
+* Help is now better formatted ([ad1d13e](https://github.com/Atomarverseucht/minesweeper/commit/ad1d13ec0a921a358a102ddf73477934692412c3))
+
+# [0.5.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/0.5.0-dev.1...0.5.0-dev.2) (2025-11-30)
+
+
+### Features
+
+* new quit system-command ([c743bb4](https://github.com/Atomarverseucht/minesweeper/commit/c743bb493d3e637600d4b120834d82cdfc4b5387))
+
+# [0.5.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/0.4.0...0.5.0-dev.1) (2025-11-30)
+
+
+### Features
+
+* new Command and System Command system ([0adde92](https://github.com/Atomarverseucht/minesweeper/commit/0adde9278dd52d2b55f8d383fd63c86b789f91cb))
+
 # [0.4.0](https://github.com/Atomarverseucht/minesweeper/compare/0.3.7...0.4.0) (2025-11-28)
 
 
