@@ -1,3 +1,10 @@
+# [0.5.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/0.5.0-dev.1...0.5.0-dev.2) (2025-11-30)
+
+
+### Features
+
+* new quit system-command ([c743bb4](https://github.com/Atomarverseucht/minesweeper/commit/c743bb493d3e637600d4b120834d82cdfc4b5387))
+
 # [0.5.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/0.4.0...0.5.0-dev.1) (2025-11-30)
 
 
