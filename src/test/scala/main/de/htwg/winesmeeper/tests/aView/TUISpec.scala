@@ -41,16 +41,16 @@ class TUISpec extends AnyWordSpec with Matchers:
       val lVec = Vector.fill(10, 10)(Field(true, false))
       val l = new Controller(new Board(lVec.updated(1, lVec(1).updated(1, Field(false, false)))))
         Controller(10, 10, 5, 5, 90)
-      turn("flag 2 2", l) shouldBe true
-      turn("open 2 2", l) shouldBe true
+      turn("flag 2 2", l) shouldBe ""
+      turn("open 2 2", l) shouldBe ""
       gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
       gameEndMsg(gb) shouldBe "???"
-      turn("open 2 2", l) shouldBe false
+      turn("open 2 2", l) shouldBe "Invalid command!"
 
     "checked unvalid turn" in :
       val c: Controller = Controller(10, 10, 1, 1, 20)
-      turn("gfjzgfkf", c) shouldBe false
-      turn("1000 1000", c) shouldBe false
+      turn("gfjzgfkf", c) shouldBe "No such command"
+      turn("1000 1000", c) shouldBe "No such command"
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
@@ -72,6 +72,9 @@ class TUISpec extends AnyWordSpec with Matchers:
           |flag 7 7
           |open.10000usifduoiwstrhfgu9sfh10000
           |open.1,1
+          |help
+          |undo
+          |quit
           |""".stripMargin
 
       val in = new ByteArrayInputStream(fakeInput.getBytes())
