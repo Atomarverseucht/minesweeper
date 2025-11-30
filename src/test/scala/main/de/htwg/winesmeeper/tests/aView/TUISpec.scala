@@ -49,8 +49,8 @@ class TUISpec extends AnyWordSpec with Matchers:
 
     "checked unvalid turn" in :
       val c: Controller = Controller(10, 10, 1, 1, 20)
-      turn("gfjzgfkf", c) shouldBe "No such command"
-      turn("1000 1000", c) shouldBe "No such command"
+      turn("gfjzgfkf", c) shouldBe "No such command!"
+      turn("1000 1000", c) shouldBe "No such command!"
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
