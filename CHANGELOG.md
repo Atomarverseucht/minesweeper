@@ -1,3 +1,10 @@
+# [0.5.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/0.5.0-dev.2...0.5.0-dev.3) (2025-11-30)
+
+
+### Bug Fixes
+
+* Help is now better formatted ([ad1d13e](https://github.com/Atomarverseucht/minesweeper/commit/ad1d13ec0a921a358a102ddf73477934692412c3))
+
 # [0.5.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/0.5.0-dev.1...0.5.0-dev.2) (2025-11-30)
 
 
