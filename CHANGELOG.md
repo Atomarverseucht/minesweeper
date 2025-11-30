@@ -1,3 +1,10 @@
+# [0.5.0-dev.4](https://github.com/Atomarverseucht/minesweeper/compare/0.5.0-dev.3...0.5.0-dev.4) (2025-11-30)
+
+
+### Features
+
+* redo command ([a33760c](https://github.com/Atomarverseucht/minesweeper/commit/a33760ca0167ef0bcfbeed4348967df38c11644c))
+
 # [0.5.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/0.5.0-dev.2...0.5.0-dev.3) (2025-11-30)
 
 
