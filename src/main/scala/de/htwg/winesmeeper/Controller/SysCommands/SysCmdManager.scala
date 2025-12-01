@@ -1,6 +1,7 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 import de.htwg.winesmeeper.Controller.Controller
 
+import java.nio.file.{Path, Paths}
 import scala.::
 
 trait SysCommandCOR:
@@ -21,6 +22,7 @@ object SysCommandManager:
     val com = firstSysCmd.getSysCmd(cmd)
     com.get.execute(cntrl)
 
+  val savedGame: Path = Paths.get("./saves/savedGame.txt")
 object LastElemSysCommand extends SysCommandCOR:
   override val cmd: String = ""
   override val helpMsg: String = ""
