@@ -7,6 +7,7 @@ import de.htwg.winesmeeper.Controller.Controller
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
+import java.nio.file.{Files, Paths}
 import scala.util.Failure
 
 class CommandSpec extends AnyWordSpec with Matchers:
@@ -24,6 +25,10 @@ class CommandSpec extends AnyWordSpec with Matchers:
 
     "should be false with unvalid turns" in:
       testCtrl.undo.doCmd("error", 9, 9) shouldBe false
+
     "should have redo" in:
       testCtrl.doSysCmd("redo")
       testCtrl.doSysCmd("redo")
+
+    "should checks version by loading" in:
+      Files.write(Paths.get("./savedGame.txt"), "version: invalid\n".getBytes())
