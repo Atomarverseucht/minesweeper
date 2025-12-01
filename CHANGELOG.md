@@ -1,3 +1,10 @@
+# [0.6.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/0.5.0...0.6.0-dev.1) (2025-12-01)
+
+
+### Features
+
+* save & load command ([248fffd](https://github.com/Atomarverseucht/minesweeper/commit/248fffd30eb4cc545e5410deca3c3701682875ac))
+
 # [0.5.0](https://github.com/Atomarverseucht/minesweeper/compare/0.4.0...0.5.0) (2025-11-30)
 
 
