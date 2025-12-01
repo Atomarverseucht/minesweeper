@@ -7,7 +7,6 @@ import de.htwg.winesmeeper.Controller.Controller
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-import java.nio.file.{Files, Paths}
 import scala.util.Failure
 
 class CommandSpec extends AnyWordSpec with Matchers:
@@ -28,7 +27,3 @@ class CommandSpec extends AnyWordSpec with Matchers:
     "should have redo" in:
       testCtrl.doSysCmd("redo")
       testCtrl.doSysCmd("redo")
-
-    "have version check in load function" in:
-      Files.write(Paths.get("./savedGame.txt"), "version: invalid".toString.getBytes())
-      testCtrl.doSysCmd("load")

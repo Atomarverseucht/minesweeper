@@ -10,7 +10,7 @@ object LoadCmd extends SysCommandCOR:
   override val next: SysCommandCOR = QuitCmd
 
   override def execute(ctrl: Controller): String =
-    val savedVal = Files.readString(Paths.get("./savedGame.txt")).split("\n")
+    val savedVal = Files.readString(Paths.get("./person.txt")).split("\n")
     val savedVals = savedVal.map(sv => sv.split(": ")(1))
     if savedVals(0) != de.htwg.winesmeeper.BuildInfo.version then
       s"not the same version \n Saved game version: ${savedVals(0)} != ${de.htwg.winesmeeper.BuildInfo.version}"
