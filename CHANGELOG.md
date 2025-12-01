@@ -1,3 +1,5 @@
+# [0.6.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.1...0.6.0-dev.2) (2025-12-01)
+
 # [0.6.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/0.5.0...0.6.0-dev.1) (2025-12-01)
 
 
