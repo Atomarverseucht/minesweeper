@@ -14,8 +14,7 @@ case class FlagCommand(ctrl: Controller, x: Int, y: Int) extends Command:
     if (!f.isOpened) then
       ctrl.gb = Board(ctrl.gb.board.updated(x, ctrl.gb.board(x).updated(y, Field(f.isBomb, f.isOpened, !f.isFlag))))
       true
-    else
-      print("hi2");false
+    else false
 
   override def undoStep(): Boolean = doStep()
 

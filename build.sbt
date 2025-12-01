@@ -1,4 +1,3 @@
-import sbt.addSbtPlugin
 
 val scala3Version = "3.7.3"
 
@@ -7,6 +6,10 @@ ThisBuild / assemblyMergeStrategy := {
     case PathList("META-INF", xs @ _*) => MergeStrategy.discard
     case x => MergeStrategy.preferProject
 }
+enablePlugins(BuildInfoPlugin)
+
+buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion)
+buildInfoPackage := "de.htwg.winesmeeper"
 
 lazy val root = project
   .in(file("."))
@@ -23,8 +26,12 @@ lazy val root = project
     coverageExcludedFiles := "*Main*",
 
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % Test,
-    libraryDependencies += "org.scoverage" % "sbt-coveralls_2.12_1.0" % "1.3.15",
-  )
+      libraryDependencies ++= Seq(
+          "io.circe" %% "circe-core" % "0.14.15",
+          "io.circe" %% "circe-generic" % "0.14.15",
+          "io.circe" %% "circe-parser" % "0.14.15"
+      )
+)
 
 
 

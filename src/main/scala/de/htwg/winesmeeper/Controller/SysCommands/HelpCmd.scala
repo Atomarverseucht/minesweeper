@@ -7,7 +7,7 @@ import de.htwg.winesmeeper.Controller.Commands.CORFlag
 object HelpCmd extends SysCommandCOR:
   override val cmd: String = "help"
   override val helpMsg: String = "made this message"
-  override val next: SysCommandCOR = QuitCmd
+  override val next: SysCommandCOR = LoadCmd
 
   override def execute(ctrl: Controller): String =
    val sysCmds = HelpCmd.listCmds

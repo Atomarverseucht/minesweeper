@@ -6,7 +6,7 @@ import de.htwg.winesmeeper.Controller.Controller
 object RedoCmd extends SysCommandCOR:
   override val cmd: String = "redo"
   override val helpMsg: String = "redo your latest undo move"
-  override val next: SysCommandCOR = UndoCmd
+  override val next: SysCommandCOR = SaveCmd
   
   override def execute(ctrl: Controller): String =
     ctrl.undo.redoStep
