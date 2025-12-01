@@ -7,6 +7,7 @@ import scala.util.{Success, Try}
 
 case class OpenFieldCmd(ctrl: Controller, x: Int, y: Int) extends Command:
 
+  val isFlag: Boolean = ctrl.gb.board(x)(y).isFlag
   override def doStep(): Boolean =
     step(true)
 
@@ -21,7 +22,7 @@ case class OpenFieldCmd(ctrl: Controller, x: Int, y: Int) extends Command:
     val f = gb.getFieldAt(x, y)
     if discover == f.isOpened then false
     else
-      val newVector = gb.board.updated(x, gb.board(x).updated(y, Field(f.isBomb, discover)))
+      val newVector = gb.board.updated(x, gb.board(x).updated(y, Field(f.isBomb, discover, !discover && isFlag)))
       ctrl.gb = new Board(newVector)
       if f.isBomb && !discover then ctrl.changeState("running")
       if f.isBomb && discover then ctrl.changeState("lose");

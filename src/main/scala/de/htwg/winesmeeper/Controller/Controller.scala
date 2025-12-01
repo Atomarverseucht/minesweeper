@@ -35,7 +35,7 @@ class Controller(var gb: Board) extends Observable with gameController:
 
   def isVictory: Boolean = 0 == (for x <- gb.board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
 
-  override def toString: String =
+  override def toString: String = // wird auch als save-Darstellung verwendet
     val version = s"version: ${de.htwg.winesmeeper.BuildInfo.version}\n"
     val stateS = s"state: $gameState\n"
     val boardS = s"board: ${gb.board.mkString(", ")}"
