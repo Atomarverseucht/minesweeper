@@ -2,10 +2,7 @@ package de.htwg.winesmeeper.Controller.SysCommands
 
 import de.htwg.winesmeeper.Controller.Controller
 
-import java.nio.file.Files
 import java.nio.file.{Files, Paths}
-import io.circe.generic.auto._
-import io.circe.syntax._
 
 object SaveCmd extends SysCommandCOR:
   override val next: SysCommandCOR = UndoCmd

@@ -26,11 +26,6 @@ lazy val root = project
     coverageExcludedFiles := "*Main*",
 
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % Test,
-      libraryDependencies ++= Seq(
-          "io.circe" %% "circe-core" % "0.14.15",
-          "io.circe" %% "circe-generic" % "0.14.15",
-          "io.circe" %% "circe-parser" % "0.14.15"
-      )
 )
 
 
