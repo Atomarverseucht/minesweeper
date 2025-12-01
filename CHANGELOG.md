@@ -1,3 +1,10 @@
+# [0.6.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.2...0.6.0-dev.3) (2025-12-01)
+
+
+### Features
+
+* colorful TUI board ([6773012](https://github.com/Atomarverseucht/minesweeper/commit/67730124d3de966c1e740681a80a9b359ad999de))
+
 # [0.6.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.1...0.6.0-dev.2) (2025-12-01)
 
 # [0.6.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/0.5.0...0.6.0-dev.1) (2025-12-01)
