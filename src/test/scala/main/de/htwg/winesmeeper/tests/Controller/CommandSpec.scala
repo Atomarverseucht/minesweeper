@@ -31,5 +31,5 @@ class CommandSpec extends AnyWordSpec with Matchers:
       testCtrl.doSysCmd("redo")
 
     "should checks version by loading" in:
-      Files.write(Paths.get("./savedGame.txt"), "version: invalid\n".getBytes())
+      Files.write(SysCommandManager.savedGame, "version: invalid\n".getBytes())
       testCtrl.doSysCmd("load")

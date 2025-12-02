@@ -32,7 +32,7 @@ class TUISpec extends AnyWordSpec with Matchers:
 
     "have the right bomb emoji" in:
       emojify(-2) shouldBe "*"
-      emojify(-1) shouldBe "█"
+      emojify(-1) shouldBe "#"
       emojify(1) shouldBe "1"
 
     "have right end-msgs" in:
