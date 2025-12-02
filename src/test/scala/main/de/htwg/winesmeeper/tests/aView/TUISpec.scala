@@ -32,8 +32,8 @@ class TUISpec extends AnyWordSpec with Matchers:
 
     "have the right bomb emoji" in:
       emojify(-2) shouldBe "*"
-      emojify(-1) shouldBe "#"
-      emojify(1) shouldBe "1"
+      emojify(-1) shouldBe "\u001b[1;37m#\u001b[0m"
+      emojify(1) shouldBe "\u001b[1;94m1\u001b[0m"
 
     "have right end-msgs" in:
       val w = Controller(10, 10, 5, 5, 91)
