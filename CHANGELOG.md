@@ -1,3 +1,10 @@
+# [0.6.0-dev.7](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.6...0.6.0-dev.7) (2025-12-04)
+
+
+### Bug Fixes
+
+* added undo and redo stacks to the save file and load it correctly ([8104b60](https://github.com/Atomarverseucht/minesweeper/commit/8104b6000ae846ef21ed18f00d1552f18926ebad))
+
 # [0.6.0-dev.6](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.5...0.6.0-dev.6) (2025-12-04)
 
 
