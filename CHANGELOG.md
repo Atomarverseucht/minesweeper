@@ -1,3 +1,10 @@
+# [0.6.0-dev.4](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.3...0.6.0-dev.4) (2025-12-04)
+
+
+### Features
+
+* save and load has now optional params ([1cf3142](https://github.com/Atomarverseucht/minesweeper/commit/1cf3142c2fbb38cef4af53a6e47fa472c19cf65f))
+
 # [0.6.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.2...0.6.0-dev.3) (2025-12-01)
 
 
