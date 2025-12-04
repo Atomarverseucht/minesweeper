@@ -6,9 +6,9 @@ import de.htwg.winesmeeper.Controller.SysCommands.SysCommandManager
 import de.htwg.winesmeeper.Controller.Controller
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+import scala.util.Try
 
 import java.nio.file.{Files, Paths}
-import scala.util.Failure
 
 class CommandSpec extends AnyWordSpec with Matchers:
   "The Command" should:
