@@ -19,6 +19,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
 
     "should discard with undo" in:
       testCtrl.undo.doCmd("flag", 9, 9) shouldBe true
+      testCtrl.undo.doCmd("flag", 8, 8) shouldBe true
       testCtrl.undo.doCmd("open", 9, 9) shouldBe true
       testCtrl.doSysCmd("undo")
       testCtrl.doSysCmd("undo")
@@ -27,11 +28,12 @@ class CommandSpec extends AnyWordSpec with Matchers:
       testCtrl.undo.doCmd("error", 9, 9) shouldBe false
 
     "should have redo" in:
-      testCtrl.doSysCmd("redo")
-      testCtrl.doSysCmd("redo")
+      testCtrl.doSysCmd("redo", Vector("", "2"))
+      testCtrl.doSysCmd("undo", Vector("", "2"))
 
     "should checks version by loading" in:
       testCtrl.doSysCmd("save")
+      testCtrl.doSysCmd("load", Vector("load", "file"))
       testCtrl.doSysCmd("load")
       Files.write(SysCommandManager.savedGame(Try("")), "version: invalid\n".getBytes())
       testCtrl.doSysCmd("load")
