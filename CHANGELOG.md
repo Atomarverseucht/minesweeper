@@ -1,3 +1,10 @@
+# [0.6.0-dev.5](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.4...0.6.0-dev.5) (2025-12-04)
+
+
+### Features
+
+* specific help messages for commands (type "help <command>") ([8722878](https://github.com/Atomarverseucht/minesweeper/commit/872287891f93395c3dab72a96d7ec293d953a383))
+
 # [0.6.0-dev.4](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.3...0.6.0-dev.4) (2025-12-04)
 
 
