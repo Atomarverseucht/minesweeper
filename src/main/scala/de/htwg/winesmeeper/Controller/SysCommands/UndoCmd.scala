@@ -10,7 +10,7 @@ object UndoCmd extends SysCommandCOR:
   override val helpMsg: String = "discards the last turn"
   override val next: SysCommandCOR = LastElemSysCommand
 
-  override def execute(ctrl: Controller): String = 
+  override def execute(ctrl: Controller, cmd: String, params: Vector[String]): String = 
     ctrl.undo.undoStep
     "undo"
   

@@ -8,6 +8,6 @@ object RedoCmd extends SysCommandCOR:
   override val helpMsg: String = "redo your latest undo move"
   override val next: SysCommandCOR = SaveCmd
   
-  override def execute(ctrl: Controller): String =
+  override def execute(ctrl: Controller, cmd: String, params: Vector[String]): String =
     ctrl.undo.redoStep
     ""

@@ -7,7 +7,7 @@ object QuitCmd extends SysCommandCOR:
   override val helpMsg: String = "end the game"
   override val next: SysCommandCOR = RedoCmd
 
-  override def execute(ctrl: Controller): String = 
+  override def execute(ctrl: Controller, cmd: String, params: Vector[String]): String = 
     ctrl.isQuitted = true
     "Successfully quitted the game"
   

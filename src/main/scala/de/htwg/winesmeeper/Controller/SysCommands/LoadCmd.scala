@@ -9,8 +9,9 @@ object LoadCmd extends SysCommandCOR:
   override val helpMsg: String = "Overrides the actual board with the saved file"
   override val next: SysCommandCOR = QuitCmd
 
-  override def execute(ctrl: Controller): String =
-    val savedVal = Files.readString(SysCommandManager.savedGame).split("\n")
+  override def execute(ctrl: Controller, cmd: String, params: Vector[String]): String =
+    
+    val savedVal = Files.readString(SysCommandManager.savedGame(params(1))).split("\n")
     val savedVals = savedVal.map(sv => sv.split(": ")(1))
     if savedVals(0) != de.htwg.winesmeeper.BuildInfo.version then
       s"not the same version \n Saved game version: ${savedVals(0)} != ${de.htwg.winesmeeper.BuildInfo.version}"

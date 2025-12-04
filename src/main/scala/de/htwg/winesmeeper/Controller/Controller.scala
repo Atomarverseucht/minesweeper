@@ -23,7 +23,8 @@ class Controller(var gb: Board) extends Observable with gameController:
 
   def isSysCmd(cmd: String): Boolean = SysCommands.SysCommandManager.isSysCmd(cmd.toLowerCase())
   
-  def doSysCmd(cmd: String): String = SysCommands.SysCommandManager.doSysCmd(this, cmd.toLowerCase())
+  def doSysCmd(cmd: String, params: Vector[String] = Vector("no params")): String = 
+    SysCommands.SysCommandManager.doSysCmd(this, cmd.toLowerCase(), params)
     
   override def getBoard: Vector[Vector[Int]] = gb.getBoard
   

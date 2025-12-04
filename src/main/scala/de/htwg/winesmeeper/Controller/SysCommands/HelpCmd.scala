@@ -9,7 +9,7 @@ object HelpCmd extends SysCommandCOR:
   override val helpMsg: String = "made this message"
   override val next: SysCommandCOR = LoadCmd
 
-  override def execute(ctrl: Controller): String =
+  override def execute(ctrl: Controller, cmd: String, params: Vector[String]): String =
    val sysCmds = HelpCmd.listCmds
    val scString = (for cmd <- sysCmds yield s"  ${cmd.cmd}: ${cmd.helpMsg}").mkString("\n")
    val cmds = CORFlag.listCmds

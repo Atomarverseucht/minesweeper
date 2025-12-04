@@ -1,12 +1,14 @@
 package de.htwg.winesmeeper.Controller.Commands
 
 import de.htwg.winesmeeper.Controller.Controller
-import scala.util.{Success, Failure}
+
+import scala.collection.mutable
+import scala.util.{Failure, Success}
 import scala.collection.mutable.Stack
 
 case class UndoManager(control: Controller):
-  private val undoStack: Stack[Command] = new Stack()
-  private val redoStack: Stack[Command] = new Stack()
+  private val undoStack: mutable.Stack[Command] = new Stack()
+  private val redoStack: mutable.Stack[Command] = new Stack()
 
   def doStep(cmd: Command): Boolean =
     val change = cmd.doStep()

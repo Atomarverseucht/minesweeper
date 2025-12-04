@@ -15,7 +15,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
     val testCtrl = Controller(10, 10, 1, 1, 25)
     "throw Exceptions" in:
       LastElemCmdCOR.buildCmd("doesn't matter", 5, 5, testCtrl).isFailure shouldBe true
-      LastElemSysCommand.execute(testCtrl) shouldBe "No such command"
+      LastElemSysCommand.execute(testCtrl,, Vector("no params")) shouldBe "No such command"
 
     "should discard with undo" in:
       testCtrl.undo.doCmd("flag", 9, 9) shouldBe true

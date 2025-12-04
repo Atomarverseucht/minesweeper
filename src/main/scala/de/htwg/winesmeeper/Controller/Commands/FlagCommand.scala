@@ -22,7 +22,7 @@ case class FlagCommand(ctrl: Controller, x: Int, y: Int) extends Command:
   
 object CORFlag extends CommandCOR:
   override val cmd = "flag"
-  override val helpMsg: String = "sets a flag at the given coordinate"
+  override val helpMsg: String = "flag or unflag the given coordinate"
   override val next: CommandCOR = OpenFieldCOR
 
   override def buildCmd(cmd: String, x: Int, y: Int, ctrl: Controller): Try[Command] =

@@ -37,12 +37,12 @@ object TUIHelper:
 
   def turn(input: String, ctrl: Controller): String =
     try
-      val in = input.split("[^\\w\\d]+")
-      if ctrl.isSysCmd(in(0)) then ctrl.doSysCmd(in(0))
+      val in = input.split("[^\\w\\d]+").toVector
+      if ctrl.isSysCmd(in(0)) then ctrl.doSysCmd(in(0), in)
       else
         if !ctrl.turn(in(0), in(1).toInt, in(2).toInt) then "Invalid command!" else ""
     catch
-      case _ => "No such command!"
+      case _ => "Error is catched!"
 
   def gameEndMsg(ctrl: Controller): String =
     val out = ctrl.gameState match

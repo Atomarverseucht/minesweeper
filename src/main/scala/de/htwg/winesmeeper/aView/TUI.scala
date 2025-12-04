@@ -13,7 +13,6 @@ class TUI(ctrl: Controller) extends Observer:
 
   @tailrec
   final def nextTurn: Unit =
-    println(ctrl.gameState)
     println(TUIHelper.turn(readLine, ctrl))
     if !ctrl.isQuitted then nextTurn
 
