@@ -1,8 +1,61 @@
-out/*
-target/*
-.idea/*
-.bsp/*
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+*.class
 project/*
+<<<<<<< HEAD
 minesweeper.iml
 .metals
 .bloop
+=======
+minesweeper.iml.metals
+.vscode
+.metals
+=======
+
+### IntelliJ IDEA ###
+.idea/*
+/.idea/
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+### Scala ###
+.bsp/
+.bloop
+.metals
+src/main/scala/de/htwg/.metals
+src/main/scala/de/htwg/.scala-build/.bloop
+>>>>>>> 1e5a8a95ec4fe9e5d55037b84cd7023755b722da
