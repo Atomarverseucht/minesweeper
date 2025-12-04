@@ -1,12 +1,14 @@
 package de.htwg.winesmeeper.Controller.Commands
 
 import de.htwg.winesmeeper.Controller.Controller
-import scala.util.{Success, Failure}
+
+import scala.collection.mutable
+import scala.util.{Failure, Success}
 import scala.collection.mutable.Stack
 
 case class UndoManager(control: Controller):
-  private val undoStack: Stack[Command] = new Stack()
-  private val redoStack: Stack[Command] = new Stack()
+  private val undoStack: mutable.Stack[Command] = new Stack()
+  private val redoStack: mutable.Stack[Command] = new Stack()
 
   def doStep(cmd: Command): Boolean =
     val change = cmd.doStep()
@@ -30,7 +32,17 @@ case class UndoManager(control: Controller):
 
 
   def doCmd(cmd: String, x: Int, y: Int): Boolean =
-    val command = CORFlag.buildCmd(cmd, x, y, control)
+    val command = FlagCOR.buildCmd(cmd, x, y, control)
     command match
       case Success(value) => doStep(value)
       case _ => false
+
+  def getStacks: (Stack[Command], Stack[Command]) = (undoStack.clone, redoStack.clone)
+  
+  def overrideStacks(undoSt: Stack[Command], redoSt: Stack[Command]): Unit =
+    undoStack.popAll()
+    redoStack.popAll()
+    for element <- undoSt do
+      undoStack.push(element)
+    for elementR <- redoSt do 
+      redoStack.push(elementR)

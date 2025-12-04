@@ -1,6 +1,7 @@
 package de.htwg.winesmeeper.aView
 
 import de.htwg.winesmeeper.Controller.Controller
+import scala.util.{Try, Success, Failure}
 
 // View
 object TUIHelper:
@@ -33,16 +34,18 @@ object TUIHelper:
     ).mkString
 
   // TUI-design of one specific field
-  def emojify(field: Int): String = field match {case -1 => "█" case -2 => "*" case -3 => "\u001b[1;31m█\u001b[0m" case _ => s"${field}"}
+  def emojify(field: Int): String = field match {case -1 => "\u001b[1;37m#\u001b[0m" case -2 => "*" case -3 => "\u001b[1;31m#\u001b[0m" case _ => s"\u001b[1;94m${field}\u001b[0m"}
 
   def turn(input: String, ctrl: Controller): String =
-    try
-      val in = input.split("[^\\w\\d]+")
-      if ctrl.isSysCmd(in(0)) then ctrl.doSysCmd(in(0))
-      else
-        if !ctrl.turn(in(0), in(1).toInt, in(2).toInt) then "Invalid command!" else ""
-    catch
-      case _ => "No such command!"
+    val in = input.split("[^\\w\\d]+").toVector
+    if ctrl.isSysCmd(in(0)) then
+      ctrl.doSysCmd(in(0), in) match
+        case Success(value) => value
+        case Failure(ex) => ex.getMessage
+    else
+      val x = Try(in(1).toInt) match{ case Success(value) => value; case Failure(ex) => -1}
+      val y = Try(in(1).toInt) match{ case Success(value) => value; case Failure(ex) => -1}
+      if !ctrl.turn(in(0), x, y) then "Invalid command!" else ""
 
   def gameEndMsg(ctrl: Controller): String =
     val out = ctrl.gameState match

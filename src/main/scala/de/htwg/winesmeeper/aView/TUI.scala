@@ -8,13 +8,13 @@ import scala.annotation.tailrec
 
 class TUI(ctrl: Controller) extends Observer:
   ctrl.addSub(this)
-  println(TUIHelper.getBoardString(ctrl))
+  update()
   nextTurn
-  
-  def nextTurn: Boolean =
+
+  @tailrec
+  final def nextTurn: Unit =
     println(TUIHelper.turn(readLine, ctrl))
     if !ctrl.isQuitted then nextTurn
-    ctrl.inGame
 
   override def update(): Unit =
     if ctrl.inGame then

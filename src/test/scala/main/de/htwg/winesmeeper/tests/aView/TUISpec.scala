@@ -32,8 +32,8 @@ class TUISpec extends AnyWordSpec with Matchers:
 
     "have the right bomb emoji" in:
       emojify(-2) shouldBe "*"
-      emojify(-1) shouldBe "█"
-      emojify(1) shouldBe "1"
+      emojify(-1) shouldBe "\u001b[1;37m#\u001b[0m"
+      emojify(1) shouldBe "\u001b[1;94m1\u001b[0m"
 
     "have right end-msgs" in:
       val w = Controller(10, 10, 5, 5, 91)
@@ -49,8 +49,8 @@ class TUISpec extends AnyWordSpec with Matchers:
 
     "checked unvalid turn" in :
       val c: Controller = Controller(10, 10, 1, 1, 20)
-      turn("gfjzgfkf", c) shouldBe "No such command!"
-      turn("1000 1000", c) shouldBe "No such command!"
+      turn("gfjzgfkf", c) shouldBe "Invalid command!"
+      turn("1000 1000", c) shouldBe "Invalid command!"
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
@@ -75,6 +75,8 @@ class TUISpec extends AnyWordSpec with Matchers:
           |help
           |undo
           |redo
+          |save
+          |load
           |quit
           |""".stripMargin
 

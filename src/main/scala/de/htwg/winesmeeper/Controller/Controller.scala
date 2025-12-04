@@ -3,6 +3,7 @@ package de.htwg.winesmeeper.Controller
 import de.htwg.winesmeeper.Model.*
 import de.htwg.winesmeeper.Observable
 import de.htwg.winesmeeper.Controller.Commands.{OpenFieldCmd, UndoManager}
+import scala.util.Try
 
 sealed trait gameController:
   def turn(cmd: String, x: Int, y: Int): Boolean
@@ -17,13 +18,14 @@ class Controller(var gb: Board) extends Observable with gameController:
   val undo: UndoManager = UndoManager(this)
   var isQuitted = false
   
-  override def turn(cmd: String, x: Int, y: Int): Boolean = state.turn(cmd, x, y)
+  override def turn(cmd: String, x: Int, y: Int): Boolean = state.turn(cmd.toLowerCase, x, y)
 
   def changeState(newState: String): Unit = state.changeState(newState)
 
-  def isSysCmd(cmd: String): Boolean = SysCommands.SysCommandManager.isSysCmd(cmd)
+  def isSysCmd(cmd: String): Boolean = SysCommands.SysCommandManager.isSysCmd(cmd.toLowerCase())
   
-  def doSysCmd(cmd: String): String = SysCommands.SysCommandManager.doSysCmd(this, cmd)
+  def doSysCmd(cmd: String, params: Vector[String] = Vector("no params")): Try[String] = 
+    SysCommands.SysCommandManager.doSysCmd(this, cmd.toLowerCase(), params)
     
   override def getBoard: Vector[Vector[Int]] = gb.getBoard
   
@@ -34,6 +36,14 @@ class Controller(var gb: Board) extends Observable with gameController:
   override def gameState: String = state.gameState
 
   def isVictory: Boolean = 0 == (for x <- gb.board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
+
+  override def toString: String = // wird auch als save-Darstellung verwendet
+    val version = s"version: ${de.htwg.winesmeeper.BuildInfo.version}\n"
+    val stateS = s"state: $gameState\n"
+    val boardS = s"board: ${gb.board.mkString(", ")}\n"
+    val undoStackS = s"undo: ${undo.getStacks._1.mkString(", ")}\n"
+    val redoStackS = s"redo: ${undo.getStacks._2.mkString(", ")}"
+    version + stateS + boardS + undoStackS + redoStackS
   
 object Controller:
   def apply(xStart: Int, yStart: Int, gb: Board): Controller =

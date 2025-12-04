@@ -1,3 +1,47 @@
+# [0.6.0-dev.7](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.6...0.6.0-dev.7) (2025-12-04)
+
+
+### Bug Fixes
+
+* added undo and redo stacks to the save file and load it correctly ([8104b60](https://github.com/Atomarverseucht/minesweeper/commit/8104b6000ae846ef21ed18f00d1552f18926ebad))
+
+# [0.6.0-dev.6](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.5...0.6.0-dev.6) (2025-12-04)
+
+
+### Features
+
+* redo and undo can now handle multiple times in one call! ([c0bc1f7](https://github.com/Atomarverseucht/minesweeper/commit/c0bc1f79933198fd473d125385d2c131e26fdf14))
+
+# [0.6.0-dev.5](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.4...0.6.0-dev.5) (2025-12-04)
+
+
+### Features
+
+* specific help messages for commands (type "help <command>") ([8722878](https://github.com/Atomarverseucht/minesweeper/commit/872287891f93395c3dab72a96d7ec293d953a383))
+
+# [0.6.0-dev.4](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.3...0.6.0-dev.4) (2025-12-04)
+
+
+### Features
+
+* save and load has now optional params ([1cf3142](https://github.com/Atomarverseucht/minesweeper/commit/1cf3142c2fbb38cef4af53a6e47fa472c19cf65f))
+
+# [0.6.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.2...0.6.0-dev.3) (2025-12-01)
+
+
+### Features
+
+* colorful TUI board ([6773012](https://github.com/Atomarverseucht/minesweeper/commit/67730124d3de966c1e740681a80a9b359ad999de))
+
+# [0.6.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.1...0.6.0-dev.2) (2025-12-01)
+
+# [0.6.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/0.5.0...0.6.0-dev.1) (2025-12-01)
+
+
+### Features
+
+* save & load command ([248fffd](https://github.com/Atomarverseucht/minesweeper/commit/248fffd30eb4cc545e5410deca3c3701682875ac))
+
 # [0.5.0](https://github.com/Atomarverseucht/minesweeper/compare/0.4.0...0.5.0) (2025-11-30)
 
 
