@@ -32,5 +32,9 @@ class CommandSpec extends AnyWordSpec with Matchers:
 
     "should checks version by loading" in:
       testCtrl.doSysCmd("save")
+      testCtrl.doSysCmd("load")
       Files.write(SysCommandManager.savedGame(Try("")), "version: invalid\n".getBytes())
       testCtrl.doSysCmd("load")
+
+    "specific help messages:" in:
+      testCtrl.doSysCmd("help", Vector("help", "open"))
