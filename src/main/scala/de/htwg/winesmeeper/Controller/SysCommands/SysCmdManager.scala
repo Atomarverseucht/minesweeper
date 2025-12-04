@@ -21,10 +21,9 @@ object SysCommandManager:
   def isSysCmd(cmd: String): Boolean =
     firstSysCmd.getSysCmd(cmd).nonEmpty
 
-  def doSysCmd(cntrl: Controller, cmd: String, params: Vector[String] = Vector("no params")): String =
+  def doSysCmd(cntrl: Controller, cmd: String, params: Vector[String] = Vector("no params")): Try[String] =
     val com = firstSysCmd.getSysCmd(cmd)
-    com.get.execute(cntrl, cmd, params)
-
+    Try(com.get.execute(cntrl, cmd, params))
 
   def savedGame(fileName: Try[String]): Path =
     val fName: String = fileName match

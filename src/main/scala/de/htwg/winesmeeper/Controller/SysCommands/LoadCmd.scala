@@ -19,7 +19,6 @@ object LoadCmd extends SysCommandCOR:
       |""".stripMargin
 
   override def execute(ctrl: Controller, cmd: String, params: Vector[String]): String =
-    
     val savedVal = Files.readString(SysCommandManager.savedGame(Try(params(1)))).split("\n")
     val savedVals = savedVal.map(sv => sv.split(": ")(1))
     if savedVals(0) != de.htwg.winesmeeper.BuildInfo.version then
@@ -39,7 +38,6 @@ object LoadCmd extends SysCommandCOR:
       val victorS = vec.replace("Vector(","").split("Field\\(")
       (for fieldS <- victorS if fieldS != "" yield
         val boolS = fieldS.replace(")", "").split(",")
-        //println(boolS.mkString("/"))
         val boolVal = for bs <- boolS yield
           if bs == "true" then true
           else false

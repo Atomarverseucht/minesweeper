@@ -1,6 +1,7 @@
 package de.htwg.winesmeeper.aView
 
 import de.htwg.winesmeeper.Controller.Controller
+import scala.util.{Try, Success, Failure}
 
 // View
 object TUIHelper:
@@ -37,7 +38,10 @@ object TUIHelper:
 
   def turn(input: String, ctrl: Controller): String =
     val in = input.split("[^\\w\\d]+").toVector
-    if ctrl.isSysCmd(in(0)) then ctrl.doSysCmd(in(0), in)
+    if ctrl.isSysCmd(in(0)) then
+      ctrl.doSysCmd(in(0), in) match
+        case Success(value) => value
+        case Failure(ex) => ex.getMessage
     else
       if !ctrl.turn(in(0), in(1).toInt, in(2).toInt) then "Invalid command!" else ""
 
