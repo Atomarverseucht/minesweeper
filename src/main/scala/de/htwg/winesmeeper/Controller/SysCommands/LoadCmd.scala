@@ -8,7 +8,13 @@ object LoadCmd extends SysCommandCOR:
   override val cmd: String = "load"
   override val helpMsg: String = "Overrides the actual board with the saved file"
   override val next: SysCommandCOR = QuitCmd
-
+  override val specHelpMsg: String =
+    """load:
+      |  overrides game with the standard file
+      |load <fileName>:
+      |  overrides game with a given file (without the ending)
+      |""".stripMargin
+  
   override def execute(ctrl: Controller, cmd: String, params: Vector[String]): String =
     
     val savedVal = Files.readString(SysCommandManager.savedGame(params(1))).split("\n")
@@ -32,3 +38,5 @@ object LoadCmd extends SysCommandCOR:
           else false
         Field(boolVal(0), boolVal(1), boolVal(2))).toVector).toVector
     Board(vector)
+
+ 

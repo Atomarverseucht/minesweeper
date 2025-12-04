@@ -32,7 +32,7 @@ case class UndoManager(control: Controller):
 
 
   def doCmd(cmd: String, x: Int, y: Int): Boolean =
-    val command = CORFlag.buildCmd(cmd, x, y, control)
+    val command = FlagCOR.buildCmd(cmd, x, y, control)
     command match
       case Success(value) => doStep(value)
       case _ => false

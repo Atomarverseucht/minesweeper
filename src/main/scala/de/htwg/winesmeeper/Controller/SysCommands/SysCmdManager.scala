@@ -1,11 +1,15 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 import de.htwg.winesmeeper.Controller.Controller
+import de.htwg.winesmeeper.Controller.Commands.CommandManager
 
 import java.nio.file.{Path, Paths}
 
-trait SysCommandCOR:
+trait AbstractCmdCOR:
   val cmd: String
   val helpMsg: String
+  val specHelpMsg: String
+  
+trait SysCommandCOR extends AbstractCmdCOR:
   val next: SysCommandCOR
   def execute(ctrl: Controller, cmd: String, params: Vector[String] = Vector("no params")): String
   def getSysCmd(cmd: String): Option[SysCommandCOR] = if cmd == this.cmd then Some(this) else next.getSysCmd(cmd)
@@ -22,10 +26,14 @@ object SysCommandManager:
     com.get.execute(cntrl, cmd, params)
 
 
-  def savedGame(fileName: String): Path = {
+  def savedGame(fileName: String): Path =
     val fName: String = if fileName == "" then "savedGame" else fileName
     Paths.get(f"./saves/$fName.txt")
-  }
+  
+  def getAbstractCmd(cmd: String): Option[AbstractCmdCOR] =
+    val sysCmd = firstSysCmd.getSysCmd(cmd)
+    if sysCmd.nonEmpty then sysCmd
+    else CommandManager.firstCommandCOR.getCmd(cmd)
 
 object LastElemSysCommand extends SysCommandCOR:
   override val cmd: String = ""
@@ -37,3 +45,5 @@ object LastElemSysCommand extends SysCommandCOR:
   override def getSysCmd(cmd: String): Option[SysCommandCOR] = None
 
   override def listCmds: List[SysCommandCOR] = Nil
+
+  override val specHelpMsg: String = ""
