@@ -19,6 +19,8 @@ case class FlagCommand(ctrl: Controller, x: Int, y: Int) extends Command:
   override def undoStep(): Boolean = doStep()
 
   override def redoStep(): Boolean = doStep()
+
+  override def toString: String = f"flag($x, $y)"
   
 object FlagCOR extends CommandCOR:
   override val cmd = "flag"
@@ -28,8 +30,7 @@ object FlagCOR extends CommandCOR:
     """flag <x> <y>:
       |  mark this position as flag or remove the flag
       |""".stripMargin
-  
+
   override def buildCmd(cmd: String, x: Int, y: Int, ctrl: Controller): Try[Command] =
     if cmd == this.cmd then Success(FlagCommand(ctrl, x, y)) else next.buildCmd(cmd,x,y,ctrl)
 
-  

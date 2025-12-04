@@ -33,6 +33,8 @@ object LastElemCmdCOR extends CommandCOR:
   override val specHelpMsg: String = ""
   
 object CommandManager:
-  val firstCommandCOR = FlagCOR
+  val firstCommandCOR: CommandCOR = FlagCOR
+  def buildCmd(cmd: String, x: Int, y: Int, ctrl: Controller): Try[Command] = firstCommandCOR.buildCmd(cmd, x, y, ctrl)
+  
 
 

@@ -36,13 +36,10 @@ object TUIHelper:
   def emojify(field: Int): String = field match {case -1 => "\u001b[1;37m#\u001b[0m" case -2 => "*" case -3 => "\u001b[1;31m#\u001b[0m" case _ => s"\u001b[1;94m${field}\u001b[0m"}
 
   def turn(input: String, ctrl: Controller): String =
-    try
-      val in = input.split("[^\\w\\d]+").toVector
-      if ctrl.isSysCmd(in(0)) then ctrl.doSysCmd(in(0), in)
-      else
-        if !ctrl.turn(in(0), in(1).toInt, in(2).toInt) then "Invalid command!" else ""
-    catch
-      case _ => "Error is catched!"
+    val in = input.split("[^\\w\\d]+").toVector
+    if ctrl.isSysCmd(in(0)) then ctrl.doSysCmd(in(0), in)
+    else
+      if !ctrl.turn(in(0), in(1).toInt, in(2).toInt) then "Invalid command!" else ""
 
   def gameEndMsg(ctrl: Controller): String =
     val out = ctrl.gameState match

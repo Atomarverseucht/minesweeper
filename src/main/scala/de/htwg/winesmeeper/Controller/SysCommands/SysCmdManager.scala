@@ -1,14 +1,14 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Controller.Commands.CommandManager
-
+import scala.util.{Try, Success, Failure}
 import java.nio.file.{Path, Paths}
 
 trait AbstractCmdCOR:
   val cmd: String
   val helpMsg: String
   val specHelpMsg: String
-  
+
 trait SysCommandCOR extends AbstractCmdCOR:
   val next: SysCommandCOR
   def execute(ctrl: Controller, cmd: String, params: Vector[String] = Vector("no params")): String
@@ -26,10 +26,12 @@ object SysCommandManager:
     com.get.execute(cntrl, cmd, params)
 
 
-  def savedGame(fileName: String): Path =
-    val fName: String = if fileName == "" then "savedGame" else fileName
+  def savedGame(fileName: Try[String]): Path =
+    val fName: String = fileName match
+      case Success(value) => value
+      case Failure(_) => "savedGame"
     Paths.get(f"./saves/$fName.txt")
-  
+
   def getAbstractCmd(cmd: String): Option[AbstractCmdCOR] =
     val sysCmd = firstSysCmd.getSysCmd(cmd)
     if sysCmd.nonEmpty then sysCmd

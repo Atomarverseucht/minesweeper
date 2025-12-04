@@ -36,3 +36,13 @@ case class UndoManager(control: Controller):
     command match
       case Success(value) => doStep(value)
       case _ => false
+
+  def getStacks: (Stack[Command], Stack[Command]) = (undoStack.clone, redoStack.clone)
+  
+  def overrideStacks(undoSt: Stack[Command], redoSt: Stack[Command]): Unit =
+    undoStack.popAll()
+    redoStack.popAll()
+    for element <- undoSt do
+      undoStack.push(element)
+    for elementR <- redoSt do 
+      redoStack.push(elementR)

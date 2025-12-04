@@ -1,7 +1,7 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 
 import de.htwg.winesmeeper.Controller.Controller
-
+import scala.util.Try
 import java.nio.file.Files
 
 object SaveCmd extends SysCommandCOR:
@@ -16,7 +16,7 @@ object SaveCmd extends SysCommandCOR:
       |""".stripMargin
   
   override def execute(ctrl: Controller, cmd: String, params: Vector[String]): String =
-    Files.write(SysCommandManager.savedGame(params(1)), ctrl.toString.getBytes())
+    Files.write(SysCommandManager.savedGame(Try(params(1))), ctrl.toString.getBytes())
     "Board saved"
 
   

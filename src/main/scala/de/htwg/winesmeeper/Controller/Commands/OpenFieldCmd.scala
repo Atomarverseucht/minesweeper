@@ -35,17 +35,18 @@ case class OpenFieldCmd(ctrl: Controller, x: Int, y: Int) extends Command:
       if ctrl.isVictory then ctrl.changeState("win")
       true
 
+  override def toString: String = f"open($x, $y)"
+
 object OpenFieldCOR extends CommandCOR:
   override val cmd = "open"
   override val helpMsg = "opens the field of the given coordinate"
   override val next: CommandCOR = LastElemCmdCOR
   override val specHelpMsg: String =
     """open <x> <y>:
-      |  Opens a field and if you hit a bomb, you loose! 
+      |  Opens a field and if you hit a bomb, you loose!
       |  But no pressure you can undo your fault!
       |""".stripMargin
-  
+
   override def buildCmd(cmd: String, x: Int, y: Int, ctrl: Controller): Try[Command] =
     if cmd == this.cmd then Success(OpenFieldCmd(ctrl, x, y)) else next.buildCmd(cmd,x,y,ctrl)
 
-  
