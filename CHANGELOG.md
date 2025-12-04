@@ -1,3 +1,10 @@
+# [0.6.0-dev.6](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.5...0.6.0-dev.6) (2025-12-04)
+
+
+### Features
+
+* redo and undo can now handle multiple times in one call! ([c0bc1f7](https://github.com/Atomarverseucht/minesweeper/commit/c0bc1f79933198fd473d125385d2c131e26fdf14))
+
 # [0.6.0-dev.5](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0-dev.4...0.6.0-dev.5) (2025-12-04)
 
 
