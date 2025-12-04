@@ -50,9 +50,7 @@ object LoadCmd extends SysCommandCOR:
     for cmdS <- inputs do
       val cmd = cmdS.split("\\(")
       val inputInt = cmd(1).replace(")","").split(", ")
-      val element = CommandManager.buildCmd(cmd(0), inputInt(0).toInt, inputInt(1).toInt, ctrl) match
-        case Success(value) => value
-        case Failure(_) => throw IllegalArgumentException()
+      val element = CommandManager.buildCmd(cmd(0), inputInt(0).toInt, inputInt(1).toInt, ctrl).get
       inputStack.push(element)
     inputStack
 
