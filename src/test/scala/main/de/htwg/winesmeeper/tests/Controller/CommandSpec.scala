@@ -6,7 +6,7 @@ import de.htwg.winesmeeper.Controller.SysCommands.SysCommandManager
 import de.htwg.winesmeeper.Controller.Controller
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import scala.util.Try
+import scala.util.Failure
 
 import java.nio.file.{Files, Paths}
 
@@ -16,6 +16,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
     "throw Exceptions" in:
       LastElemCmdCOR.buildCmd("doesn't matter", 5, 5, testCtrl).isFailure shouldBe true
       LastElemSysCommand.execute(testCtrl,"invalid") shouldBe "No such command"
+      LastElemCmdCOR.getCmd("hi") shouldBe None
 
     "should discard with undo" in:
       testCtrl.undo.doCmd("flag", 9, 9) shouldBe true
@@ -35,7 +36,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
       testCtrl.doSysCmd("save")
       testCtrl.doSysCmd("load", Vector("load", "file"))
       testCtrl.doSysCmd("load")
-      Files.write(SysCommandManager.savedGame(Try("")), "version: invalid\n".getBytes())
+      Files.write(SysCommandManager.savedGame(Failure(IllegalArgumentException())), "version: invalid\n".getBytes())
       testCtrl.doSysCmd("load")
 
     "specific help messages:" in:
