@@ -3,6 +3,8 @@ package de.htwg.winesmeeper.Controller.SysCommands
 import de.htwg.winesmeeper.Controller.Commands.UndoManager
 import de.htwg.winesmeeper.Controller.Controller
 
+import scala.util.{Failure, Try, Success}
+
 object RedoCmd extends SysCommandCOR:
   override val cmd: String = "redo"
   override val helpMsg: String = "redo your latest undo move"
@@ -14,9 +16,13 @@ object RedoCmd extends SysCommandCOR:
       |redo <count>:
       |  makes your last <count> undos done!
       |""".stripMargin
-  
+
   override def execute(ctrl: Controller, cmd: String, params: Vector[String]): String =
-    ctrl.undo.redoStep
+    val count: Int = Try(params(1).toInt) match
+      case Failure(exception) => 1
+      case Success(value) => value
+    for i <- 1 to count do
+      ctrl.undo.redoStep
     ""
 
-  
+
