@@ -2,6 +2,7 @@ package main.de.htwg.winesmeeper.tests.Controller
 
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Model.{Board, Field}
+import scala.util.Try
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -27,7 +28,7 @@ class ControllerSpec extends AnyWordSpec with Matchers:
       ctrl.gameState shouldBe "running"
       val w = Controller(10, 10, 5, 5, 91)
       w.gameState shouldBe "win"
-      val l = Controller(10, 10, 5, 5, 90); l.turn("open", 1524, 1243); l.turn("open", 1, 1)
+      val l = Controller(10, 10, 5, 5, 90); l.turn("open", Try(1524), Try(1243)); l.turn("open", Try(1), Try(1))
       l.gameState shouldBe "lose"
       l.getBoard
 
