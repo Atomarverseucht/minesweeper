@@ -1,3 +1,10 @@
+## [0.6.3-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/0.6.2...0.6.3-dev.1) (2025-12-05)
+
+
+### Bug Fixes
+
+* tests are using the Try ([5c34ab0](https://github.com/Atomarverseucht/minesweeper/commit/5c34ab051e8ba0420dcd6ff2ebbe30e4e279c2dc))
+
 ## [0.6.2](https://github.com/Atomarverseucht/minesweeper/compare/0.6.1...0.6.2) (2025-12-05)
 
 ## [0.6.1](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0...0.6.1) (2025-12-05)
