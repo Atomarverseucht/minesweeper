@@ -47,7 +47,7 @@ object LoadCmd extends SysCommandCOR:
         Field(boolVal(0), boolVal(1), boolVal(2))).toVector).toVector
     Board(vector)
 
-  private def getStacks(input: Try[String], ctrl: Controller): Stack[Command] =
+  def getStacks(input: Try[String], ctrl: Controller): Stack[Command] =
     val inputStack = new Stack[Command]
     input match {
       case Success(value) =>
