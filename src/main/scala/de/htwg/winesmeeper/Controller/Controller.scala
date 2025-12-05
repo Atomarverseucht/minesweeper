@@ -41,8 +41,8 @@ class Controller(var gb: Board) extends Observable with gameController:
     val version = s"version: ${de.htwg.winesmeeper.BuildInfo.version}\n"
     val stateS = s"state: $gameState\n"
     val boardS = s"board: ${gb.board.mkString(", ")}\n"
-    val undoStackS = s"undo: ${undo.getStacks._1.mkString(", ")}\n"
-    val redoStackS = s"redo: ${undo.getStacks._2.mkString(", ")}"
+    val undoStackS = s"undo: §${undo.getStacks._1.mkString(", ")}\n"
+    val redoStackS = s"redo: §${undo.getStacks._2.mkString(", ")}"
     version + stateS + boardS + undoStackS + redoStackS
   
 object Controller:

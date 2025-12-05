@@ -41,7 +41,7 @@ object TUIHelper:
     if ctrl.isSysCmd(in(0)) then
       ctrl.doSysCmd(in(0), in) match
         case Success(value) => value
-        case Failure(ex) => ex.getMessage
+        case Failure(ex) => ex.printStackTrace(); ""
     else
       val x = Try(in(1).toInt) match{ case Success(value) => value; case Failure(ex) => -1}
       val y = Try(in(1).toInt) match{ case Success(value) => value; case Failure(ex) => -1}
