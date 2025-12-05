@@ -1,3 +1,10 @@
+## [0.6.1](https://github.com/Atomarverseucht/minesweeper/compare/0.6.0...0.6.1) (2025-12-05)
+
+
+### Bug Fixes
+
+* load of empty undo ([2009826](https://github.com/Atomarverseucht/minesweeper/commit/20098267bcf81a15547e0078e0f903818ad1bc19))
+
 # [0.6.0](https://github.com/Atomarverseucht/minesweeper/compare/0.5.0...0.6.0) (2025-12-04)
 
 
