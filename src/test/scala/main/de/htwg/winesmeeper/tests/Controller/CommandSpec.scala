@@ -13,6 +13,10 @@ import java.nio.file.{Files, Paths}
 class CommandSpec extends AnyWordSpec with Matchers:
   "The Command" should:
     val testCtrl = Controller(10, 10, 1, 1, 25)
+    "should safe and load" in:
+      testCtrl.doSysCmd("save")
+      testCtrl.doSysCmd("load")
+      testCtrl.doSysCmd("help")
     "throw Exceptions" in:
       LastElemCmdCOR.buildCmd("doesn't matter", 5, 5, testCtrl).isFailure shouldBe true
       LastElemSysCommand.execute(testCtrl,"invalid") shouldBe "No such command"
