@@ -21,14 +21,11 @@ case class UndoManager(control: Controller):
     val cmd = redoStack.pop
     cmd.redoStep()
     undoStack.push(cmd)
-    control.notifyObservers()
-
 
   def undoStep =
     val step = undoStack.pop
     step.undoStep()
     redoStack.push(step)
-    control.notifyObservers()
 
 
   def doCmd(cmd: String, x: Int, y: Int): Boolean =

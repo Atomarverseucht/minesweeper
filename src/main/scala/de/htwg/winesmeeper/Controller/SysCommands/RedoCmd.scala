@@ -23,6 +23,7 @@ object RedoCmd extends SysCommandCOR:
       case Success(value) => value
     for i <- 1 to count do
       ctrl.undo.redoStep
+    ctrl.notifyObservers()
     ""
 
 
