@@ -9,9 +9,9 @@ object SaveCmd extends SysCommandCOR:
   override val cmd: String = "save"
   override val helpMsg: String = "save your board"
   override val specHelpMsg: String =
-    """load:
+    """save:
       |  overrides game with the standard file
-      |load <fileName>:
+      |save <fileName>:
       |  overrides game with a given file (without the ending)
       |""".stripMargin
   

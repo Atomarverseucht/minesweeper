@@ -1,13 +1,12 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
-import de.htwg.winesmeeper.Controller.SysCommands.LastElemSysCommand
+import de.htwg.winesmeeper.Controller.SysCommands.{LastElemSysCommand, LoadCmd, SysCommandManager}
 import de.htwg.winesmeeper.Controller.Commands.LastElemCmdCOR
-import de.htwg.winesmeeper.Controller.SysCommands.SysCommandManager
 import de.htwg.winesmeeper.Controller.Controller
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import scala.util.Failure
 
+import scala.util.Failure
 import java.nio.file.{Files, Paths}
 
 class CommandSpec extends AnyWordSpec with Matchers:
@@ -46,3 +45,4 @@ class CommandSpec extends AnyWordSpec with Matchers:
 
     "specific help messages:" in:
       testCtrl.doSysCmd("help", Vector("help", "open"))
+      LoadCmd.getStacks(Failure(IllegalArgumentException()), testCtrl)

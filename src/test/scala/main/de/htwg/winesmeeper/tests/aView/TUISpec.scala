@@ -51,6 +51,7 @@ class TUISpec extends AnyWordSpec with Matchers:
       val c: Controller = Controller(10, 10, 1, 1, 20)
       turn("gfjzgfkf", c) shouldBe "Invalid command!"
       turn("1000 1000", c) shouldBe "Invalid command!"
+      turn("load hi lul", c)
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
