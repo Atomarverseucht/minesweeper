@@ -6,7 +6,6 @@ import de.htwg.winesmeeper.Controller.Commands.{OpenFieldCmd, UndoManager}
 import scala.util.Try
 
 sealed trait gameController:
-  def turn(cmd: String, x: Int, y: Int): Boolean
   def inGame: Boolean
   def getBoard: Vector[Vector[Int]]
   def getSize: (Int, Int)
@@ -18,7 +17,9 @@ class Controller(var gb: Board) extends Observable with gameController:
   val undo: UndoManager = UndoManager(this)
   var isQuitted = false
   
-  override def turn(cmd: String, x: Int, y: Int): Boolean = state.turn(cmd.toLowerCase, x, y)
+  def turn(cmd: String, x: Try[Int], y: Try[Int]): Try[Boolean] = { 
+    Try(state.turn(cmd.toLowerCase, x.get, y.get))
+  }
 
   def changeState(newState: String): Unit = state.changeState(newState)
 

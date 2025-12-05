@@ -43,9 +43,10 @@ object TUIHelper:
         case Success(value) => value
         case Failure(ex) => ex.printStackTrace(); ""
     else
-      val x = Try(in(1).toInt) match{ case Success(value) => value; case Failure(ex) => -1}
-      val y = Try(in(1).toInt) match{ case Success(value) => value; case Failure(ex) => -1}
-      if !ctrl.turn(in(0), x, y) then "Invalid command!" else ""
+      ctrl.turn(in(0), Try(in(1).toInt), Try(in(2).toInt)) match {
+        case Success(value) => ""
+        case Failure(ex) => "Error"
+      }
 
   def gameEndMsg(ctrl: Controller): String =
     val out = ctrl.gameState match
