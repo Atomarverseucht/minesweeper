@@ -21,7 +21,7 @@ object SysCommandManager:
   def isSysCmd(cmd: String): Boolean =
     firstSysCmd.getSysCmd(cmd).nonEmpty
 
-  def doSysCmd(cntrl: Controller, cmd: String, params: Vector[String] = Vector("no params")): Try[String] =
+  def doSysCmd(cntrl: Controller, cmd: String, params: Vector[String]): Try[String] =
     val com = firstSysCmd.getSysCmd(cmd)
     Try(com.get.execute(cntrl, cmd, params))
 
