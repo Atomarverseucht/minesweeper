@@ -1,10 +1,10 @@
-package de.htwg.winesmeeper.aView
+package de.htwg.winesmeeper.aView.TUI
 
-import scala.io.StdIn.{readInt, readLine}
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Observer
 
 import scala.annotation.tailrec
+import scala.io.StdIn.{readInt, readLine}
 
 class TUI(ctrl: Controller) extends Observer:
   ctrl.addSub(this)

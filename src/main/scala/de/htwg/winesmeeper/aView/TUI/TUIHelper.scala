@@ -1,7 +1,8 @@
-package de.htwg.winesmeeper.aView
+package de.htwg.winesmeeper.aView.TUI
 
 import de.htwg.winesmeeper.Controller.Controller
-import scala.util.{Try, Success, Failure}
+
+import scala.util.{Failure, Success, Try}
 
 // View
 object TUIHelper:

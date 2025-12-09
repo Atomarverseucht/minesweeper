@@ -1,9 +1,9 @@
 package de.htwg.winesmeeper
 
-import de.htwg.winesmeeper.aView.{TUIHelper, TUI}
-import de.htwg.winesmeeper.aView.TUIHelper.initVals
+import de.htwg.winesmeeper.aView.TUI.TUIHelper.initVals
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Model.Board
+import de.htwg.winesmeeper.aView.TUI.{TUI, TUIHelper}
 
 import scala.io.StdIn.readInt
 
