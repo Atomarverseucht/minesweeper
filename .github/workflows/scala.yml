@@ -44,6 +44,8 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha }}
 
     - name: Run tests
+      env:
+        JAVA_OPTS: "-Djava.awt.headless=true -Dmonocle.platform=Headless -Dprism.order=sw -Dprism.text=t2k"
       run: sbt clean coverage test
 
     - name: Upload coverage data to Coveralls
