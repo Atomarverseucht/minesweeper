@@ -16,5 +16,5 @@ import scala.io.StdIn.readInt
   new Thread(() => {
     val tui = TUI(ctrl)
   }).start()
-  val gui = aView.GUI.GUI(ctrl)
-  gui.main(Array())
+  //val gui = aView.GUI.GUI(ctrl)
+  //gui.main(Array())
