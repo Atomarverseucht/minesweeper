@@ -17,10 +17,10 @@ import scala.language.postfixOps
 
 
 case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
-  ctrl.addSub(this)
 
   override def start(): Unit =
     update()
+    ctrl.addSub(this)
 
   private def boardUI: GridPane =
     val img: Vector[Image] = (for i <- -3 to 8 yield new Image(f"file:src/main/resources/fields/$i.png")).toVector
