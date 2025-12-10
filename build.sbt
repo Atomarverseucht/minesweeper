@@ -8,6 +8,11 @@ ThisBuild / assemblyMergeStrategy := {
     case x => MergeStrategy.preferProject
 }
 
+enablePlugins(BuildInfoPlugin)
+
+buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion)
+buildInfoPackage := "de.htwg.winesmeeper"
+
 lazy val root = project
   .in(file("."))
   .settings(
