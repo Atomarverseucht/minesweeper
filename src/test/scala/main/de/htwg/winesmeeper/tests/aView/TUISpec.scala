@@ -83,10 +83,12 @@ class TUISpec extends AnyWordSpec with Matchers:
           |""".stripMargin
 
       val in = new ByteArrayInputStream(fakeInput.getBytes())
+      new Thread(() => {
+        Console.withIn(in) {
+          start()
+        }
+      }).start()
 
-      Console.withIn(in){
-         start()
-      }
 
   object dummySub extends Observer:
     override def update(): Unit = {}
