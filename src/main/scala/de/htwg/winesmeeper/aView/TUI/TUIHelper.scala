@@ -46,7 +46,7 @@ object TUIHelper:
     else
       ctrl.turn(in(0), Try(in(1).toInt), Try(in(2).toInt)) match {
         case Success(value) => ""
-        case Failure(ex) => "Invalid command!"
+        case Failure(ex) => ex.getMessage
       }
 
   def gameEndMsg(ctrl: Controller): String =
