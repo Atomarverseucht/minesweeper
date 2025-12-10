@@ -13,4 +13,8 @@ import scala.io.StdIn.readInt
     TUIHelper.initVals(i) = readInt
   val gb = Board(initVals(0), initVals(1), initVals(2), initVals(3), initVals(4))
   val ctrl = Controller(initVals(2), initVals(3), gb)
-  val tui = TUI(ctrl)
+  new Thread(() => {
+    val tui = TUI(ctrl)
+  }).start()
+  val gui = aView.GUI.GUI(ctrl)
+  gui.main(Array())

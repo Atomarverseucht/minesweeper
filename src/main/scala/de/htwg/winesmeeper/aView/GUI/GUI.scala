@@ -5,18 +5,24 @@ import scalafx.scene.Scene
 import scalafx.scene.layout.HBox
 import scalafx.scene.paint.Color
 import scalafx.scene.text.Text
+import scalafx.geometry.Insets
+import scalafx.scene.effect.DropShadow
+import scalafx.scene.paint.Color.*
+import scalafx.scene.paint.*
+import de.htwg.winesmeeper.Controller.Controller
+
+import scala.language.postfixOps
 
 
-object WinesmeeperGUI extends JFXApp3:
+case class GUI(ctrl: Controller) extends JFXApp3:
   override def start(): Unit =
     stage = new JFXApp3.PrimaryStage:
       title = "Winesmeeper - A Minesweeper Saga"
-      width = 500
+      width = 1000
       height = 300
       scene = new Scene:
-        fill = Color.rgb(40, 40, 40)
-        content = HBox(20, new Text("Hello, World!") {
-          fill = Color.White
-        })
-
-
+        fill = Color.LightBlue
+        content = new HBox{
+          val board: Seq[Vector[Int]] = ctrl.getBoard
+          children ++= (for bo <- board yield new Text{text = f"${bo(0)} "})
+          }
