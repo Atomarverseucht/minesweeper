@@ -18,7 +18,17 @@ import scala.language.postfixOps
 
 case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
 
+  private var fieldSize: Int = 32
+  private val widthConst = 15
+  private val heightConst = 39
+
   override def start(): Unit =
+
+    val bSize = ctrl.getSize
+    stage = new JFXApp3.PrimaryStage:
+      title = "Winesmeeper - A Minesweeper Saga"
+      width.onChange(resize())
+      height.onChange(resize())
     update()
     ctrl.addSub(this)
 
@@ -30,17 +40,22 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
     for x <- board.indices; y <- board(0).indices do
       val value = board(x)(y)
       val imView = ImageView(img(value+3))
-      imView.fitWidth = 32
-      imView.fitHeight = 32
+      imView.fitWidth = fieldSize
+      imView.fitHeight = fieldSize
       grid.add(imView, x, y)
     grid
 
   override def update(): Unit =
-    Platform.runLater {
-      stage = new JFXApp3.PrimaryStage:
-        title = "Winesmeeper - A Minesweeper Saga"
-        width = 1000
-        height = 300
-        scene = new Scene:
+    Platform.runLater{
+      stage.scene = new Scene:
           fill = Color.LightBlue
-          content = HBox(boardUI)}
+          content = HBox(boardUI)
+
+    }
+
+  private def resize(): Unit =
+    val bSize = ctrl.getSize
+    val w: Int = (stage.width.toInt - widthConst) / bSize._1
+    val h: Int = (stage.height.toInt - heightConst) / bSize._2
+    fieldSize = w.min(h)
+    update()
