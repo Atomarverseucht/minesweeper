@@ -1,6 +1,6 @@
 package de.htwg.winesmeeper.aView.GUI
 
-import scalafx.application.JFXApp3
+import scalafx.application.{JFXApp3, Platform}
 import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.Scene
 import scalafx.scene.layout.{GridPane, HBox}
@@ -36,10 +36,11 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
     grid
 
   override def update(): Unit =
-    stage = new JFXApp3.PrimaryStage:
-      title = "Winesmeeper - A Minesweeper Saga"
-      width = 1000
-      height = 300
-      scene = new Scene:
-        fill = Color.LightBlue
-        content = HBox(boardUI)
+    Platform.runLater {
+      stage = new JFXApp3.PrimaryStage:
+        title = "Winesmeeper - A Minesweeper Saga"
+        width = 1000
+        height = 300
+        scene = new Scene:
+          fill = Color.LightBlue
+          content = HBox(boardUI)}

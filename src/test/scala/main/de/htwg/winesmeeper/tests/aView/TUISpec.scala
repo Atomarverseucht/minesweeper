@@ -4,7 +4,7 @@ import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Model.{Board, Field}
 import de.htwg.winesmeeper.{Observer, aView}
 import de.htwg.winesmeeper.aView.TUI.TUIHelper.*
-import de.htwg.winesmeeper.start
+import de.htwg.winesmeeper.startTUI
 import scala.util.Try
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
@@ -85,7 +85,7 @@ class TUISpec extends AnyWordSpec with Matchers:
       val in = new ByteArrayInputStream(fakeInput.getBytes())
       new Thread(() => {
         Console.withIn(in) {
-          start()
+          startTUI()
         }
       }).start()
 

@@ -7,7 +7,7 @@ import de.htwg.winesmeeper.aView.TUI.{TUI, TUIHelper}
 
 import scala.io.StdIn.readInt
 
-@main def start(): Unit =
+def startTUI: Controller =
   for i <- 0 until 5 do
     println(TUIHelper.getPrintString(i))
     TUIHelper.initVals(i) = readInt
@@ -16,5 +16,10 @@ import scala.io.StdIn.readInt
   new Thread(() => {
     val tui = TUI(ctrl)
   }).start()
-  //val gui = aView.GUI.GUI(ctrl)
-  //gui.main(Array())
+  ctrl
+  
+@main def start(): Unit =
+  val gui = aView.GUI.GUI(startTUI)
+  gui.main(Array())
+
+  
