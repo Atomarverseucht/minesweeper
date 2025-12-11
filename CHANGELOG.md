@@ -1,3 +1,10 @@
+# [1.0.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0-dev.1...1.0.0-dev.2) (2025-12-11)
+
+
+### Features
+
+* added shortcuts for GUI-Sys CMDS ([0223ed6](https://github.com/Atomarverseucht/minesweeper/commit/0223ed6bf18e9aa720809658942ea16bf07af355))
+
 # [1.0.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/0.6.4-dev.2...1.0.0-dev.1) (2025-12-11)
 
 
