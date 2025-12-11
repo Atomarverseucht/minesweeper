@@ -19,14 +19,14 @@ object UndoCmd extends SysCommandCOR:
       |  discards your latest <count> actions!
       |""".stripMargin
 
-  override def execute(ctrl: Controller, params: Vector[String]): String =
+  override def execute(ctrl: Controller, params: Vector[String]): Option[String] =
     val count: Int = Try(params(1).toInt) match
       case Failure(exception) => 1
       case Success(value) => value
     for i <- 1 to count do
       ctrl.undo.undoStep
     ctrl.notifyObservers()
-    "undo"
+    None
 
 
 

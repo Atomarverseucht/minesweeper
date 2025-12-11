@@ -18,11 +18,11 @@ object HelpCmd extends SysCommandCOR:
       |""".stripMargin
 
 
-  override def execute(ctrl: Controller, params: Vector[String]): String =
+  override def execute(ctrl: Controller, params: Vector[String]): Option[String] =
     val command = if params.length > 1 then SysCommandManager.getAbstractCmd(params(1)) else None
     command match
-      case Some(value) => value.specHelpMsg
-      case None => standardHelp
+      case Some(value) => Some(value.specHelpMsg)
+      case None => Some(standardHelp)
 
   private def standardHelp: String =
    val sysCmds = HelpCmd.listCmds

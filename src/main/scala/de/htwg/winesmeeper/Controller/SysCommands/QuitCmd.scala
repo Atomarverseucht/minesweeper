@@ -13,9 +13,9 @@ object QuitCmd extends SysCommandCOR:
       |  closes the game
       |""".stripMargin
   
-  override def execute(ctrl: Controller, params: Vector[String]): String = 
+  override def execute(ctrl: Controller, params: Vector[String]): Option[String] = 
     ctrl.isQuitted = true
-    "Successfully quitted the game"
+    Some("Successfully quitted the game")
 
   
 

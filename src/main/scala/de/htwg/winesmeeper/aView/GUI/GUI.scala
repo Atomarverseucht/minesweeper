@@ -7,7 +7,9 @@ import scalafx.scene.layout.{GridPane, HBox}
 import scalafx.scene.paint.Color
 import scalafx.scene.input.InputIncludes.jfxMouseEvent2sfx
 import scalafx.scene.input.MouseButton
-import javafx.scene.input.{KeyCode, KeyEvent}
+import scalafx.scene.control.Alert
+import scalafx.scene.control.Alert.AlertType
+import javafx.scene.input.KeyEvent
 
 import scala.language.postfixOps
 import scala.util.Try
@@ -73,4 +75,9 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
 
   private def keyListener(event: KeyEvent): Unit =
     if event.isControlDown then
-      ctrl.doShortCut(event.getCode)
+      ctrl.doShortCut(event.getCode) match
+        case Some(value) =>
+          new Alert(AlertType.Information){
+            title = "Winesmeeper Info"
+            contentText = value}.showAndWait()
+        case None =>

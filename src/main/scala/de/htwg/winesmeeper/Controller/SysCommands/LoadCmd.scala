@@ -22,20 +22,24 @@ object LoadCmd extends SysCommandCOR:
       |  overrides game with a given file (without the ending)
       |""".stripMargin
 
-  override def execute(ctrl: Controller, params: Vector[String]): String =
-    val savedVal = Files.readString(SysCommandManager.savedGame(Try(params(1)))).split("\n")
-    val savedVals = Try(savedVal.map(sv => sv.split(": ")(1)))
-    if savedVals.get(0) != de.htwg.winesmeeper.BuildInfo.version then
-      s"not the same version \n Saved game version: ${savedVals.get(0)} != ${de.htwg.winesmeeper.BuildInfo.version}"
-    else
-      ctrl.gb = getBoard(savedVals.get(2))
-      ctrl.changeState(savedVals.get(1))
+  override def execute(ctrl: Controller, params: Vector[String]): Option[String] =
+    Try{
+      val savedVal = Files.readString(SysCommandManager.savedGame(Try(params(1)))).split("\n")
+      val savedVals = Try(savedVal.map(sv => sv.split(": ")(1)))
+      if savedVals.get(0) != de.htwg.winesmeeper.BuildInfo.version then
+        Some(s"not the same version \n Saved game version: ${savedVals.get(0)} != ${de.htwg.winesmeeper.BuildInfo.version}")
+      else
+        ctrl.gb = getBoard(savedVals.get(2))
+        ctrl.changeState(savedVals.get(1))
 
-      val unStack = getStacks(Try(savedVals.get(3).replace("§","")), ctrl)
-      val reStack = getStacks(Try(savedVals.get(4).replace("§","")), ctrl)
-      ctrl.undo.overrideStacks(unStack, reStack)
-      ctrl.notifyObservers()
-      "loaded new game"
+        val unStack = getStacks(Try(savedVals.get(3).replace("§","")), ctrl)
+        val reStack = getStacks(Try(savedVals.get(4).replace("§","")), ctrl)
+        ctrl.undo.overrideStacks(unStack, reStack)
+        ctrl.notifyObservers()}
+    match
+        case Success(_) =>  Some("loaded new game")
+        case Failure(ex) => None
+
 
   private def getBoard(boardString: String): Board =
     val vecBuild = boardString.split("\\), Vector\\(")
@@ -63,9 +67,8 @@ object LoadCmd extends SysCommandCOR:
 
       case Failure(exception) =>
     }
-
     inputStack
 
-  
+
 
 

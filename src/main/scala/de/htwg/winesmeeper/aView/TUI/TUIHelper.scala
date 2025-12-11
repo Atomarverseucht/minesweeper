@@ -41,8 +41,8 @@ object TUIHelper:
     val in = input.split("[^\\w\\d]+").toVector
     if ctrl.isSysCmd(in(0)) then
       ctrl.doSysCmd(in(0), in) match
-        case Success(value) => value
-        case Failure(ex) => ex.printStackTrace(); ""
+        case Some(value) => value
+        case None => ""
     else
       ctrl.turn(in(0), Try(in(1).toInt), Try(in(2).toInt)) match {
         case Success(value) => ""
