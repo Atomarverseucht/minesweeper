@@ -1,3 +1,10 @@
+# [1.0.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0-dev.2...1.0.0-dev.3) (2025-12-11)
+
+
+### Bug Fixes
+
+* The Feedback of Commands, will be shown in the GUI, if it exists ([c9327c7](https://github.com/Atomarverseucht/minesweeper/commit/c9327c7820070e43ed2c54dde872166f132646cf))
+
 # [1.0.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0-dev.1...1.0.0-dev.2) (2025-12-11)
 
 
