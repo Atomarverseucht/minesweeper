@@ -3,6 +3,7 @@ package de.htwg.winesmeeper.Controller.SysCommands
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Controller.Commands.{Command, CommandManager}
 import de.htwg.winesmeeper.Model.{Board, Field}
+import javafx.scene.input.KeyCode
 
 import java.nio.file.{Files, Paths}
 import scala.collection.mutable
@@ -13,6 +14,7 @@ object LoadCmd extends SysCommandCOR:
   override val cmd: String = "load"
   override val helpMsg: String = "Overrides the actual board with the saved file"
   override val next: SysCommandCOR = QuitCmd
+  override val shortcut: KeyCode = KeyCode.L
   override val specHelpMsg: String =
     """load:
       |  overrides game with the standard file
@@ -20,7 +22,7 @@ object LoadCmd extends SysCommandCOR:
       |  overrides game with a given file (without the ending)
       |""".stripMargin
 
-  override def execute(ctrl: Controller, cmd: String, params: Vector[String]): String =
+  override def execute(ctrl: Controller, params: Vector[String]): String =
     val savedVal = Files.readString(SysCommandManager.savedGame(Try(params(1)))).split("\n")
     val savedVals = Try(savedVal.map(sv => sv.split(": ")(1)))
     if savedVals.get(0) != de.htwg.winesmeeper.BuildInfo.version then
@@ -63,5 +65,7 @@ object LoadCmd extends SysCommandCOR:
     }
 
     inputStack
+
+  
 
 

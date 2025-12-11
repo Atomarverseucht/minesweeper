@@ -4,6 +4,7 @@ import de.htwg.winesmeeper.Model.*
 import de.htwg.winesmeeper.Observable
 import de.htwg.winesmeeper.Controller.Commands.{OpenFieldCmd, UndoManager}
 import scala.util.Try
+import javafx.scene.input.KeyCode
 
 sealed trait gameController:
   def inGame: Boolean
@@ -35,6 +36,9 @@ class Controller(var gb: Board) extends Observable with gameController:
   override def inGame: Boolean = state.inGame
 
   override def gameState: String = state.gameState
+  
+  def doShortCut(key: KeyCode): Option[String] =
+    SysCommands.SysCommandManager.doShortCut(this, key)
 
   def isVictory: Boolean = 0 == (for x <- gb.board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
 

@@ -5,16 +5,14 @@ import scalafx.scene.image.{Image, ImageView}
 import scalafx.scene.Scene
 import scalafx.scene.layout.{GridPane, HBox}
 import scalafx.scene.paint.Color
-import scalafx.scene.text.Text
-import scalafx.geometry.Insets
-import scalafx.scene.effect.DropShadow
-import scalafx.scene.paint.Color.*
-import scalafx.scene.paint.*
-import de.htwg.winesmeeper.Controller.Controller
-import de.htwg.winesmeeper.Observer
+import scalafx.scene.input.InputIncludes.jfxMouseEvent2sfx
+import scalafx.scene.input.MouseButton
+import javafx.scene.input.{KeyCode, KeyEvent}
 
 import scala.language.postfixOps
-
+import scala.util.Try
+import de.htwg.winesmeeper.Controller.Controller
+import de.htwg.winesmeeper.Observer
 
 case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
 
@@ -29,6 +27,7 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
       title = "Winesmeeper - A Minesweeper Saga"
       width.onChange(resize())
       height.onChange(resize())
+
     update()
     ctrl.addSub(this)
 
@@ -48,9 +47,14 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
   override def update(): Unit =
     Platform.runLater{
       stage.scene = new Scene:
-          fill = Color.LightBlue
-          content = HBox(boardUI)
+        fill = Color.LightBlue
+        content = HBox(boardUI)
+        onKeyPressed = keyListener(_)
+        onMouseClicked = e => {
+          val cmd = if e.button == MouseButton.Primary then "open" else "flag"
+          turn(cmd, e.getX.toInt, e.getY.toInt)
 
+      }
     }
 
   private def resize(): Unit =
@@ -59,3 +63,14 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
     val h: Int = (stage.height.toInt - heightConst) / bSize._2
     fieldSize = w.min(h)
     update()
+
+  private def getIndex(x: Int, y: Int): (Int, Int) =
+    (x / fieldSize, y / fieldSize)
+
+  private def turn(cmd: String, x: Int, y: Int): Unit =
+    val index = getIndex(x, y)
+    ctrl.turn(cmd, Try(index._1), Try(index._2))
+
+  private def keyListener(event: KeyEvent): Unit =
+    if event.isControlDown then
+      ctrl.doShortCut(event.getCode)
