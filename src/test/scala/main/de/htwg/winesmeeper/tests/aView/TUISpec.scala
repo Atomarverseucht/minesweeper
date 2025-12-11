@@ -83,11 +83,9 @@ class TUISpec extends AnyWordSpec with Matchers:
           |""".stripMargin
 
       val in = new ByteArrayInputStream(fakeInput.getBytes())
-      new Thread(() => {
-        Console.withIn(in) {
-          startTUI()
-        }
-      }).start()
+      Console.withIn(in) {
+        startTUI
+      }
 
 
   object dummySub extends Observer:
