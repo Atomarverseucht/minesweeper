@@ -81,3 +81,4 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
             title = "Winesmeeper Info"
             contentText = value}.showAndWait()
         case None =>
+

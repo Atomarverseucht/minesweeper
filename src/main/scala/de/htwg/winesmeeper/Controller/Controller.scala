@@ -16,7 +16,7 @@ class Controller(var gb: Board) extends Observable with gameController:
  
   var state: GameState = Running(this)
   val undo: UndoManager = UndoManager(this)
-  var isQuitted = false
+  
   
   def turn(cmd: String, x: Try[Int], y: Try[Int]): Try[Boolean] = { 
     Try(state.turn(cmd.toLowerCase, x.get, y.get))
