@@ -19,7 +19,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
       testCtrl.doSysCmd("help", Vector("", "load"))
     "throw Exceptions" in:
       LastElemCmdCOR.buildCmd("doesn't matter", 5, 5, testCtrl).isFailure shouldBe true
-      LastElemSysCommand.execute(testCtrl,"invalid") shouldBe "No such command"
+      LastElemSysCommand.execute(testCtrl,Vector("invalid")).get shouldBe "No such command"
       LastElemCmdCOR.getCmd("hi") shouldBe None
 
     "should discard with undo" in:

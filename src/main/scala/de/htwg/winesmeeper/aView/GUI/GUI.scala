@@ -15,6 +15,7 @@ import scala.language.postfixOps
 import scala.util.Try
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Observer
+import de.htwg.winesmeeper.aView.TUI.TUIHelper
 
 case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
 
@@ -55,8 +56,12 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
         onMouseClicked = e => {
           val cmd = if e.button == MouseButton.Primary then "open" else "flag"
           turn(cmd, e.getX.toInt, e.getY.toInt)
-
-      }
+        }
+      if !ctrl.inGame then
+        new Alert(AlertType.Information) {
+          title = "Game \"end\" message"
+          contentText = TUIHelper.gameEndMsg(ctrl)
+        }.showAndWait()
     }
 
   private def resize(): Unit =
@@ -66,8 +71,7 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
     fieldSize = w.min(h)
     update()
 
-  private def getIndex(x: Int, y: Int): (Int, Int) =
-    (x / fieldSize, y / fieldSize)
+  private def getIndex(x: Int, y: Int): (Int, Int) = (x / fieldSize, y / fieldSize)
 
   private def turn(cmd: String, x: Int, y: Int): Unit =
     val index = getIndex(x, y)
@@ -81,4 +85,6 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
             title = "Winesmeeper Info"
             contentText = value}.showAndWait()
         case None =>
+
+
 
