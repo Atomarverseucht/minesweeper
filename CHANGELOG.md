@@ -1,3 +1,10 @@
+# [1.0.0-dev.5](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0-dev.4...1.0.0-dev.5) (2025-12-11)
+
+
+### Bug Fixes
+
+* colorful Game end messages for GUI ([60671c1](https://github.com/Atomarverseucht/minesweeper/commit/60671c19d96c7b48f6f17feb75d322dde2b9b1fc))
+
 # [1.0.0-dev.4](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0-dev.3...1.0.0-dev.4) (2025-12-11)
 
 
