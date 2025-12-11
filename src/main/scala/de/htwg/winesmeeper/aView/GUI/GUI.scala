@@ -9,13 +9,14 @@ import scalafx.scene.input.InputIncludes.jfxMouseEvent2sfx
 import scalafx.scene.input.MouseButton
 import scalafx.scene.control.Alert
 import scalafx.scene.control.Alert.AlertType
+import scalafx.scene.text.{Text, TextFlow}
 import javafx.scene.input.KeyEvent
+import scalafx.scene.text.{Font,FontWeight}
 
 import scala.language.postfixOps
 import scala.util.Try
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Observer
-import de.htwg.winesmeeper.aView.TUI.TUIHelper
 
 case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
 
@@ -59,8 +60,9 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
         }
       if !ctrl.inGame then
         new Alert(AlertType.Information) {
+          headerText = None
           title = "Game \"end\" message"
-          contentText = TUIHelper.gameEndMsg(ctrl)
+          dialogPane().setContent(gameEndMsg)
         }.showAndWait()
     }
 
@@ -81,10 +83,18 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
     if event.isControlDown then
       ctrl.doShortCut(event.getCode) match
         case Some(value) =>
-          new Alert(AlertType.Information){
+          new Alert(AlertType.Information) {
             title = "Winesmeeper Info"
-            contentText = value}.showAndWait()
+             headerText = value }.showAndWait()
         case None =>
 
-
+  private def gameEndMsg: Text =
+    val f = Font("Arial", FontWeight.Bold, 30)
+     ctrl.gameState match
+      case "lose" =>
+        new Text("Game lost!") {fill = Color.DarkRed; font = f}
+      case "win" =>
+        new Text("You have won!") {fill = Color.Green; font = f}
+      case _ =>
+        Text("???")
 
