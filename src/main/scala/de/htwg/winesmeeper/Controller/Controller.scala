@@ -37,8 +37,7 @@ class Controller(var gb: Board) extends Observable with gameController:
 
   override def gameState: String = state.gameState
   
-  def doShortCut(key: KeyCode): Option[String] =
-    SysCommands.SysCommandManager.doShortCut(this, key)
+  def doShortCut(key: KeyCode): Option[String] = SysCommands.SysCommandManager.doShortCut(this, key)
 
   def isVictory: Boolean = 0 == (for x <- gb.board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
 
