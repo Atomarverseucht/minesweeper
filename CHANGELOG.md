@@ -1,3 +1,10 @@
+# [1.0.0-dev.4](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0-dev.3...1.0.0-dev.4) (2025-12-11)
+
+
+### Bug Fixes
+
+* quit cmd is now quitting everything ([07718e9](https://github.com/Atomarverseucht/minesweeper/commit/07718e910e7fa2a2553f1ae12021623a77399906))
+
 # [1.0.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0-dev.2...1.0.0-dev.3) (2025-12-11)
 
 
