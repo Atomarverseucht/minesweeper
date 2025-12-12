@@ -3,6 +3,7 @@ package de.htwg.winesmeeper.Controller
 import de.htwg.winesmeeper.Model.*
 import de.htwg.winesmeeper.Observable
 import de.htwg.winesmeeper.Controller.Commands.{OpenFieldCmd, UndoManager}
+import de.htwg.winesmeeper.Controller.SysCommands.{SysCommandManager, SysCommandCOR}
 import scala.util.Try
 import javafx.scene.input.KeyCode
 
@@ -36,6 +37,8 @@ class Controller(var gb: Board) extends Observable with gameController:
   override def inGame: Boolean = state.inGame
 
   override def gameState: String = state.gameState
+  
+  def getSysCmdList: Vector[SysCommandCOR] = SysCommandManager.getSysCmdList
   
   def doShortCut(key: KeyCode): Option[String] = SysCommands.SysCommandManager.doShortCut(this, key)
 

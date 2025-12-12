@@ -20,7 +20,7 @@ trait SysCommandCOR extends AbstractCmdCOR:
   def listCmds: List[SysCommandCOR] = this::next.listCmds
 
 object SysCommandManager:
-  private val firstSysCmd: SysCommandCOR = HelpCmd
+  val firstSysCmd: SysCommandCOR = HelpCmd
 
   def isSysCmd(cmd: String): Boolean =
     firstSysCmd.getSysCmd(cmd).nonEmpty
@@ -36,6 +36,8 @@ object SysCommandManager:
       case Success(value) => value
       case Failure(_) => "savedGame"
     Paths.get(f"./saves/$fName.txt")
+    
+  def getSysCmdList: Vector[SysCommandCOR] = firstSysCmd.listCmds.toVector
 
   def getAbstractCmd(cmd: String): Option[AbstractCmdCOR] =
     val sysCmd = firstSysCmd.getSysCmd(cmd)

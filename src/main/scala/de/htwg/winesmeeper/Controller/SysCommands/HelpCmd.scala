@@ -25,7 +25,7 @@ object HelpCmd extends SysCommandCOR:
       case None => Some(standardHelp)
 
   private def standardHelp: String =
-   val sysCmds = HelpCmd.listCmds
+   val sysCmds = SysCommandManager.firstSysCmd.listCmds
    val scString = (for cmd <- sysCmds yield s"  ${cmd.cmd}: ${cmd.helpMsg}").mkString("\n")
    val cmds = FlagCOR.listCmds
    val cmdString = (for cmd <- cmds yield s"  ${cmd.cmd}: ${cmd.helpMsg}").mkString("\n")
