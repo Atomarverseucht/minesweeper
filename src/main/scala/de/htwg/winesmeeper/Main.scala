@@ -19,7 +19,5 @@ def startTUI: Controller =
   ctrl
   
 @main def start: Unit =
-  val gui = aView.GUI.GUI(startTUI)
-  gui.main(Array())
-
+  val gui = aView.GUI.GUI(startTUI).main(Array())
   
