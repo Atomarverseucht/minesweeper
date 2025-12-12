@@ -59,6 +59,5 @@ src/main/scala/de/htwg/.scala-build/.bloop
 
 *.txt
 
-
-
-
+### Environment Variables
+.env

@@ -109,6 +109,8 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
   private def getToolBar: ToolBar =
     val sysCmds = ctrl.getSysCmdList
     val cmds: Seq[Button] = (for cmd <- sysCmds yield
-      new Button(cmd.cmd){onAction = _ => outputWindowSysCmd(ctrl.doSysCmd(cmd.cmd))})
+      new Button(cmd.cmd){
+        
+        onAction = _ => outputWindowSysCmd(ctrl.doSysCmd(cmd.cmd))})
     new ToolBar{content = cmds}
 

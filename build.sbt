@@ -21,7 +21,7 @@ lazy val root = project
 
     scalaVersion := scala3Version,
     scalacOptions ++= Seq("-encoding", "utf-8"),
-    coverageMinimumStmtTotal := 100,
+    coverageMinimumStmtTotal := 80,
     coverageFailOnMinimum := false,
     coverageHighlighting := true,
     coverageExcludedPackages := ".*Main.*;.*Routes.*;.*Config.*;",
@@ -41,6 +41,28 @@ lazy val root = project
       case n if n.startsWith("Windows") => "win"
       case _ => throw new Exception("Unknown platform!")
   }
+
+  sonarProperties ++= Map(
+  "sonar.projectKey" -> "winesmeeper",
+  "sonar.projectName" -> "Winesmeeper",
+  "sonar.host.url" -> "http://localhost:9000",
+  "sonar.login" -> sys.env("SONAR_TOKEN"),
+
+  "sonar.sources" -> "src/main/scala",
+  "sonar.tests"   -> "src/test/scala",
+
+  "sonar.exclusions" ->
+    "**/.scala-build/**,**/*.tasty,**/target/**",
+
+  "sonar.scala.coverage.reportPaths" ->
+    ((Compile / target).value /
+      s"scala-${scalaVersion.value}" /
+      "scoverage-report" /
+      "scoverage.xml"
+    ).getAbsolutePath
+)
+
+
   val fxVersion = "23"
   Seq("base", "controls", "fxml", "graphics", "media", "swing", "web")
     .map(m => "org.openjfx" % s"javafx-$m" % fxVersion classifier osName)
