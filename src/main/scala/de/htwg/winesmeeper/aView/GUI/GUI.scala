@@ -9,10 +9,9 @@ import scalafx.scene.input.InputIncludes.jfxMouseEvent2sfx
 import scalafx.scene.input.MouseButton
 import scalafx.scene.control.{Alert, ToolBar, Button}
 import scalafx.scene.control.Alert.AlertType
-import scalafx.scene.text.{Text, TextFlow}
+import scalafx.scene.text.Text
 import javafx.scene.input.KeyEvent
 import scalafx.scene.text.{Font, FontWeight}
-import javafx.event.ActionEvent
 
 import scala.language.postfixOps
 import scala.util.Try
@@ -27,13 +26,17 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
   private val heightConst = 39 + heightToolBar
 
   override def start(): Unit =
-
     val bSize = ctrl.getSize
     stage = new JFXApp3.PrimaryStage:
       title = "Winesmeeper - A Minesweeper Saga"
       width.onChange(resize())
       height.onChange(resize())
-    update()
+    stage.scene = new Scene:
+      fill = Color.LightBlue
+      onKeyPressed = keyListener(_)
+      onMouseClicked = e =>
+        val cmd = if e.button == MouseButton.Primary then "open" else "flag"
+        turn(cmd, e.getX.toInt, e.getY.toInt)
     ctrl.addSub(this)
 
   private def boardUI: GridPane =
@@ -51,17 +54,11 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
 
   override def update(): Unit =
     Platform.runLater{
-      stage.scene = new Scene:
-        fill = Color.LightBlue
-        root = new BorderPane{
-          top = getToolBar
-          center = HBox(boardUI)
-        }
-        onKeyPressed = keyListener(_)
-        onMouseClicked = e => {
-          val cmd = if e.button == MouseButton.Primary then "open" else "flag"
-          turn(cmd, e.getX.toInt, e.getY.toInt)
-        }
+      val newRoot = new BorderPane {
+        top = getToolBar
+        center = boardUI
+      }
+      stage.scene.get().setRoot(newRoot)
       if !ctrl.inGame then
         new Alert(AlertType.Information) {
           headerText = None
