@@ -1,3 +1,10 @@
+# [1.0.0-dev.6](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0-dev.5...1.0.0-dev.6) (2025-12-12)
+
+
+### Features
+
+* ToolBar ([1b8b400](https://github.com/Atomarverseucht/minesweeper/commit/1b8b4000171985e41adfdef114d9a1ea643e2a0d))
+
 # [1.0.0-dev.5](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0-dev.4...1.0.0-dev.5) (2025-12-11)
 
 
