@@ -3,7 +3,7 @@ package de.htwg.winesmeeper.Controller.Commands
 import de.htwg.winesmeeper.Controller.Controller
 
 import scala.collection.mutable
-import scala.util.{Failure, Success}
+import scala.util.Success
 import scala.collection.mutable.Stack
 
 case class UndoManager(control: Controller):

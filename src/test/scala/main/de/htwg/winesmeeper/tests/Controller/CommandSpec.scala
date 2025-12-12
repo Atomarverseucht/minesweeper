@@ -1,10 +1,11 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
 import de.htwg.winesmeeper.Controller.SysCommands.{LastElemSysCommand, LoadCmd, SysCommandManager}
-import de.htwg.winesmeeper.Controller.Commands.LastElemCmdCOR
+import de.htwg.winesmeeper.Controller.Commands.{LastElemCmdCOR, CommandManager}
 import de.htwg.winesmeeper.Controller.Controller
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+import javafx.scene.input.KeyCode
 
 import scala.util.Failure
 import java.nio.file.{Files, Paths}
@@ -19,7 +20,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
       testCtrl.doSysCmd("help", Vector("", "load"))
     "throw Exceptions" in:
       LastElemCmdCOR.buildCmd("doesn't matter", 5, 5, testCtrl).isFailure shouldBe true
-      LastElemSysCommand.execute(testCtrl,"invalid") shouldBe "No such command"
+      LastElemSysCommand.execute(testCtrl,Vector("invalid")).get shouldBe "No such command!"
       LastElemCmdCOR.getCmd("hi") shouldBe None
 
     "should discard with undo" in:
@@ -46,3 +47,14 @@ class CommandSpec extends AnyWordSpec with Matchers:
     "specific help messages:" in:
       testCtrl.doSysCmd("help", Vector("help", "open"))
       LoadCmd.getStacks(Failure(IllegalArgumentException()), testCtrl)
+
+      CommandManager.firstCommandCOR.getCmd("feuzighoiz") shouldBe None
+
+    "have a shortcut" in:
+      testCtrl.doShortCut(KeyCode.H)
+      testCtrl.doShortCut(KeyCode.Z)
+      testCtrl.doShortCut(KeyCode.LEFT_PARENTHESIS)
+      testCtrl.doSysCmd("sduzgasdfui")
+
+    "have a List" in:
+      testCtrl.getSysCmdList

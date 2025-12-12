@@ -2,8 +2,9 @@ package de.htwg.winesmeeper.Controller.SysCommands
 
 import de.htwg.winesmeeper.Controller.Commands.UndoManager
 import de.htwg.winesmeeper.Controller.Controller
+import javafx.scene.input.KeyCode
 
-import scala.util.{Failure, Try, Success}
+import scala.util.{Failure, Success, Try}
 
 object RedoCmd extends SysCommandCOR:
   override val cmd: String = "redo"
@@ -17,13 +18,15 @@ object RedoCmd extends SysCommandCOR:
       |  makes your last <count> undos done!
       |""".stripMargin
 
-  override def execute(ctrl: Controller, cmd: String, params: Vector[String]): String =
+  override def execute(ctrl: Controller, params: Vector[String]): Option[String] =
     val count: Int = Try(params(1).toInt) match
       case Failure(exception) => 1
       case Success(value) => value
     for i <- 1 to count do
       ctrl.undo.redoStep
     ctrl.notifyObservers()
-    ""
+    None
+
+  override val shortcut: KeyCode = KeyCode.Y
 
 
