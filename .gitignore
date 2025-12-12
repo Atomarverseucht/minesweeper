@@ -4,10 +4,13 @@ target/
 !**/src/test/**/target/
 *.class
 project/*
+minesweeper.iml
+.metals
+.bloop
+
 minesweeper.iml.metals
 .vscode
 .metals
-=======
 
 ### IntelliJ IDEA ###
 .idea/*
@@ -55,4 +58,7 @@ src/main/scala/de/htwg/.metals
 src/main/scala/de/htwg/.scala-build/.bloop
 
 *.txt
+
+
+
 

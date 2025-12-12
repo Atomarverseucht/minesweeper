@@ -26,8 +26,7 @@ case class OpenFieldCmd(ctrl: Controller, x: Int, y: Int) extends Command:
       ctrl.gb = new Board(newVector)
       if f.isBomb && !discover then ctrl.changeState("running")
       if f.isBomb && discover then ctrl.changeState("lose");
-      else
-        if gb.getBombNeighbour(x, y) == 0 then
+      else if gb.getBombNeighbour(x, y) == 0 then
           for fx <- x - 1 to x + 1
             fy <- y - 1 to y + 1 do
             if gb.in(fx, fy) && !gb.board(fx)(fy).isOpened == discover then

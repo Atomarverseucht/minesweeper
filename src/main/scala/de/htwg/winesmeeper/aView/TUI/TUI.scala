@@ -1,10 +1,10 @@
-package de.htwg.winesmeeper.aView
+package de.htwg.winesmeeper.aView.TUI
 
-import scala.io.StdIn.{readInt, readLine}
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Observer
 
 import scala.annotation.tailrec
+import scala.io.StdIn.{readInt, readLine}
 
 class TUI(ctrl: Controller) extends Observer:
   ctrl.addSub(this)
@@ -14,11 +14,10 @@ class TUI(ctrl: Controller) extends Observer:
   @tailrec
   final def nextTurn: Unit =
     println(TUIHelper.turn(readLine, ctrl))
-    if !ctrl.isQuitted then nextTurn
+    nextTurn
 
   override def update(): Unit =
-    if ctrl.inGame then
-      println(TUIHelper.getBoardString(ctrl))
-    else
-      println(TUIHelper.getBoardString(ctrl))
+    println(TUIHelper.getBoardString(ctrl))
+    if !ctrl.inGame then
       println(TUIHelper.gameEndMsg(ctrl))
+

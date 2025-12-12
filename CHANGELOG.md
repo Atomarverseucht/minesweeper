@@ -1,3 +1,54 @@
+# [1.0.0-dev.6](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0-dev.5...1.0.0-dev.6) (2025-12-12)
+
+
+### Features
+
+* ToolBar ([1b8b400](https://github.com/Atomarverseucht/minesweeper/commit/1b8b4000171985e41adfdef114d9a1ea643e2a0d))
+
+# [1.0.0-dev.5](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0-dev.4...1.0.0-dev.5) (2025-12-11)
+
+
+### Bug Fixes
+
+* colorful Game end messages for GUI ([60671c1](https://github.com/Atomarverseucht/minesweeper/commit/60671c19d96c7b48f6f17feb75d322dde2b9b1fc))
+
+# [1.0.0-dev.4](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0-dev.3...1.0.0-dev.4) (2025-12-11)
+
+
+### Bug Fixes
+
+* quit cmd is now quitting everything ([07718e9](https://github.com/Atomarverseucht/minesweeper/commit/07718e910e7fa2a2553f1ae12021623a77399906))
+
+# [1.0.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0-dev.2...1.0.0-dev.3) (2025-12-11)
+
+
+### Bug Fixes
+
+* The Feedback of Commands, will be shown in the GUI, if it exists ([c9327c7](https://github.com/Atomarverseucht/minesweeper/commit/c9327c7820070e43ed2c54dde872166f132646cf))
+
+# [1.0.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0-dev.1...1.0.0-dev.2) (2025-12-11)
+
+
+### Features
+
+* added shortcuts for GUI-Sys CMDS ([0223ed6](https://github.com/Atomarverseucht/minesweeper/commit/0223ed6bf18e9aa720809658942ea16bf07af355))
+
+# [1.0.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/0.6.4-dev.2...1.0.0-dev.1) (2025-12-11)
+
+
+### Features
+
+* Resize ([bd63c24](https://github.com/Atomarverseucht/minesweeper/commit/bd63c243bdc007a5f1ab3b95a4f8903fdbcc4ba2))
+
+
+### BREAKING CHANGES
+
+* added GUI
+
+## [0.6.4-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/0.6.4-dev.1...0.6.4-dev.2) (2025-12-10)
+
+## [0.6.4-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/0.6.3...0.6.4-dev.1) (2025-12-09)
+
 ## [0.6.3](https://github.com/Atomarverseucht/minesweeper/compare/0.6.2...0.6.3) (2025-12-05)
 
 
