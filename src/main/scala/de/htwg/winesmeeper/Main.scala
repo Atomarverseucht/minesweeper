@@ -18,6 +18,5 @@ def startTUI: Controller =
   }).start()
   ctrl
   
-@main def start: Unit =
-  val gui = aView.GUI.GUI(startTUI).main(Array())
+@main def start: Unit = aView.GUI.GUI(startTUI).main(Array())
   

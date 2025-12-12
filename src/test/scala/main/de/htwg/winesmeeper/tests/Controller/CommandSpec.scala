@@ -52,6 +52,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
 
     "have a shortcut" in:
       testCtrl.doShortCut(KeyCode.H)
+      testCtrl.doSysCmd("sduzgasdfui")
 
     "have a List" in:
       testCtrl.getSysCmdList
