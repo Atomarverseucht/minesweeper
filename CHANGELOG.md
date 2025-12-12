@@ -1,3 +1,11 @@
+## [1.0.1-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/1.0.1-dev.1...1.0.1-dev.2) (2025-12-12)
+
+
+### Bug Fixes
+
+* fixed state of undo from winning state ([f251294](https://github.com/Atomarverseucht/minesweeper/commit/f251294967985ebef5fe4a10fdfa8467f4fd472c))
+* GUI: better starting size ([8b669f8](https://github.com/Atomarverseucht/minesweeper/commit/8b669f87382bb9d2789c59e809cf41619c72e00f))
+
 ## [1.0.1-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0...1.0.1-dev.1) (2025-12-12)
 
 
