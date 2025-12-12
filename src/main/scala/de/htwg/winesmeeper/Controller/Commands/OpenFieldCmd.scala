@@ -24,14 +24,14 @@ case class OpenFieldCmd(ctrl: Controller, x: Int, y: Int) extends Command:
     else
       val newVector = gb.board.updated(x, gb.board(x).updated(y, Field(f.isBomb, discover, !discover && isFlag)))
       ctrl.gb = new Board(newVector)
-      if f.isBomb && !discover then ctrl.changeState("running")
+      if !discover && !ctrl.inGame then ctrl.changeState("running")
       if f.isBomb && discover then ctrl.changeState("lose");
       else if gb.getBombNeighbour(x, y) == 0 then
           for fx <- x - 1 to x + 1
             fy <- y - 1 to y + 1 do
             if gb.in(fx, fy) && !gb.board(fx)(fy).isOpened == discover then
               OpenFieldCmd(ctrl, fx, fy).step(discover)
-      if ctrl.isVictory then ctrl.changeState("win")
+      if ctrl.isVictory && discover then ctrl.changeState("win")
       true
 
   override def toString: String = f"open($x, $y)"
