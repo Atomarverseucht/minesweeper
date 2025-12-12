@@ -1,3 +1,10 @@
+## [1.0.1-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0...1.0.1-dev.1) (2025-12-12)
+
+
+### Bug Fixes
+
+* GUI: resize bug fixed ([61d6063](https://github.com/Atomarverseucht/minesweeper/commit/61d6063a00ce866baff5ef8a4612488cde88998d))
+
 # [1.0.0](https://github.com/Atomarverseucht/minesweeper/compare/0.6.3...1.0.0) (2025-12-12)
 
 
