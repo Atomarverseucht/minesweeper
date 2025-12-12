@@ -7,13 +7,13 @@ import scalafx.scene.layout.{BorderPane, GridPane, HBox, Priority}
 import scalafx.scene.paint.Color
 import scalafx.scene.input.InputIncludes.jfxMouseEvent2sfx
 import scalafx.scene.input.MouseButton
-import scalafx.scene.control.{Alert, ToolBar, Button}
+import scalafx.scene.control.{Alert, Button, ToolBar}
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.text.Text
 import javafx.scene.input.KeyEvent
 import scalafx.scene.text.{Font, FontWeight}
 
-import scala.language.postfixOps
+import scala.language.{higherKinds, postfixOps}
 import scala.util.Try
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Observer
@@ -21,7 +21,7 @@ import de.htwg.winesmeeper.Observer
 case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
 
   private val heightToolBar = 30
-  private var fieldSize: Int = 16
+  private var fieldSize: Int = 32
   private val widthConst = 15
   private val heightConst = 39 + heightToolBar
 
@@ -29,6 +29,8 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
     val bSize = ctrl.getSize
     stage = new JFXApp3.PrimaryStage:
       title = "Winesmeeper - A Minesweeper Saga"
+      width = fieldSize * bSize._1 + widthConst
+      height = fieldSize * bSize._2 + heightConst
       width.onChange(resize())
       height.onChange(resize())
     stage.scene = new Scene:
@@ -37,6 +39,7 @@ case class GUI(ctrl: Controller) extends JFXApp3 with Observer:
       onMouseClicked = e =>
         val cmd = if e.button == MouseButton.Primary then "open" else "flag"
         turn(cmd, e.getX.toInt, e.getY.toInt)
+    update()
     ctrl.addSub(this)
 
   private def boardUI: GridPane =
