@@ -1,20 +1,11 @@
-package de.htwg.winesmeeper.Model
+package de.htwg.winesmeeper.Model.BoardImplementation
 
-import scala.util.Random
+import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
+
 import scala.annotation.tailrec
+import scala.util.Random
 
-// all in some cases useful functions of the Board in a short overview.
-//    Names should be self-explanatory
-sealed trait GameBoard {
-  def getField(x: Int, y: Int): Int
-  def getSize: (Int, Int)
-  def getBombNeighbour(x: Int, y: Int): Int
-  def findBomb: (Int, Int)
-}
-
-case class Field(isBomb: Boolean, isOpened: Boolean, isFlag: Boolean = false)
-
-case class Board (board: Vector[Vector[Field]]) extends GameBoard:
+case class Board (board: Vector[Vector[Field]]) extends BoardTrait:
 
   override def getBombNeighbour(x: Int, y: Int): Int =
     (for
@@ -26,34 +17,34 @@ case class Board (board: Vector[Vector[Field]]) extends GameBoard:
       if in(nx, ny) && board(nx)(ny).isBomb then 1 else 0
     }).sum
 
-  override def getField(x: Int, y: Int): Int =
+  private def getField(x: Int, y: Int): Int =
     val f = getFieldAt(x, y)
     if f.isFlag then -3
     else if !f.isOpened then -1
     else if f.isBomb then -2
     else getBombNeighbour(x, y)
 
-  def getFieldAt(x: Int, y: Int): Field =
+  override def getFieldAt(x: Int, y: Int): FieldTrait =
     require(in(x, y), "Coordinates out of range")
     board(x)(y)
 
   override def getSize: (Int, Int) = (board.length, board(0).length)
-
-  override def findBomb: (Int, Int) = {
-    findBomb(0, 0)
-  }
-  @tailrec
-  private def findBomb(x: Int, y: Int): (Int, Int) = 
-    if board(x)(y).isBomb then (x, y) else {val c: (Int, Int) = nextField(x, y); findBomb(c._1, c._2)}
   
   def getBoard: Vector[Vector[Int]] =
     (for x <- board.indices yield
       (for y <- board(0).indices yield
         getField(x, y)).toVector).toVector
 
-  def in(x: Int, y: Int): Boolean = x >= 0 && y >= 0 && x < board.length && y < board(0).length
+  override def in(x: Int, y: Int): Boolean = x >= 0 && y >= 0 && x < board.length && y < board(0).length
 
   def nextField(x: Int, y: Int): (Int, Int) = if x + 1 < board.length then (x + 1, y) else (0, y+1)
+
+  override def updateField (indX: Int, indY: Int, isBomb: Boolean, isOpened: Boolean, isFlag: Boolean): BoardTrait =
+    Board(board.updated(indX, board(indX).updated(indY, Field(isBomb, isOpened, isFlag))))
+
+  override def isVictory: Boolean = 0 == (for x <- board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
+
+  override def toString: String = board.mkString(", ")
 
 object Board:
 

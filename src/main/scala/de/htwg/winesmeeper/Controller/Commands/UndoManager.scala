@@ -1,6 +1,6 @@
 package de.htwg.winesmeeper.Controller.Commands
 
-import de.htwg.winesmeeper.Controller.Controller
+import de.htwg.winesmeeper.Controller.Implementation.Controller
 
 import scala.collection.mutable
 import scala.util.Success

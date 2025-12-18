@@ -1,9 +1,7 @@
 package de.htwg.winesmeeper.Controller.Commands
 
-import de.htwg.winesmeeper.Controller.Commands.OpenFieldCOR.next
-import de.htwg.winesmeeper.Controller.Controller
-import de.htwg.winesmeeper.Model.Board
-import de.htwg.winesmeeper.Model.Field
+import de.htwg.winesmeeper.Controller.Implementation.Controller
+import de.htwg.winesmeeper.Model.BoardImplementation.{Board, Field}
 
 import scala.util.{Success, Try}
 
@@ -12,7 +10,7 @@ case class FlagCommand(ctrl: Controller, x: Int, y: Int) extends Command:
   override def doStep(): Boolean =
     val f = ctrl.gb.getFieldAt(x, y)
     if (!f.isOpened) then
-      ctrl.gb = Board(ctrl.gb.board.updated(x, ctrl.gb.board(x).updated(y, Field(f.isBomb, f.isOpened, !f.isFlag))))
+      ctrl.gb = ctrl.gb.updateField(x, y, f.isBomb, f.isOpened, !f.isFlag)
       true
     else false
 

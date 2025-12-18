@@ -1,4 +1,6 @@
-package de.htwg.winesmeeper.Controller
+package de.htwg.winesmeeper.Controller.Implementation
+
+import de.htwg.winesmeeper.Controller.*
 
 
 trait CORStat:

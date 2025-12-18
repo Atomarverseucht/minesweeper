@@ -1,7 +1,7 @@
 package main.de.htwg.winesmeeper.tests.aView
 
-import de.htwg.winesmeeper.Controller.Controller
-import de.htwg.winesmeeper.Model.{Board, Field}
+import de.htwg.winesmeeper.Controller.Implementation.Controller
+import de.htwg.winesmeeper.Model.BoardImplementation.{Board, Field}
 import de.htwg.winesmeeper.{Observer, aView}
 import de.htwg.winesmeeper.aView.TUI.TUIHelper.*
 import de.htwg.winesmeeper.startTUI

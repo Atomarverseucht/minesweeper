@@ -1,13 +1,13 @@
 package de.htwg.winesmeeper.Controller.Commands
 
-import de.htwg.winesmeeper.Model.{Board, Field}
-import de.htwg.winesmeeper.Controller.Controller
+import de.htwg.winesmeeper.Controller.Implementation.Controller
+import de.htwg.winesmeeper.Model.BoardImplementation.{Board, Field}
 
 import scala.util.{Success, Try}
 
 case class OpenFieldCmd(ctrl: Controller, x: Int, y: Int) extends Command:
 
-  val isFlag: Boolean = ctrl.gb.board(x)(y).isFlag
+  val isFlag: Boolean = ctrl.gb.getFieldAt(x, y).isBomb
   override def doStep(): Boolean =
     step(true)
 
@@ -22,14 +22,13 @@ case class OpenFieldCmd(ctrl: Controller, x: Int, y: Int) extends Command:
     val f = gb.getFieldAt(x, y)
     if discover == f.isOpened then false
     else
-      val newVector = gb.board.updated(x, gb.board(x).updated(y, Field(f.isBomb, discover, !discover && isFlag)))
-      ctrl.gb = new Board(newVector)
+      ctrl.gb = gb.updateField(x, y, f.isBomb, discover, !discover && isFlag)
       if !discover && !ctrl.inGame then ctrl.changeState("running")
       if f.isBomb && discover then ctrl.changeState("lose");
       else if gb.getBombNeighbour(x, y) == 0 then
           for fx <- x - 1 to x + 1
             fy <- y - 1 to y + 1 do
-            if gb.in(fx, fy) && !gb.board(fx)(fy).isOpened == discover then
+            if gb.in(fx, fy) && !gb.getFieldAt(fx, fy).isOpened == discover then
               OpenFieldCmd(ctrl, fx, fy).step(discover)
       if ctrl.isVictory && discover then ctrl.changeState("win")
       true

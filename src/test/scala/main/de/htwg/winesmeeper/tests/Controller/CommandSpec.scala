@@ -1,8 +1,8 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
 import de.htwg.winesmeeper.Controller.SysCommands.{LastElemSysCommand, LoadCmd, SysCommandManager}
-import de.htwg.winesmeeper.Controller.Commands.{LastElemCmdCOR, CommandManager}
-import de.htwg.winesmeeper.Controller.Controller
+import de.htwg.winesmeeper.Controller.Commands.{CommandManager, LastElemCmdCOR}
+import de.htwg.winesmeeper.Controller.Implementation.Controller
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import javafx.scene.input.KeyCode

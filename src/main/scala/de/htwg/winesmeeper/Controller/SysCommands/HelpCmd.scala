@@ -1,8 +1,8 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 
-import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Controller.Commands
 import de.htwg.winesmeeper.Controller.Commands.FlagCOR
+import de.htwg.winesmeeper.Controller.Implementation.Controller
 import javafx.scene.input.KeyCode
 
 object HelpCmd extends SysCommandCOR:

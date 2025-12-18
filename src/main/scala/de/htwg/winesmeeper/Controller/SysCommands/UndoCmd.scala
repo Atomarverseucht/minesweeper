@@ -1,7 +1,7 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 
 import de.htwg.winesmeeper.Controller.Commands.{Command, CommandCOR}
-import de.htwg.winesmeeper.Controller.Controller
+import de.htwg.winesmeeper.Controller.Implementation.Controller
 import javafx.scene.input.KeyCode
 
 import scala.util.{Failure, Success, Try}

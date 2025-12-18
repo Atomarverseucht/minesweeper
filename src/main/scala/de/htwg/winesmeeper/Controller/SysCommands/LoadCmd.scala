@@ -1,8 +1,8 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 
-import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Controller.Commands.{Command, CommandManager}
-import de.htwg.winesmeeper.Model.{Board, Field}
+import de.htwg.winesmeeper.Controller.Implementation.Controller
+import de.htwg.winesmeeper.Model.BoardImplementation.{Board, Field}
 import javafx.scene.input.KeyCode
 
 import java.nio.file.{Files, Paths}

@@ -1,7 +1,7 @@
 package main.de.htwg.winesmeeper.tests.Model
 
-import de.htwg.winesmeeper.Controller.Controller
-import de.htwg.winesmeeper.Model.Board
+import de.htwg.winesmeeper.Controller.Implementation.Controller
+import de.htwg.winesmeeper.Model.BoardImplementation.Board
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
