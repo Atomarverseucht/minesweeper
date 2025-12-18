@@ -1,3 +1,10 @@
+# [1.1.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/1.0.1...1.1.0-dev.1) (2025-12-18)
+
+
+### Features
+
+* Controller & Board Component ([71aa623](https://github.com/Atomarverseucht/minesweeper/commit/71aa62345271657677a1af426979859809aba72b))
+
 ## [1.0.1](https://github.com/Atomarverseucht/minesweeper/compare/1.0.0...1.0.1) (2025-12-12)
 
 
