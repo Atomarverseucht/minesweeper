@@ -1,6 +1,6 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 
-import de.htwg.winesmeeper.Controller.Implementation.Controller
+import de.htwg.winesmeeper.Controller.ControllerTrait
 import javafx.scene.input.KeyCode
 
 object QuitCmd extends SysCommandCOR:
@@ -13,7 +13,7 @@ object QuitCmd extends SysCommandCOR:
       |  closes the game
       |""".stripMargin
   
-  override def execute(ctrl: Controller, params: Vector[String]): Option[String] =
+  override def execute(ctrl: ControllerTrait, params: Vector[String]): Option[String] =
     System.exit(0)
     Some("Successfully quitted the game")
 

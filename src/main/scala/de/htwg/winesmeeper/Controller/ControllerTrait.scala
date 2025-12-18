@@ -1,11 +1,16 @@
 package de.htwg.winesmeeper.Controller
 
+import de.htwg.winesmeeper.Controller.TurnCommands.UndoManager
+import de.htwg.winesmeeper.Model.BoardTrait
 import de.htwg.winesmeeper.Observable
 import javafx.scene.input.KeyCode
 
 import scala.util.Try
 
-trait ControllerTrait extends Observable:
+trait ControllerTrait() extends Observable:
+  val undo: UndoManager
+  var gb: BoardTrait
+  
   def inGame: Boolean
 
   def getBoard: Vector[Vector[Int]]
@@ -23,3 +28,7 @@ trait ControllerTrait extends Observable:
   def doShortcut(key: KeyCode): Option[String]
 
   def getSysCmdList: Vector[String]
+  
+  def changeState(state: String): Unit
+  
+  def isVictory: Boolean

@@ -15,3 +15,5 @@ trait BoardTrait:
   def isVictory: Boolean
 
   def in (x: Int, y: Int): Boolean
+  
+val standardBoard = BoardImplementation.Board

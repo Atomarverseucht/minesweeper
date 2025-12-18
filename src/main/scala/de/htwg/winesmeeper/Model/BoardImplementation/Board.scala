@@ -5,7 +5,7 @@ import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
 import scala.annotation.tailrec
 import scala.util.Random
 
-case class Board (board: Vector[Vector[Field]]) extends BoardTrait:
+class Board (board: Vector[Vector[Field]]) extends BoardTrait:
 
   override def getBombNeighbour(x: Int, y: Int): Int =
     (for
@@ -40,7 +40,7 @@ case class Board (board: Vector[Vector[Field]]) extends BoardTrait:
   def nextField(x: Int, y: Int): (Int, Int) = if x + 1 < board.length then (x + 1, y) else (0, y+1)
 
   override def updateField (indX: Int, indY: Int, isBomb: Boolean, isOpened: Boolean, isFlag: Boolean): BoardTrait =
-    Board(board.updated(indX, board(indX).updated(indY, Field(isBomb, isOpened, isFlag))))
+    new Board(board.updated(indX, board(indX).updated(indY, Field(isBomb, isOpened, isFlag))))
 
   override def isVictory: Boolean = 0 == (for x <- board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
 

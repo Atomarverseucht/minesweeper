@@ -1,6 +1,6 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 
-import de.htwg.winesmeeper.Controller.Implementation.Controller
+import de.htwg.winesmeeper.Controller.ControllerTrait
 import javafx.scene.input.KeyCode
 
 import scala.util.Try
@@ -18,7 +18,7 @@ object SaveCmd extends SysCommandCOR:
       |  saves game at a given file (without the ending)
       |""".stripMargin
   
-  override def execute(ctrl: Controller, params: Vector[String]): Option[String] =
+  override def execute(ctrl: ControllerTrait, params: Vector[String]): Option[String] =
     Files.write(SysCommandManager.savedGame(Try(params(1))), ctrl.toString.getBytes())
     Some("Board saved")
 

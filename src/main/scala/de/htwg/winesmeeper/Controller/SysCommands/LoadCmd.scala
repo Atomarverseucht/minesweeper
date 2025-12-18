@@ -1,8 +1,8 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 
-import de.htwg.winesmeeper.Controller.Commands.{Command, CommandManager}
-import de.htwg.winesmeeper.Controller.Implementation.Controller
-import de.htwg.winesmeeper.Model.BoardImplementation.{Board, Field}
+import de.htwg.winesmeeper.Controller.ControllerTrait
+import de.htwg.winesmeeper.Controller.TurnCommands.{Command, CommandManager}
+import de.htwg.winesmeeper.Model.{BoardTrait, standardBoard, standardField}
 import javafx.scene.input.KeyCode
 
 import java.nio.file.{Files, Paths}
@@ -22,7 +22,7 @@ object LoadCmd extends SysCommandCOR:
       |  overrides game with a given file (without the ending)
       |""".stripMargin
 
-  override def execute(ctrl: Controller, params: Vector[String]): Option[String] =
+  override def execute(ctrl: ControllerTrait, params: Vector[String]): Option[String] =
     Try{
       val savedVal = Files.readString(SysCommandManager.savedGame(Try(params(1)))).split("\n")
       val savedVals = Try(savedVal.map(sv => sv.split(": ")(1)))
@@ -41,7 +41,7 @@ object LoadCmd extends SysCommandCOR:
         case Failure(ex) => None
 
 
-  private def getBoard(boardString: String): Board =
+  private def getBoard(boardString: String): BoardTrait =
     val vecBuild = boardString.split("\\), Vector\\(")
     val vector = (for vec <- vecBuild yield
       val victorS = vec.replace("Vector(","").split("Field\\(")
@@ -50,10 +50,10 @@ object LoadCmd extends SysCommandCOR:
         val boolVal = for bs <- boolS yield
           if bs == "true" then true
           else false
-        Field(boolVal(0), boolVal(1), boolVal(2))).toVector).toVector
-    Board(vector)
+        standardField(boolVal(0), boolVal(1), boolVal(2))).toVector).toVector
+    standardBoard(vector)
 
-  def getStacks(input: Try[String], ctrl: Controller): Stack[Command] =
+  def getStacks(input: Try[String], ctrl: ControllerTrait): Stack[Command] =
     val inputStack = new Stack[Command]
     input match {
       case Success(value) =>

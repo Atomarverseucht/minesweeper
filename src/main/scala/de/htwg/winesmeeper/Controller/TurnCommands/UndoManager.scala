@@ -1,12 +1,12 @@
-package de.htwg.winesmeeper.Controller.Commands
+package de.htwg.winesmeeper.Controller.TurnCommands
 
-import de.htwg.winesmeeper.Controller.Implementation.Controller
+import de.htwg.winesmeeper.Controller.ControllerTrait
 
 import scala.collection.mutable
 import scala.util.Success
 import scala.collection.mutable.Stack
 
-case class UndoManager(control: Controller):
+case class UndoManager(control: ControllerTrait):
   private val undoStack: mutable.Stack[Command] = new Stack()
   private val redoStack: mutable.Stack[Command] = new Stack()
 

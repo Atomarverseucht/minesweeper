@@ -1,6 +1,6 @@
 package de.htwg.winesmeeper.Controller.SysCommands
-import de.htwg.winesmeeper.Controller.Commands.CommandManager
-import de.htwg.winesmeeper.Controller.Implementation.Controller
+import de.htwg.winesmeeper.Controller.TurnCommands.CommandManager
+import de.htwg.winesmeeper.Controller.ControllerTrait
 
 import javafx.scene.input.KeyCode
 import scala.util.{Failure, Success, Try}
@@ -14,7 +14,7 @@ trait AbstractCmdCOR:
 trait SysCommandCOR extends AbstractCmdCOR:
   val next: SysCommandCOR
   val shortcut: KeyCode
-  def execute(ctrl: Controller, params: Vector[String] = Vector("no params")): Option[String]
+  def execute(ctrl: ControllerTrait, params: Vector[String] = Vector("no params")): Option[String]
   def getSysCmd(cmd: String): Option[SysCommandCOR] = if cmd == this.cmd then Some(this) else next.getSysCmd(cmd)
   def getSysCmd(key: KeyCode): Option[SysCommandCOR] = if key == shortcut then Some(this) else next.getSysCmd(key)
   def listCmds: List[SysCommandCOR] = this::next.listCmds
@@ -25,7 +25,7 @@ object SysCommandManager:
   def isSysCmd(cmd: String): Boolean =
     firstSysCmd.getSysCmd(cmd).nonEmpty
 
-  def doSysCmd(cntrl: Controller, cmd: String, params: Vector[String]): Option[String] =
+  def doSysCmd(cntrl: ControllerTrait, cmd: String, params: Vector[String]): Option[String] =
     val com = firstSysCmd.getSysCmd(cmd)
     com match
       case Some(value) => value.execute(cntrl, params)
@@ -44,7 +44,7 @@ object SysCommandManager:
     if sysCmd.nonEmpty then sysCmd
     else CommandManager.firstCommandCOR.getCmd(cmd)
     
-  def doShortCut(ctrl: Controller, key: KeyCode): Option[String] =
+  def doShortCut(ctrl: ControllerTrait, key: KeyCode): Option[String] =
     val out = firstSysCmd.getSysCmd(key).map[Option[String]](_.execute(ctrl))
     out match
       case Some(None) => None
@@ -56,7 +56,7 @@ object LastElemSysCommand extends SysCommandCOR:
   override val helpMsg: String = ""
   override val next: SysCommandCOR = this
 
-  override def execute(ctrl: Controller, params: Vector[String]): Option[String] = Some("No such command!")
+  override def execute(ctrl: ControllerTrait, params: Vector[String]): Option[String] = Some("No such command!")
 
   override def getSysCmd(cmd: String): Option[SysCommandCOR] = None
 

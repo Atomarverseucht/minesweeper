@@ -1,6 +1,6 @@
-package de.htwg.winesmeeper.Controller.Commands
+package de.htwg.winesmeeper.Controller.TurnCommands
 
-import de.htwg.winesmeeper.Controller.Implementation.Controller
+import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Controller.SysCommands.AbstractCmdCOR
 
 import scala.util.Try
@@ -16,7 +16,7 @@ trait CommandCOR extends AbstractCmdCOR: // für Hilfsmethode erbt CommandCOR un
   val cmd: String
   val helpMsg: String
   val next: CommandCOR
-  def buildCmd(cmd: String, x: Int, y: Int, ctrl: Controller): Try[Command]
+  def buildCmd(cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[Command]
   def listCmds: List[CommandCOR] = this::next.listCmds
   def getCmd(cmd: String): Option[CommandCOR] = if cmd == this.cmd then Some(this) else next.getCmd(cmd)
   
@@ -24,7 +24,7 @@ object LastElemCmdCOR extends CommandCOR:
   override val next: CommandCOR = this
   override val cmd: String = ""
   override val helpMsg: String = ""
-  override def buildCmd(cmd: String, x: Int, y: Int, ctrl: Controller): Try[Command] =  Failure(IllegalArgumentException())
+  override def buildCmd(cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[Command] =  Failure(IllegalArgumentException())
   
   override def listCmds: List[CommandCOR] = Nil
 
@@ -34,7 +34,7 @@ object LastElemCmdCOR extends CommandCOR:
   
 object CommandManager:
   val firstCommandCOR: CommandCOR = FlagCOR
-  def buildCmd(cmd: String, x: Int, y: Int, ctrl: Controller): Try[Command] = firstCommandCOR.buildCmd(cmd, x, y, ctrl)
+  def buildCmd(cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[Command] = firstCommandCOR.buildCmd(cmd, x, y, ctrl)
   
 
 

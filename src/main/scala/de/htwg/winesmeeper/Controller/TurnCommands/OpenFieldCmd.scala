@@ -1,11 +1,11 @@
-package de.htwg.winesmeeper.Controller.Commands
+package de.htwg.winesmeeper.Controller.TurnCommands
 
-import de.htwg.winesmeeper.Controller.Implementation.Controller
-import de.htwg.winesmeeper.Model.BoardImplementation.{Board, Field}
+import de.htwg.winesmeeper.Controller.ControllerTrait
+import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
 
 import scala.util.{Success, Try}
 
-case class OpenFieldCmd(ctrl: Controller, x: Int, y: Int) extends Command:
+case class OpenFieldCmd(ctrl: ControllerTrait, x: Int, y: Int) extends Command:
 
   val isFlag: Boolean = ctrl.gb.getFieldAt(x, y).isBomb
   override def doStep(): Boolean =
@@ -45,6 +45,6 @@ object OpenFieldCOR extends CommandCOR:
       |  But no pressure you can undo your fault!
       |""".stripMargin
 
-  override def buildCmd(cmd: String, x: Int, y: Int, ctrl: Controller): Try[Command] =
+  override def buildCmd(cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[Command] =
     if cmd == this.cmd then Success(OpenFieldCmd(ctrl, x, y)) else next.buildCmd(cmd,x,y,ctrl)
 

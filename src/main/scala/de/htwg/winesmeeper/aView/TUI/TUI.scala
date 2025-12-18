@@ -4,7 +4,7 @@ import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Observer
 
 import scala.annotation.tailrec
-import scala.io.StdIn.{readInt, readLine}
+import scala.io.StdIn.readLine
 
 class TUI(ctrl: ControllerTrait) extends Observer:
   ctrl.addSub(this)

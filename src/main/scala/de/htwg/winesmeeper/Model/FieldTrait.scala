@@ -6,3 +6,5 @@ trait FieldTrait:
   def isBomb: Boolean
   
   def isOpened: Boolean
+  
+val standardField = BoardImplementation.Field

@@ -1,8 +1,7 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 
-import de.htwg.winesmeeper.Controller.Commands
-import de.htwg.winesmeeper.Controller.Commands.FlagCOR
-import de.htwg.winesmeeper.Controller.Implementation.Controller
+import de.htwg.winesmeeper.Controller.TurnCommands.FlagCOR
+import de.htwg.winesmeeper.Controller.ControllerTrait
 import javafx.scene.input.KeyCode
 
 object HelpCmd extends SysCommandCOR:
@@ -18,7 +17,7 @@ object HelpCmd extends SysCommandCOR:
       |""".stripMargin
 
 
-  override def execute(ctrl: Controller, params: Vector[String]): Option[String] =
+  override def execute(ctrl: ControllerTrait, params: Vector[String]): Option[String] =
     val command = if params.length > 1 then SysCommandManager.getAbstractCmd(params(1)) else None
     command match
       case Some(value) => Some(value.specHelpMsg)
