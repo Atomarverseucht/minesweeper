@@ -1,7 +1,7 @@
-package de.htwg.winesmeeper.Controller.SysCommands
+package de.htwg.winesmeeper.Controller.ImplSysCommands
 
-import de.htwg.winesmeeper.Controller.{Command, ControllerTrait, SysCommandCOR, TurnCmdManagerTrait}
-import de.htwg.winesmeeper.Model.{BoardTrait}
+import de.htwg.winesmeeper.Controller.{CommandTrait, ControllerTrait, SysCommandCORTrait, TurnCmdManagerTrait}
+import de.htwg.winesmeeper.Model.BoardTrait
 import de.htwg.winesmeeper.Config
 import javafx.scene.input.KeyCode
 
@@ -10,10 +10,10 @@ import scala.collection.mutable
 import scala.collection.mutable.Stack
 import scala.util.{Failure, Success, Try}
 
-object LoadCmd extends SysCommandCOR:
+object LoadCmd extends SysCommandCORTrait:
   override val cmd: String = "load"
   override val helpMsg: String = "Overrides the actual board with the saved file"
-  override val next: SysCommandCOR = QuitCmd
+  override val next: SysCommandCORTrait = QuitCmd
   override val shortcut: KeyCode = KeyCode.L
   override val specHelpMsg: String =
     """load:
@@ -53,8 +53,8 @@ object LoadCmd extends SysCommandCOR:
         Config.standardField(boolVal(0), boolVal(1), boolVal(2))).toVector).toVector
     Config.standardBoard(vector)
 
-  def getStacks(input: Try[String], ctrl: ControllerTrait): Stack[Command] =
-    val inputStack = new Stack[Command]
+  def getStacks(input: Try[String], ctrl: ControllerTrait): Stack[CommandTrait] =
+    val inputStack = new Stack[CommandTrait]
     input match {
       case Success(value) =>
         if value != "" then

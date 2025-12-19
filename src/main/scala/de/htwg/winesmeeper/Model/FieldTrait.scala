@@ -1,6 +1,5 @@
 package de.htwg.winesmeeper.Model
 
-
 trait FieldTrait:
   def isFlag: Boolean
   

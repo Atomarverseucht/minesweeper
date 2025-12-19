@@ -1,13 +1,11 @@
-package de.htwg.winesmeeper.Controller.TurnCommands
+package de.htwg.winesmeeper.Controller.ImplTurnCommands
 
 import de.htwg.winesmeeper.Config
-import de.htwg.winesmeeper.Controller.{Command, CommandCOR, ControllerTrait}
-import de.htwg.winesmeeper.Model.BoardImplementation.Board
-import de.htwg.winesmeeper.Model.ImplField.Field
+import de.htwg.winesmeeper.Controller.{CommandTrait, CommandCORTrait, ControllerTrait}
 
 import scala.util.{Success, Try}
 
-case class FlagCommand(ctrl: ControllerTrait, x: Int, y: Int) extends Command:
+case class FlagCommand(ctrl: ControllerTrait, x: Int, y: Int) extends CommandTrait:
   
   override def doStep(): Boolean =
     val f = ctrl.gb.getFieldAt(x, y)
@@ -22,15 +20,15 @@ case class FlagCommand(ctrl: ControllerTrait, x: Int, y: Int) extends Command:
 
   override def toString: String = f"flag($x, $y)"
   
-object FlagCOR extends CommandCOR:
+object FlagCOR extends CommandCORTrait:
   override val cmd = "flag"
   override val helpMsg: String = "flag or unflag the given coordinate"
-  override val next: CommandCOR = OpenFieldCOR
+  override val next: CommandCORTrait = OpenFieldCOR
   override val specHelpMsg: String =
     """flag <x> <y>:
       |  mark this position as flag or remove the flag
       |""".stripMargin
 
-  override def buildCmd(cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[Command] =
+  override def buildCmd(cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait] =
     if cmd == this.cmd then Success(FlagCommand(ctrl, x, y)) else next.buildCmd(cmd,x,y,ctrl)
 

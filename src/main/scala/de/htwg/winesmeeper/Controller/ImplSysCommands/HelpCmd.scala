@@ -1,12 +1,12 @@
-package de.htwg.winesmeeper.Controller.SysCommands
+package de.htwg.winesmeeper.Controller.ImplSysCommands
 
-import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCOR}
+import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCORTrait}
 import javafx.scene.input.KeyCode
 
-object HelpCmd extends SysCommandCOR:
+object HelpCmd extends SysCommandCORTrait:
   override val cmd: String = "help"
   override val helpMsg: String = "made this message"
-  override val next: SysCommandCOR = LoadCmd
+  override val next: SysCommandCORTrait = LoadCmd
   override val specHelpMsg: String =
     """help:
       |  prints an overview of all commands

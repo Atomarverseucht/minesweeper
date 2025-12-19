@@ -1,12 +1,12 @@
-package de.htwg.winesmeeper.Controller.SysCommands
+package de.htwg.winesmeeper.Controller.ImplSysCommands
 
-import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCOR}
+import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCORTrait}
 import javafx.scene.input.KeyCode
 
-object QuitCmd extends SysCommandCOR:
+object QuitCmd extends SysCommandCORTrait:
   override val cmd: String = "quit"
   override val helpMsg: String = "end the game"
-  override val next: SysCommandCOR = RedoCmd
+  override val next: SysCommandCORTrait = RedoCmd
   override val shortcut: KeyCode = KeyCode.Q
   override val specHelpMsg: String =
     """quit:

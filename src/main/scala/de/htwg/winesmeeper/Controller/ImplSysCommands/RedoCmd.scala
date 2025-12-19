@@ -1,15 +1,15 @@
-package de.htwg.winesmeeper.Controller.SysCommands
+package de.htwg.winesmeeper.Controller.ImplSysCommands
 
-import de.htwg.winesmeeper.Controller.TurnCommands.UndoManager
-import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCOR}
+import de.htwg.winesmeeper.Controller.ImplTurnCommands.UndoManager
+import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCORTrait}
 import javafx.scene.input.KeyCode
 
 import scala.util.{Failure, Success, Try}
 
-object RedoCmd extends SysCommandCOR:
+object RedoCmd extends SysCommandCORTrait:
   override val cmd: String = "redo"
   override val helpMsg: String = "redo your latest undo move"
-  override val next: SysCommandCOR = SaveCmd
+  override val next: SysCommandCORTrait = SaveCmd
   override val specHelpMsg: String =
     """redo:
       |  make your last undo done!

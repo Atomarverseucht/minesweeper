@@ -1,8 +1,5 @@
 package de.htwg.winesmeeper.Controller.ImplController
 
-import de.htwg.winesmeeper.Controller.*
-
-
 trait CORStat:
   val next: CORStat
   def changeState(state: String, context: Controller): GameState

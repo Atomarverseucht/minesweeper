@@ -1,13 +1,13 @@
-package de.htwg.winesmeeper.Controller.SysCommands
+package de.htwg.winesmeeper.Controller.ImplSysCommands
 
-import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCOR}
+import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCORTrait}
 import javafx.scene.input.KeyCode
 
 import scala.util.Try
 import java.nio.file.Files
 
-object SaveCmd extends SysCommandCOR:
-  override val next: SysCommandCOR = UndoCmd
+object SaveCmd extends SysCommandCORTrait:
+  override val next: SysCommandCORTrait = UndoCmd
   override val cmd: String = "save"
   override val shortcut: KeyCode = KeyCode.S
   override val helpMsg: String = "saves your board"

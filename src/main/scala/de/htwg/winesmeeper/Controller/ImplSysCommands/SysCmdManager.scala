@@ -1,12 +1,12 @@
-package de.htwg.winesmeeper.Controller.SysCommands
-import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCOR, SysCommandManagerTrait}
+package de.htwg.winesmeeper.Controller.ImplSysCommands
+import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCORTrait, SysCommandManagerTrait}
 import javafx.scene.input.KeyCode
 
 import scala.util.{Failure, Success, Try}
 import java.nio.file.{Path, Paths}
 
 object SysCommandManager extends SysCommandManagerTrait:
-  val firstSysCmd: SysCommandCOR = HelpCmd
+  val firstSysCmd: SysCommandCORTrait = HelpCmd
 
   override def isSysCmd(cmd: String): Boolean =
     firstSysCmd.getSysCmd(cmd).nonEmpty
@@ -23,7 +23,7 @@ object SysCommandManager extends SysCommandManagerTrait:
       case Failure(_) => "savedGame"
     Paths.get(f"./saves/$fName.txt")
     
-  override def getSysCmdList: List[SysCommandCOR] = firstSysCmd.listCmds
+  override def getSysCmdList: List[SysCommandCORTrait] = firstSysCmd.listCmds
 
   def getAbstractCmd(cmd: String, ctrl: ControllerTrait): Option[de.htwg.winesmeeper.Controller.AbstractCmdCOR] =
     val sysCmd = firstSysCmd.getSysCmd(cmd)
@@ -37,18 +37,18 @@ object SysCommandManager extends SysCommandManagerTrait:
       case Some(Some(value)) => Some(value)
       case None => None
 
-object LastElemSysCommand extends SysCommandCOR:
+object LastElemSysCommand extends SysCommandCORTrait:
   override val cmd: String = ""
   override val helpMsg: String = ""
-  override val next: SysCommandCOR = this
+  override val next: SysCommandCORTrait = this
 
   override def execute(ctrl: ControllerTrait, params: Vector[String]): Option[String] = Some("No such command!")
 
-  override def getSysCmd(cmd: String): Option[SysCommandCOR] = None
+  override def getSysCmd(cmd: String): Option[SysCommandCORTrait] = None
 
-  override def getSysCmd(key: KeyCode): Option[SysCommandCOR] = None
+  override def getSysCmd(key: KeyCode): Option[SysCommandCORTrait] = None
 
-  override def listCmds: List[SysCommandCOR] = Nil
+  override def listCmds: List[SysCommandCORTrait] = Nil
 
   override val specHelpMsg: String = ""
   override val shortcut: KeyCode = KeyCode.UNDEFINED

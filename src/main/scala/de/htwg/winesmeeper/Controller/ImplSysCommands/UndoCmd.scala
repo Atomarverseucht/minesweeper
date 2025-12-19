@@ -1,15 +1,15 @@
-package de.htwg.winesmeeper.Controller.SysCommands
+package de.htwg.winesmeeper.Controller.ImplSysCommands
 
-import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCOR}
+import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCORTrait}
 import javafx.scene.input.KeyCode
 
 import scala.util.{Failure, Success, Try}
 
-object UndoCmd extends SysCommandCOR:
+object UndoCmd extends SysCommandCORTrait:
   override val cmd: String = "undo"
   override val helpMsg: String = "discards the last turn"
   override val shortcut: KeyCode = KeyCode.Z
-  override val next: SysCommandCOR = LastElemSysCommand
+  override val next: SysCommandCORTrait = LastElemSysCommand
   override val specHelpMsg: String =
     """undo:
       |  discards your latest action!

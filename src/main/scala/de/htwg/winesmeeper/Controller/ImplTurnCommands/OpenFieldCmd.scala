@@ -1,12 +1,12 @@
-package de.htwg.winesmeeper.Controller.TurnCommands
+package de.htwg.winesmeeper.Controller.ImplTurnCommands
 
-import de.htwg.winesmeeper.Controller.{Command, CommandCOR, ControllerTrait}
+import de.htwg.winesmeeper.Controller.{CommandTrait, CommandCORTrait, ControllerTrait}
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
 import de.htwg.winesmeeper.Config
 
 import scala.util.{Success, Try}
 
-case class OpenFieldCmd(ctrl: ControllerTrait, x: Int, y: Int) extends Command:
+case class OpenFieldCmd(ctrl: ControllerTrait, x: Int, y: Int) extends CommandTrait:
 
   val isFlag: Boolean = ctrl.gb.getFieldAt(x, y).isBomb
   override def doStep(): Boolean =
@@ -36,16 +36,16 @@ case class OpenFieldCmd(ctrl: ControllerTrait, x: Int, y: Int) extends Command:
 
   override def toString: String = f"open($x, $y)"
 
-object OpenFieldCOR extends CommandCOR:
+object OpenFieldCOR extends CommandCORTrait:
   override val cmd = "open"
   override val helpMsg = "opens the field of the given coordinate"
-  override val next: CommandCOR = LastElemCmdCOR
+  override val next: CommandCORTrait = zLastElemCmdCOR
   override val specHelpMsg: String =
     """open <x> <y>:
       |  Opens a field and if you hit a bomb, you loose!
       |  But no pressure you can undo your fault!
       |""".stripMargin
 
-  override def buildCmd(cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[Command] =
+  override def buildCmd(cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait] =
     if cmd == this.cmd then Success(OpenFieldCmd(ctrl, x, y)) else next.buildCmd(cmd,x,y,ctrl)
 
