@@ -1,3 +1,0 @@
-Mediator with the same privilege level as Controller / Observer
-Chain of Responsibility Pattern for TUI input
-Memento Pattern with DO / UNDO / REDO
