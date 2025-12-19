@@ -33,6 +33,16 @@ lazy val root = project
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % Test,
     libraryDependencies += "org.scoverage" % "sbt-coveralls_2.12_1.0" % "1.3.15",
 
+    sonarProperties ++= Map(
+      "sonar.projectKey"       -> "winesmeeper",
+      "sonar.projectName"      -> "Scala Winesmeeper",
+      "sonar.host.url"         -> "http://localhost:9000",
+      "sonar.language"         -> "scala",
+      "sonar.scala.coverage.reportPaths" -> "target/scala-3.scoverage-report/scoverage.xml",
+      "sonar.sources"          -> "src/main/scala",
+      "sonar.tests"            -> "src/test/scala"
+    ),
+
     libraryDependencies ++= {
     // Determine OS version of JavaFX binaries
     lazy val osName = System.getProperty("os.name") match {
@@ -68,7 +78,6 @@ lazy val root = project
     .map(m => "org.openjfx" % s"javafx-$m" % fxVersion classifier osName)
   }
 )
-
 
 
 
