@@ -1,7 +1,5 @@
 package de.htwg.winesmeeper.Controller
 
-import de.htwg.winesmeeper.Controller.SysCommands.AbstractCmdCOR
-
 import scala.collection.mutable.Stack
 import scala.util.Try
 

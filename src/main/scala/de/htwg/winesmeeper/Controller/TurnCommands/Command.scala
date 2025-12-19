@@ -1,7 +1,6 @@
 package de.htwg.winesmeeper.Controller.TurnCommands
 
 import de.htwg.winesmeeper.Controller.{Command, CommandCOR, ControllerTrait}
-import de.htwg.winesmeeper.Controller.SysCommands.AbstractCmdCOR
 
 import scala.util.Try
 import scala.util.Failure

@@ -12,7 +12,7 @@ trait SysCommandManagerTrait:
 
 val standardSysCmdMan: SysCommandManagerTrait = SysCommands.SysCommandManager
 
-trait SysCommandCOR extends de.htwg.winesmeeper.Controller.AbstractCmdCOR:
+trait SysCommandCOR extends AbstractCmdCOR:
   val next: SysCommandCOR
   val shortcut: KeyCode
   def execute(ctrl: ControllerTrait, params: Vector[String] = Vector("no params")): Option[String]
