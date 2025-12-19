@@ -1,3 +1,10 @@
+# [1.1.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/1.1.0-dev.2...1.1.0-dev.3) (2025-12-19)
+
+
+### Features
+
+* Command & SysCmd Component ([214af61](https://github.com/Atomarverseucht/minesweeper/commit/214af610a653cde70b582c2124d3dfc318b5c0f0))
+
 # [1.1.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/1.1.0-dev.1...1.1.0-dev.2) (2025-12-18)
 
 # [1.1.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/1.0.1...1.1.0-dev.1) (2025-12-18)
