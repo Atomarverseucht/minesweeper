@@ -1,10 +1,10 @@
 package main.de.htwg.winesmeeper.tests.aView
 
-import de.htwg.winesmeeper.Controller.StandardController.Controller
-import de.htwg.winesmeeper.Model.BoardImplementation.{Board, Field}
-import de.htwg.winesmeeper.{Observer, aView}
+import de.htwg.winesmeeper.Controller.ControllerTrait
+import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
+import de.htwg.winesmeeper.{Observer, aView, getPrintString}
 import de.htwg.winesmeeper.aView.TUI.TUIHelper.*
-import de.htwg.winesmeeper.startTUI
+import de.htwg.winesmeeper.{startTUI, Config}
 import scala.util.Try
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
@@ -14,11 +14,12 @@ import java.io.ByteArrayInputStream
 
 class TUISpec extends AnyWordSpec with Matchers:
   "The TUI" should:
-    setStart(Vector(25, 25, 5, 5, 20))
-    val gb = initController
+    val sizeX = 25
+    val sizeY = 25
+    val gb = buildController(sizeX, sizeY, 5, 5, 20)
     "have the right size" in:
-      initVals(0) = gb.getSize._1
-      initVals(1) = gb.getSize._2
+      sizeX shouldBe gb.getSize._1
+      sizeY shouldBe gb.getSize._2
 
     "have output strings" in:
       (for i <- 0 until 5 yield getPrintString(i)).toVector shouldBe
@@ -37,11 +38,10 @@ class TUISpec extends AnyWordSpec with Matchers:
       emojify(1) shouldBe "\u001b[1;94m1\u001b[0m"
 
     "have right end-msgs" in:
-      val w = Controller(10, 10, 5, 5, 91)
+      val w = buildController(10, 10, 5, 5, 91)
       gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
-      val lVec = Vector.fill(10, 10)(Field(true, false))
-      val l = new Controller(new Board(lVec.updated(1, lVec(1).updated(1, Field(false, false)))))
-        Controller(10, 10, 5, 5, 90)
+      val lBoard = Config.standardBoard(Vector.fill(10, 10)(Config.standardField(true, false, false)))
+      val l = Config.standardController(9, 9, lBoard.updateField(1, 1, Config.standardField(false, false, false)))
       turn("flag 2 2", l) shouldBe ""
       turn("open 2 2", l) shouldBe ""
       gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
@@ -49,14 +49,14 @@ class TUISpec extends AnyWordSpec with Matchers:
       turn("open 2 2", l) shouldBe ""
 
     "checked unvalid turn" in :
-      val c: Controller = Controller(10, 10, 1, 1, 20)
+      val c: ControllerTrait = buildController(10, 10, 1, 1, 20)
       turn("gfjzgfkf", c) shouldBe "Invalid command!"
       turn("1000 1000", c) shouldBe "Invalid command!"
       turn("load hi lul", c)
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
-      val ctrl = Controller(20, 20, 1, 1, 100)
+      val ctrl = buildController(20, 20, 1, 1, 100)
       ctrl.addSub(dummySub)
       ctrl.turn("flag", Try(10), Try(10)).get shouldBe true
       ctrl.turn("open", Try(1), Try(1)).get shouldBe false
@@ -86,7 +86,12 @@ class TUISpec extends AnyWordSpec with Matchers:
       Console.withIn(in) {
         startTUI
       }
+  
+  
 
 
   object dummySub extends Observer:
     override def update(): Unit = {}
+    
+def buildController(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): ControllerTrait =
+  Config.standardController(xStart, yStart, Config.standardBoardGenerate(xSize, ySize, xStart, yStart, bombCount))

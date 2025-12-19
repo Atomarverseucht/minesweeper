@@ -1,8 +1,8 @@
-package de.htwg.winesmeeper.Controller.StandardController
+package de.htwg.winesmeeper.Controller.ImplController
 
-import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandManagerTrait, TurnCmdManagerTrait, standardUndo}
+import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandManagerTrait, TurnCmdManagerTrait}
 import de.htwg.winesmeeper.Model.*
-import de.htwg.winesmeeper.Controller.standardSysCmdMan
+import de.htwg.winesmeeper.Config
 import javafx.scene.input.KeyCode
 
 import scala.util.Try
@@ -10,8 +10,8 @@ import scala.util.Try
 class Controller(var gb: BoardTrait) extends ControllerTrait():
  
   var state: GameState = Running(this)
-  override val undo: TurnCmdManagerTrait = standardUndo(this)
-  override val sysCmd: SysCommandManagerTrait = standardSysCmdMan
+  override val undo: TurnCmdManagerTrait = Config.standardUndo(this)
+  override val sysCmd: SysCommandManagerTrait = Config.standardSysCmdMan
   
   override def turn(cmd: String, x: Try[Int], y: Try[Int]): Try[Boolean] = {
     Try(state.turn(cmd.toLowerCase, x.get, y.get))
@@ -34,7 +34,7 @@ class Controller(var gb: BoardTrait) extends ControllerTrait():
   
   override def getSysCmdList: List[String] = sysCmd.getSysCmdList.map(sys => sys.cmd)
   
-  override def doShortcut(key: KeyCode): Option[String] = sysCmd.doShortCut(this, key)
+  override def doShortCut(key: KeyCode): Option[String] = sysCmd.doShortCut(this, key)
 
   override def isVictory: Boolean = gb.isVictory
 
@@ -49,7 +49,7 @@ class Controller(var gb: BoardTrait) extends ControllerTrait():
 object Controller:
   def apply(xStart: Int, yStart: Int, gb: BoardTrait): Controller =
     val out = new Controller(gb)
-    val undo = standardUndo(out)
+    val undo = Config.standardUndo(out)
     for fx <- xStart - 1 to xStart + 1; fy <- yStart - 1 to yStart + 1 do
       if gb.in(fx, fy) then undo.doCmd("open", fx, fy)
     out

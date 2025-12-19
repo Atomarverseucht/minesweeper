@@ -19,8 +19,6 @@ trait TurnCmdManagerTrait:
   def undoStep(): Unit
   
   def buildCmd(cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[Command]
-  
-val standardUndo = TurnCommands.UndoManager
 
 trait Command:
   def doStep(): Boolean

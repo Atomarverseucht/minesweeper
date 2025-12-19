@@ -84,7 +84,7 @@ case class GUI(ctrl: ControllerTrait) extends JFXApp3 with Observer:
 
   private def keyListener(event: KeyEvent): Unit =
     if event.isControlDown then
-      outputWindowSysCmd(ctrl.doShortcut(event.getCode))
+      outputWindowSysCmd(ctrl.doShortCut(event.getCode))
 
   private def outputWindowSysCmd(output: Option[String]): Unit =
     output match

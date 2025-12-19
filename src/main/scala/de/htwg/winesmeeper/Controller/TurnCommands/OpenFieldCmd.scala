@@ -2,6 +2,7 @@ package de.htwg.winesmeeper.Controller.TurnCommands
 
 import de.htwg.winesmeeper.Controller.{Command, CommandCOR, ControllerTrait}
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
+import de.htwg.winesmeeper.Config
 
 import scala.util.{Success, Try}
 
@@ -22,7 +23,7 @@ case class OpenFieldCmd(ctrl: ControllerTrait, x: Int, y: Int) extends Command:
     val f = gb.getFieldAt(x, y)
     if discover == f.isOpened then false
     else
-      ctrl.gb = gb.updateField(x, y, f.isBomb, discover, !discover && isFlag)
+      ctrl.gb = gb.updateField(x, y, Config.standardField(f.isBomb, discover, !discover && isFlag))
       if !discover && !ctrl.inGame then ctrl.changeState("running")
       if f.isBomb && discover then ctrl.changeState("lose");
       else if gb.getBombNeighbour(x, y) == 0 then

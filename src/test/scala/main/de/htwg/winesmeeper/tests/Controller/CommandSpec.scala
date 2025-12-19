@@ -1,8 +1,9 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
 import de.htwg.winesmeeper.Controller.SysCommands.{LastElemSysCommand, LoadCmd, SysCommandManager}
-import de.htwg.winesmeeper.Controller.TurnCommands.{CommandManager, LastElemCmdCOR}
-import de.htwg.winesmeeper.Controller.StandardController.Controller
+import de.htwg.winesmeeper.Controller.TurnCommands.LastElemCmdCOR
+import de.htwg.winesmeeper.Controller.ImplController.Controller
+import main.de.htwg.winesmeeper.tests.aView.buildController
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import javafx.scene.input.KeyCode
@@ -12,7 +13,7 @@ import java.nio.file.{Files, Paths}
 
 class CommandSpec extends AnyWordSpec with Matchers:
   "The Command" should:
-    val testCtrl = Controller(10, 10, 1, 1, 25)
+    val testCtrl = buildController(10, 10, 1, 1, 25)
     "should safe and load" in:
       testCtrl.doSysCmd("save")
       testCtrl.doSysCmd("load")
@@ -48,7 +49,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
       testCtrl.doSysCmd("help", Vector("help", "open"))
       LoadCmd.getStacks(Failure(IllegalArgumentException()), testCtrl)
 
-      CommandManager.firstCommandCOR.getCmd("feuzighoiz") shouldBe None
+      testCtrl.undo.getCmd("feuzighoiz") shouldBe None
 
     "have a shortcut" in:
       testCtrl.doShortCut(KeyCode.H)

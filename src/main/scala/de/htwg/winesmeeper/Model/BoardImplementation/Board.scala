@@ -1,11 +1,12 @@
 package de.htwg.winesmeeper.Model.BoardImplementation
 
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
+import de.htwg.winesmeeper.Config
 
 import scala.annotation.tailrec
 import scala.util.Random
 
-case class Board (board: Vector[Vector[Field]]) extends BoardTrait:
+case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
 
   override def getBombNeighbour(x: Int, y: Int): Int =
     (for
@@ -17,7 +18,7 @@ case class Board (board: Vector[Vector[Field]]) extends BoardTrait:
       if in(nx, ny) && board(nx)(ny).isBomb then 1 else 0
     }).sum
 
-  private def getField(x: Int, y: Int): Int =
+  override def getField(x: Int, y: Int): Int =
     val f = getFieldAt(x, y)
     if f.isFlag then -3
     else if !f.isOpened then -1
@@ -39,8 +40,8 @@ case class Board (board: Vector[Vector[Field]]) extends BoardTrait:
 
   def nextField(x: Int, y: Int): (Int, Int) = if x + 1 < board.length then (x + 1, y) else (0, y+1)
 
-  override def updateField (indX: Int, indY: Int, isBomb: Boolean, isOpened: Boolean, isFlag: Boolean): BoardTrait =
-    new Board(board.updated(indX, board(indX).updated(indY, Field(isBomb, isOpened, isFlag))))
+  override def updateField (indX: Int, indY: Int, field: FieldTrait): BoardTrait =
+    new Board(board.updated(indX, board(indX).updated(indY, field)))
 
   override def isVictory: Boolean = 0 == (for x <- board; f <- x yield if !f.isBomb && !f.isOpened then 1 else 0).sum
 
@@ -62,20 +63,20 @@ object Board:
       else 0
     val bMax: Int = Board.maxBombs(xSize, ySize) + ex
     require(bombCount >= 1 && bombCount <= bMax, s"Bomb Count must be between 1 and $bMax")
-    val boardv = initField(0, 0, xStart, yStart, Vector.fill(xSize, ySize)(Field(false, true)), bombCount, bMax)
+    val boardv = initField(0, 0, xStart, yStart, Vector.fill(xSize, ySize)(Config.standardField(false, true, false)), bombCount, bMax)
     new Board(boardv)
     
   @tailrec
-  private def initField(indx: Int, indy: Int, xStart: Int, yStart: Int, boardv: Vector[Vector[Field]], bombCount: Int, fieldCount: Int): Vector[Vector[Field]] =
+  private def initField(indx: Int, indy: Int, xStart: Int, yStart: Int, boardv: Vector[Vector[FieldTrait]], bombCount: Int, fieldCount: Int): Vector[Vector[FieldTrait]] =
     if fieldCount <= 0 then
       boardv
     else
-      val newV: (Boolean, Int, Field) =
+      val newV: (Boolean, Int, FieldTrait) =
         if Board.isNeighbour(xStart, yStart, indx, indy) then
-          (false, fieldCount, Field(false, false))
+          (false, fieldCount, Config.standardField(false, false, false))
         else
           val isBomb = Random.nextInt(fieldCount) < bombCount
-          (isBomb, fieldCount - 1, Field(isBomb, false))
+          (isBomb, fieldCount - 1, Config.standardField(isBomb, false, false))
 
       val nboard = boardv.updated(indx, boardv(indx).updated(indy, newV._3))
       val nbc = if newV._1 then bombCount - 1 else bombCount

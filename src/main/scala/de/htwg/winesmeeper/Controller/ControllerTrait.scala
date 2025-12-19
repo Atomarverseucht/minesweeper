@@ -1,6 +1,5 @@
 package de.htwg.winesmeeper.Controller
 
-import de.htwg.winesmeeper.Controller.TurnCommands.UndoManager
 import de.htwg.winesmeeper.Model.BoardTrait
 import de.htwg.winesmeeper.Observable
 import javafx.scene.input.KeyCode
@@ -22,11 +21,11 @@ trait ControllerTrait() extends Observable:
 
   def isSysCmd(cmd: String): Boolean
 
-  def doSysCmd(cmd: String, params: Vector[String]): Option[String]
+  def doSysCmd(cmd: String, params: Vector[String] = Vector()): Option[String]
 
   def turn(cmd: String, x: Try[Int], y: Try[Int]): Try[Boolean]
 
-  def doShortcut(key: KeyCode): Option[String]
+  def doShortCut(key: KeyCode): Option[String]
 
   def getSysCmdList: List[String]
   

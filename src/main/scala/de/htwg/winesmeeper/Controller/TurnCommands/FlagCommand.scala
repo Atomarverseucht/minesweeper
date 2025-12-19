@@ -1,7 +1,9 @@
 package de.htwg.winesmeeper.Controller.TurnCommands
 
+import de.htwg.winesmeeper.Config
 import de.htwg.winesmeeper.Controller.{Command, CommandCOR, ControllerTrait}
-import de.htwg.winesmeeper.Model.BoardImplementation.{Board, Field}
+import de.htwg.winesmeeper.Model.BoardImplementation.Board
+import de.htwg.winesmeeper.Model.ImplField.Field
 
 import scala.util.{Success, Try}
 
@@ -10,7 +12,7 @@ case class FlagCommand(ctrl: ControllerTrait, x: Int, y: Int) extends Command:
   override def doStep(): Boolean =
     val f = ctrl.gb.getFieldAt(x, y)
     if (!f.isOpened) then
-      ctrl.gb = ctrl.gb.updateField(x, y, f.isBomb, f.isOpened, !f.isFlag)
+      ctrl.gb = ctrl.gb.updateField(x, y, Config.standardField(f.isBomb, f.isOpened, !f.isFlag))
       true
     else false
 

@@ -1,7 +1,9 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
-import de.htwg.winesmeeper.Controller.StandardController.Controller
-import de.htwg.winesmeeper.Model.BoardImplementation.{Board, Field}
+import de.htwg.winesmeeper.Controller.ImplController.Controller
+import de.htwg.winesmeeper.Model.BoardImplementation.Board
+import de.htwg.winesmeeper.Model.ImplField.Field
+import main.de.htwg.winesmeeper.tests.aView.buildController
 import scala.util.Try
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -10,11 +12,10 @@ class ControllerSpec extends AnyWordSpec with Matchers:
   "The Controller" should:
     val bVec = Vector(Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,true), Field(false,true), Field(false,true), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,true), Field(false,true), Field(false,true), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,true), Field(false,true), Field(false,true), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false)), Vector(Field(false,false), Field(true,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false), Field(false,false)))
     val ctrl = new Controller(new Board(bVec))
-    ctrl.gb.findBomb
     "have an init function" in:
-      Controller(10,10,1,1,91).gb.getField(9,9) shouldBe -1
-      Controller(10,10,0,0,91).gb.getField(9,9) shouldBe -1
-      Controller(10,10,0,4,91).gb.getField(9,9) shouldBe -1
+      buildController(10,10,1,1,91).gb.getField(9,9) shouldBe -1
+      buildController(10,10,0,0,91).gb.getField(9,9) shouldBe -1
+      buildController(10,10,0,4,91).gb.getField(9,9) shouldBe -1
     "have an output vector" in:
       ctrl.getBoard shouldBe ctrl.gb.getBoard
 
@@ -26,9 +27,9 @@ class ControllerSpec extends AnyWordSpec with Matchers:
 
     "should have the right game-state" in:
       ctrl.gameState shouldBe "running"
-      val w = Controller(10, 10, 5, 5, 91)
+      val w = buildController(10, 10, 5, 5, 91)
       w.gameState shouldBe "win"
-      val l = Controller(10, 10, 5, 5, 90); l.turn("open", Try(1524), Try(1243)); l.turn("open", Try(1), Try(1))
+      val l = buildController(10, 10, 5, 5, 90); l.turn("open", Try(1524), Try(1243)); l.turn("open", Try(1), Try(1))
       l.gameState shouldBe "lose"
       l.getBoard
 

@@ -10,8 +10,6 @@ trait SysCommandManagerTrait:
   def doShortCut(ctrl: ControllerTrait, key: KeyCode): Option[String]
   def getSysCmdList: List[SysCommandCOR]
 
-val standardSysCmdMan: SysCommandManagerTrait = SysCommands.SysCommandManager
-
 trait SysCommandCOR extends AbstractCmdCOR:
   val next: SysCommandCOR
   val shortcut: KeyCode

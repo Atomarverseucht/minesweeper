@@ -1,7 +1,8 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 
 import de.htwg.winesmeeper.Controller.{Command, ControllerTrait, SysCommandCOR, TurnCmdManagerTrait}
-import de.htwg.winesmeeper.Model.{BoardTrait, standardBoard, standardField}
+import de.htwg.winesmeeper.Model.{BoardTrait}
+import de.htwg.winesmeeper.Config
 import javafx.scene.input.KeyCode
 
 import java.nio.file.{Files, Paths}
@@ -49,8 +50,8 @@ object LoadCmd extends SysCommandCOR:
         val boolVal = for bs <- boolS yield
           if bs == "true" then true
           else false
-        standardField(boolVal(0), boolVal(1), boolVal(2))).toVector).toVector
-    standardBoard(vector)
+        Config.standardField(boolVal(0), boolVal(1), boolVal(2))).toVector).toVector
+    Config.standardBoard(vector)
 
   def getStacks(input: Try[String], ctrl: ControllerTrait): Stack[Command] =
     val inputStack = new Stack[Command]

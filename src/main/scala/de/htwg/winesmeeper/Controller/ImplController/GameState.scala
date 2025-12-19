@@ -1,6 +1,6 @@
-package de.htwg.winesmeeper.Controller.StandardController
+package de.htwg.winesmeeper.Controller.ImplController
 
-import de.htwg.winesmeeper.Controller.StandardController.{CORStatRunning, Controller}
+import de.htwg.winesmeeper.Controller.ImplController.{CORStatRunning, Controller}
 
 trait GameState:
     val context: Controller

@@ -1,4 +1,4 @@
-package de.htwg.winesmeeper.Model.BoardImplementation
+package de.htwg.winesmeeper.Model.ImplField
 
 import de.htwg.winesmeeper.Model.FieldTrait
 
