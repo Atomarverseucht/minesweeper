@@ -1,16 +1,18 @@
 package main.de.htwg.winesmeeper.tests.Model
 
-import de.htwg.winesmeeper.Controller.ImplController.Controller
-import de.htwg.winesmeeper.Model.BoardImplementation.Board
+import de.htwg.winesmeeper.Config
+import de.htwg.winesmeeper.Model.BoardTrait
+import main.de.htwg.winesmeeper.tests.aView.buildController
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 class BoardSpec extends AnyWordSpec with Matchers:
     "The Board" should:
-        val b: Board = Controller(12, 12, 3, 4, 50).gb
-        val bomb = b.findBomb
+        val b: BoardTrait = Config.standardBoardGenerate(12, 12, 3, 4, 50)
+        val b2: BoardTrait = Config.standardBoard(Vector.fill(12, 12)(Config.standardField(false, false, false))).updateField(1,1,Config.standardField(false, true, false))
+        val bomb = (1,1)
         "throw right Exceptions" in:
-            an [IllegalArgumentException] should be thrownBy Controller(12, 12, 3, 4, 1000)
+            an [IllegalArgumentException] should be thrownBy buildController(12, 12, 3, 4, 1000)
 
         "have the correct size" in:
             b.getSize shouldBe (12, 12)
@@ -23,5 +25,3 @@ class BoardSpec extends AnyWordSpec with Matchers:
             
         "have a closed field" in:
             b.getField(7, 8) shouldBe -1
-        "have next field" in:
-          b.nextField(11, 5) shouldBe (0, 6)

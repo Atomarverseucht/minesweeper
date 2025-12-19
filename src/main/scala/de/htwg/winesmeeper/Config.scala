@@ -7,7 +7,7 @@ import de.htwg.winesmeeper.Model
 object Config:
   val standardController: (Int, Int, BoardTrait) => ControllerTrait = ImplController.Controller(_: Int, _: Int, _: BoardTrait)
 
-  val standardField: (Boolean, Boolean, Boolean) => FieldTrait = Model.ImplField.Field(_: Boolean, _: Boolean, _: Boolean)
+  val standardField: (isOpened: Boolean, isBomb: Boolean, isFlag: Boolean) => FieldTrait = Model.ImplField.Field(_: Boolean, _: Boolean, _: Boolean)
 
   val standardBoard = Model.BoardImplementation.Board(_: Vector[Vector[FieldTrait]])
   
