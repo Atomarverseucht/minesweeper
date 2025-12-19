@@ -1,7 +1,6 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 
-import de.htwg.winesmeeper.Controller.ControllerTrait
-import de.htwg.winesmeeper.Controller.TurnCommands.{Command, CommandManager}
+import de.htwg.winesmeeper.Controller.{Command, ControllerTrait, SysCommandCOR, TurnCmdManagerTrait}
 import de.htwg.winesmeeper.Model.{BoardTrait, standardBoard, standardField}
 import javafx.scene.input.KeyCode
 
@@ -62,7 +61,7 @@ object LoadCmd extends SysCommandCOR:
           for cmdS <- inputs do
             val cmd = cmdS.split("\\(")
             val inputInt = cmd(1).replace(")","").split(", ")
-            val element = CommandManager.buildCmd(cmd(0), inputInt(0).toInt, inputInt(1).toInt, ctrl).get
+            val element = ctrl.undo.buildCmd(cmd(0), inputInt(0).toInt, inputInt(1).toInt, ctrl).get
             inputStack.push(element)
 
       case Failure(exception) =>

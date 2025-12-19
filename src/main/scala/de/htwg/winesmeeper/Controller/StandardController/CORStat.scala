@@ -1,4 +1,4 @@
-package de.htwg.winesmeeper.Controller.Implementation
+package de.htwg.winesmeeper.Controller.StandardController
 
 import de.htwg.winesmeeper.Controller.*
 

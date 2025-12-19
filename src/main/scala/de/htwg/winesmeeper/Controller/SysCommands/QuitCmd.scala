@@ -1,6 +1,6 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 
-import de.htwg.winesmeeper.Controller.ControllerTrait
+import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCOR}
 import javafx.scene.input.KeyCode
 
 object QuitCmd extends SysCommandCOR:

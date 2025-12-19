@@ -1,6 +1,6 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
-import de.htwg.winesmeeper.Controller.Implementation.Controller
+import de.htwg.winesmeeper.Controller.StandardController.Controller
 import de.htwg.winesmeeper.Model.BoardImplementation.{Board, Field}
 import scala.util.Try
 import org.scalatest.matchers.should.Matchers

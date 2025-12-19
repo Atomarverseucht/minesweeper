@@ -1,6 +1,6 @@
 package de.htwg.winesmeeper
 
-import de.htwg.winesmeeper.Controller.Implementation.Controller
+import de.htwg.winesmeeper.Controller.StandardController.Controller
 import de.htwg.winesmeeper.Model.BoardImplementation.Board
 import de.htwg.winesmeeper.aView.TUI.TUI
 

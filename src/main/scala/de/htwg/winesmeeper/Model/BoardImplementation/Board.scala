@@ -5,7 +5,7 @@ import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
 import scala.annotation.tailrec
 import scala.util.Random
 
-class Board (board: Vector[Vector[Field]]) extends BoardTrait:
+case class Board (board: Vector[Vector[Field]]) extends BoardTrait:
 
   override def getBombNeighbour(x: Int, y: Int): Int =
     (for

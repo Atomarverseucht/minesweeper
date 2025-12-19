@@ -1,7 +1,6 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 
-import de.htwg.winesmeeper.Controller.TurnCommands.FlagCOR
-import de.htwg.winesmeeper.Controller.ControllerTrait
+import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCOR}
 import javafx.scene.input.KeyCode
 
 object HelpCmd extends SysCommandCOR:
@@ -18,15 +17,15 @@ object HelpCmd extends SysCommandCOR:
 
 
   override def execute(ctrl: ControllerTrait, params: Vector[String]): Option[String] =
-    val command = if params.length > 1 then SysCommandManager.getAbstractCmd(params(1)) else None
+    val command = if params.length > 1 then SysCommandManager.getAbstractCmd(params(1), ctrl) else None
     command match
       case Some(value) => Some(value.specHelpMsg)
-      case None => Some(standardHelp)
+      case None => Some(standardHelp(ctrl))
 
-  private def standardHelp: String =
+  private def standardHelp(ctrl: ControllerTrait): String =
    val sysCmds = SysCommandManager.firstSysCmd.listCmds
    val scString = (for cmd <- sysCmds yield s"  ${cmd.cmd}: ${cmd.helpMsg}").mkString("\n")
-   val cmds = FlagCOR.listCmds
+   val cmds = ctrl.undo.listCmds
    val cmdString = (for cmd <- cmds yield s"  ${cmd.cmd}: ${cmd.helpMsg}").mkString("\n")
    s"Commands without parameters:\n$scString \n\nCommands with coordinates:\n$cmdString\n\nFor more help type: help + wanted command"
 

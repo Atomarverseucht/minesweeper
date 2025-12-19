@@ -1,7 +1,7 @@
 package de.htwg.winesmeeper.Controller.SysCommands
 
 import de.htwg.winesmeeper.Controller.TurnCommands.UndoManager
-import de.htwg.winesmeeper.Controller.ControllerTrait
+import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCOR}
 import javafx.scene.input.KeyCode
 
 import scala.util.{Failure, Success, Try}
@@ -23,7 +23,7 @@ object RedoCmd extends SysCommandCOR:
       case Failure(exception) => 1
       case Success(value) => value
     for i <- 1 to count do
-      ctrl.undo.redoStep
+      ctrl.undo.redoStep()
     ctrl.notifyObservers()
     None
 

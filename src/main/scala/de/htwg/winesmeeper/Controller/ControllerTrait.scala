@@ -8,7 +8,8 @@ import javafx.scene.input.KeyCode
 import scala.util.Try
 
 trait ControllerTrait() extends Observable:
-  val undo: UndoManager
+  val undo: TurnCmdManagerTrait
+  val sysCmd: SysCommandManagerTrait
   var gb: BoardTrait
   
   def inGame: Boolean
@@ -27,7 +28,7 @@ trait ControllerTrait() extends Observable:
 
   def doShortcut(key: KeyCode): Option[String]
 
-  def getSysCmdList: Vector[String]
+  def getSysCmdList: List[String]
   
   def changeState(state: String): Unit
   
