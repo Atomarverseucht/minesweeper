@@ -1,7 +1,7 @@
 package de.htwg.winesmeeper
 
-import de.htwg.winesmeeper.Controller.ImplTurnCommands.UndoManager
-import de.htwg.winesmeeper.Controller.{ControllerTrait, ImplController, SysCommandManagerTrait, ImplSysCommands, ImplTurnCommands, TurnCmdManagerTrait}
+import de.htwg.winesmeeper.Controller.{ControllerTrait, ImplController, SysCommandManagerTrait}
+import de.htwg.winesmeeper.Controller.{ImplSysCommands, ImplTurnCommands, TurnCmdManagerTrait}
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
 
 object Config:
