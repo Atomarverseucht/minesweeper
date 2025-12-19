@@ -3,7 +3,9 @@ package main.de.htwg.winesmeeper.tests.aView
 import de.htwg.winesmeeper.Controller.Controller
 import de.htwg.winesmeeper.Model.{Board, Field}
 import de.htwg.winesmeeper.{Observer, aView}
-import de.htwg.winesmeeper.aView.TUI.*
+import de.htwg.winesmeeper.aView.TUI.TUIHelper.*
+import de.htwg.winesmeeper.startTUI
+import scala.util.Try
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -15,8 +17,8 @@ class TUISpec extends AnyWordSpec with Matchers:
     setStart(Vector(25, 25, 5, 5, 20))
     val gb = initController
     "have the right size" in:
-      start(0) = gb.getSize._1
-      start(1) = gb.getSize._2
+      initVals(0) = gb.getSize._1
+      initVals(1) = gb.getSize._2
 
     "have output strings" in:
       (for i <- 0 until 5 yield getPrintString(i)).toVector shouldBe
@@ -31,8 +33,8 @@ class TUISpec extends AnyWordSpec with Matchers:
 
     "have the right bomb emoji" in:
       emojify(-2) shouldBe "*"
-      emojify(-1) shouldBe "█"
-      emojify(1) shouldBe "1"
+      emojify(-1) shouldBe "\u001b[1;37m#\u001b[0m"
+      emojify(1) shouldBe "\u001b[1;94m1\u001b[0m"
 
     "have right end-msgs" in:
       val w = Controller(10, 10, 5, 5, 91)
@@ -40,24 +42,25 @@ class TUISpec extends AnyWordSpec with Matchers:
       val lVec = Vector.fill(10, 10)(Field(true, false))
       val l = new Controller(new Board(lVec.updated(1, lVec(1).updated(1, Field(false, false)))))
         Controller(10, 10, 5, 5, 90)
-      turn("flag 2 2", l) shouldBe true
-      turn("open 2 2", l) shouldBe true
+      turn("flag 2 2", l) shouldBe ""
+      turn("open 2 2", l) shouldBe ""
       gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
       gameEndMsg(gb) shouldBe "???"
-      turn("open 2 2", l) shouldBe false
+      turn("open 2 2", l) shouldBe ""
 
     "checked unvalid turn" in :
       val c: Controller = Controller(10, 10, 1, 1, 20)
-      turn("gfjzgfkf", c) shouldBe false
-      turn("1000 1000", c) shouldBe false
+      turn("gfjzgfkf", c) shouldBe "Invalid command!"
+      turn("1000 1000", c) shouldBe "Invalid command!"
+      turn("load hi lul", c)
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
       val ctrl = Controller(20, 20, 1, 1, 100)
       ctrl.addSub(dummySub)
-      ctrl.turn("flag", 10, 10) shouldBe true
-      ctrl.turn("open", 1, 1) shouldBe false
-      ctrl.turn("flag", 1, 1) shouldBe false
+      ctrl.turn("flag", Try(10), Try(10)).get shouldBe true
+      ctrl.turn("open", Try(1), Try(1)).get shouldBe false
+      ctrl.turn("flag", Try(1), Try(1)).get shouldBe false
       ctrl.removeSub(dummySub)
 
   "an User Interface" should:
@@ -71,13 +74,19 @@ class TUISpec extends AnyWordSpec with Matchers:
           |flag 7 7
           |open.10000usifduoiwstrhfgu9sfh10000
           |open.1,1
+          |help
+          |undo
+          |redo
+          |save
+          |load
+          |quit
           |""".stripMargin
 
       val in = new ByteArrayInputStream(fakeInput.getBytes())
-
-      Console.withIn(in){
-         aView.start()
+      Console.withIn(in) {
+        startTUI
       }
+
 
   object dummySub extends Observer:
     override def update(): Unit = {}
