@@ -26,7 +26,8 @@ object LoadCmd extends SysCommandCORTrait:
     Try{
       val savedVal = Files.readString(SysCommandManager.savedGame(Try(params(1)))).split("\n")
       val savedVals = Try(savedVal.map(sv => sv.split(": ")(1)))
-      if savedVals.get(0) != de.htwg.winesmeeper.BuildInfo.version then
+      val isForced: Boolean = params.size >= 3 && params(2).toLowerCase.equals("forced")
+      if !isForced && savedVals.get(0) != de.htwg.winesmeeper.BuildInfo.version then
         Some(s"not the same version \n Saved game version: ${savedVals.get(0)} != ${de.htwg.winesmeeper.BuildInfo.version}")
       else
         ctrl.gb = getBoard(savedVals.get(2))
@@ -35,10 +36,11 @@ object LoadCmd extends SysCommandCORTrait:
         val unStack = getStacks(Try(savedVals.get(3).replace("§","")), ctrl)
         val reStack = getStacks(Try(savedVals.get(4).replace("§","")), ctrl)
         ctrl.undo.overrideStacks(unStack, reStack)
-        ctrl.notifyObservers()}
+        ctrl.notifyObservers()
+        Some("loaded new game")}
     match
-        case Success(_) =>  Some("loaded new game")
-        case Failure(ex) => None
+      case Success(value) => value
+      case Failure(ex) => None
 
 
   private def getBoard(boardString: String): BoardTrait =

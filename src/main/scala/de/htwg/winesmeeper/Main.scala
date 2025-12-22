@@ -7,19 +7,18 @@ import de.htwg.winesmeeper.aView.TUI.TUI
 import scala.io.StdIn.readInt
 
 val initVals = new Array[Int](5)
-
-def startTUI: Controller =
+  
+@main def start: Unit = 
   for i <- 0 until 5 do
     println(getPrintString(i))
     initVals(i) = readInt
   val gb = Board(initVals(0), initVals(1), initVals(2), initVals(3), initVals(4))
   val ctrl = Controller(initVals(2), initVals(3), gb)
   new Thread(() => {
-    val tui = TUI(ctrl)
+  val tui = TUI(ctrl)
   }).start()
-  ctrl
-  
-@main def start: Unit = aView.GUI.GUI(startTUI).main(Array())
+  if scala.util.Try(Class.forName("scalafx.application.JFXApp3")).isSuccess then
+    aView.GUI.GUI(ctrl).main(Array())
 
 def getPrintString(indx: Int): String =
   indx match
