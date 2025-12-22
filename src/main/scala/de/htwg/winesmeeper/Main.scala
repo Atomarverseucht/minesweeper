@@ -32,4 +32,3 @@ def getPrintString(indx: Int): String =
       "Please enter your starting y coordinate between 0 and " + (initVals(1) - 1)
     case 4 =>
       "Please enter the count of bombs. It must be between 1 and " + (initVals(0) * initVals(1) - 9)
-  
