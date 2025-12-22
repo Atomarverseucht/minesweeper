@@ -1,4 +1,6 @@
-# [1.2.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/1.1.0...1.2.0-dev.1) (2025-12-22)
+## [1.2.1](https://github.com/Atomarverseucht/minesweeper/compare/1.2.0...1.2.1) (2025-12-22)
+
+# [1.2.0](https://github.com/Atomarverseucht/minesweeper/compare/1.1.0...1.2.0) (2025-12-22)
 
 
 ### Features
