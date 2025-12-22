@@ -20,4 +20,3 @@ class TUI(ctrl: ControllerTrait) extends Observer:
     println(TUIHelper.getBoardString(ctrl))
     if !ctrl.inGame then
       println(TUIHelper.gameEndMsg(ctrl))
-
