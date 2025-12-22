@@ -2,11 +2,10 @@ package main.de.htwg.winesmeeper.tests.aView
 
 import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
-import de.htwg.winesmeeper.{Observer, aView, getPrintString}
+import de.htwg.winesmeeper.{Observer, getPrintString}
 import de.htwg.winesmeeper.aView.TUI.TUIHelper.*
-import de.htwg.winesmeeper.{startTUI, Config}
+import de.htwg.winesmeeper.{start, Config}
 import scala.util.Try
-import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -24,10 +23,10 @@ class TUISpec extends AnyWordSpec with Matchers:
     "have output strings" in:
       (for i <- 0 until 5 yield getPrintString(i)).toVector shouldBe
         Vector("Please enter the size of the x coordinate. It must be >= 10",
-      "Please enter the size of the y coordinate. It must be >= 10",
-      "Please enter your x starting coordinate between 0 and 24",
-      "Please enter your starting y coordinate between 0 and 24",
-      "Please enter the count of bombs. It must be between 1 and 616")
+        "Please enter the size of the y coordinate. It must be >= 10",
+        "Please enter your x starting coordinate between 0 and 24",
+        "Please enter your starting y coordinate between 0 and 24",
+        "Please enter the count of bombs. It must be between 1 and 616")
 
     "have a String of the board" in:
       getBoardString(gb) shouldBe a[String]
@@ -84,11 +83,8 @@ class TUISpec extends AnyWordSpec with Matchers:
 
       val in = new ByteArrayInputStream(fakeInput.getBytes())
       Console.withIn(in) {
-        startTUI
+        start
       }
-  
-  
-
 
   object dummySub extends Observer:
     override def update(): Unit = {}
