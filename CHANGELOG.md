@@ -1,10 +1,9 @@
-# [1.1.0](https://github.com/Atomarverseucht/minesweeper/compare/1.0.1...1.1.0) (2025-12-19)
+# [1.1.0-dev.5](https://github.com/Atomarverseucht/minesweeper/compare/1.1.0-dev.4...1.1.0-dev.5) (2025-12-22)
 
 
 ### Features
 
-* Command & SysCmd Component ([214af61](https://github.com/Atomarverseucht/minesweeper/commit/214af610a653cde70b582c2124d3dfc318b5c0f0))
-* Controller & Board Component ([71aa623](https://github.com/Atomarverseucht/minesweeper/commit/71aa62345271657677a1af426979859809aba72b))
+* load: new "force" flag, to load a game file, also if the versions are not the same; ([d30bbb8](https://github.com/Atomarverseucht/minesweeper/commit/d30bbb8e873096618d1782cf24133cdff076cbdf))
 
 # [1.1.0-dev.4](https://github.com/Atomarverseucht/minesweeper/compare/1.1.0-dev.3...1.1.0-dev.4) (2025-12-19)
 

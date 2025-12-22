@@ -16,7 +16,12 @@ object TUIHelper:
     ).mkString
 
   // TUI-design of one specific field
-  def emojify(field: Int): String = field match {case -1 => "\u001b[1;37m#\u001b[0m" case -2 => "*" case -3 => "\u001b[1;31m#\u001b[0m" case _ => s"\u001b[1;94m${field}\u001b[0m"}
+  def emojify(field: Int): String =
+    field match
+      case -1 => "\u001b[1;37m#\u001b[0m"
+      case -2 => "*"
+      case -3 => "\u001b[1;31m#\u001b[0m"
+      case _ => s"\u001b[1;94m${field}\u001b[0m"
 
   def turn(input: String, ctrl: ControllerTrait): String =
     val in = input.split("[^\\w\\d]+").toVector
@@ -25,17 +30,15 @@ object TUIHelper:
         case Some(value) => value
         case None => ""
     else
-      ctrl.turn(in(0), Try(in(1).toInt), Try(in(2).toInt)) match {
+      ctrl.turn(in(0), Try(in(1).toInt), Try(in(2).toInt)) match
         case Success(value) => ""
         case Failure(ex) => "Invalid command!"
-      }
 
   def gameEndMsg(ctrl: ControllerTrait): String =
-    val out = ctrl.gameState match
+    ctrl.gameState match
       case "lose" =>
         "\u001b[1;31mGame lost\u001b[0m!"
       case "win" =>
         "\u001b[1;32mYou have won\u001b[0m!"
       case _ =>
         "???"
-    out
