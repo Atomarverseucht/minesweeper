@@ -3,8 +3,8 @@ package de.htwg.winesmeeper.Controller.ImplSysCommands
 import de.htwg.winesmeeper.Controller.{CommandTrait, ControllerTrait, SysCommandCORTrait, TurnCmdManagerTrait}
 import de.htwg.winesmeeper.Model.BoardTrait
 import de.htwg.winesmeeper.Config
-import javafx.scene.input.KeyCode
 
+import javafx.scene.input.KeyCode
 import java.nio.file.{Files, Paths}
 import scala.collection.mutable
 import scala.collection.mutable.Stack

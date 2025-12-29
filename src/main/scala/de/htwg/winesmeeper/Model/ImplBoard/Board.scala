@@ -1,7 +1,8 @@
-package de.htwg.winesmeeper.Model.BoardImplementation
+package de.htwg.winesmeeper.Model.ImplBoard
 
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
-import de.htwg.winesmeeper.Config
+import de.htwg.winesmeeper.WinesmeeperModule
+import com.google.inject.{Injector, Guice}
 
 import scala.annotation.tailrec
 import scala.util.Random
@@ -71,13 +72,15 @@ object Board:
     if fieldCount <= 0 then
       boardv
     else
-      val newV: (Boolean, Int, FieldTrait) =
+      val injector = Guice.createInjector(WinesmeeperModule)
+      val newV =
         if Board.isNeighbour(xStart, yStart, indx, indy) then
-          (false, fieldCount, Config.standardField(false, false, false))
+          (false, fieldCount, (false, false, false))
         else
           val isBomb = Random.nextInt(fieldCount) < bombCount
-          (isBomb, fieldCount - 1, Config.standardField(isBomb, false, false))
-
+          (isBomb, fieldCount - 1, (isBomb, false, false))
+      val field = 
+      
       val nboard = boardv.updated(indx, boardv(indx).updated(indy, newV._3))
       val nbc = if newV._1 then bombCount - 1 else bombCount
       val nextC = if indx + 1 < boardv.length then (indx + 1, indy) else (0, indy + 1)

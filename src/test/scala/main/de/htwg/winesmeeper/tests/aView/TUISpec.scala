@@ -4,7 +4,7 @@ import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
 import de.htwg.winesmeeper.{Observer, getPrintString}
 import de.htwg.winesmeeper.aView.TUI.TUIHelper.*
-import de.htwg.winesmeeper.{start, Config}
+import de.htwg.winesmeeper.start
 import scala.util.Try
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec

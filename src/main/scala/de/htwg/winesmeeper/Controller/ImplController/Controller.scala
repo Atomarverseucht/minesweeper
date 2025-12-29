@@ -2,16 +2,19 @@ package de.htwg.winesmeeper.Controller.ImplController
 
 import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandManagerTrait, TurnCmdManagerTrait}
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
-import de.htwg.winesmeeper.Config
+import de.htwg.winesmeeper.{Config, WinesmeeperModule}
 import javafx.scene.input.KeyCode
+import com.google.inject.{Guice, Inject, Injector}
+import net.codingwell.scalaguice.InjectorExtensions.*
 
 import scala.util.Try
 
-class Controller(var gb: BoardTrait) extends ControllerTrait():
+class Controller @Inject() (var gb: BoardTrait) extends ControllerTrait():
  
   var state: GameState = Running(this)
-  override val undo: TurnCmdManagerTrait = Config.standardUndo(this)
-  override val sysCmd: SysCommandManagerTrait = Config.standardSysCmdMan
+  private val injector = Guice.createInjector(WinesmeeperModule)
+  override val undo: TurnCmdManagerTrait = injector.instance
+  override val sysCmd: SysCommandManagerTrait = injector.instance
   
   override def turn(cmd: String, x: Try[Int], y: Try[Int]): Try[Boolean] = {
     Try(state.turn(cmd.toLowerCase, x.get, y.get))

@@ -1,6 +1,5 @@
 package main.de.htwg.winesmeeper.tests.Model
 
-import de.htwg.winesmeeper.Config
 import de.htwg.winesmeeper.Model.BoardTrait
 import main.de.htwg.winesmeeper.tests.aView.buildController
 import org.scalatest.matchers.should.Matchers

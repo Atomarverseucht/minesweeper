@@ -1,7 +1,7 @@
 package de.htwg.winesmeeper
 
 import de.htwg.winesmeeper.Controller.ImplController.Controller
-import de.htwg.winesmeeper.Model.BoardImplementation.Board
+import de.htwg.winesmeeper.Model.ImplBoard.Board
 import de.htwg.winesmeeper.aView.TUI.TUI
 
 import scala.io.StdIn.readInt
