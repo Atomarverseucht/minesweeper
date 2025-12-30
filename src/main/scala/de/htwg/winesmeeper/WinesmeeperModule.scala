@@ -15,26 +15,18 @@ import Model.{ImplBoard, ImplField}
 object WinesmeeperModule extends AbstractModule with ScalaModule:
   override def configure(): Unit =
     // Controller-Bindings
-    bind[ControllerTrait].to[ImplController.Controller]
+    bind[(Int, Int, BoardTrait) => ControllerTrait]
+      .toInstance((xSt, ySt, board) => ImplController.Controller(xSt, ySt, board))
     bind[SysCommandManagerTrait].toInstance(ImplSysCommands.SysCommandManager)
-    bind[TurnCmdManagerTrait].to[ImplTurnCommands.UndoManager]
+    bind[ControllerTrait => TurnCmdManagerTrait].toInstance(ImplTurnCommands.UndoManager(_))
 
     // Board-Bindings
-    bind[BoardTrait].to[ImplBoard.Board]
-    install(
-      new FactoryModuleBuilder()
-        .implement(classOf[FieldTrait], classOf[ImplField.Field])
-        .build(classOf[FieldFactory])
-    )
+    bind[Vector[Vector[FieldTrait]] => BoardTrait]
+      .toInstance(ImplBoard.Board(_))
+    bind[(Int, Int, Int, Int, Int) => BoardTrait]
+      .toInstance((xSz, ySz, xSt, ySt, bc) => ImplBoard.Board(xSz, ySz, xSt, ySt, bc))
+    
+    // Field
     bind[(Boolean, Boolean, Boolean) => FieldTrait]
-      .toProvider { factory: FieldFactory =>
-        (opened, bomb, flag) => factory(opened, bomb, flag)
-      }
+      .toInstance((opened, bomb, flag) => ImplField.Field(opened, bomb, flag))
 
-  trait FieldFactory {
-    def apply(
-               @Assisted("opened") isOpened: Boolean,
-               @Assisted("bomb") isBomb: Boolean,
-               @Assisted("flag") isFlag: Boolean
-             ): FieldTrait
-  }
