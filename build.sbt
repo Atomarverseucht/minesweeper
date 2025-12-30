@@ -32,6 +32,8 @@ lazy val root = project
     libraryDependencies += "org.scalameta" %% "munit" % "1.2.1" % Test,
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % Test,
     libraryDependencies += "org.scoverage" % "sbt-coveralls_2.12_1.0" % "1.3.15",
+    libraryDependencies += "net.codingwell" %% "scala-guice" % "7.0.0",
+    libraryDependencies += "com.google.inject" % "guice" % "7.0.0",
 
     sonarProperties ++= Map(
       "sonar.projectKey"       -> "winesmeeper",

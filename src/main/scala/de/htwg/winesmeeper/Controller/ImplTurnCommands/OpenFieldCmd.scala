@@ -1,8 +1,10 @@
 package de.htwg.winesmeeper.Controller.ImplTurnCommands
 
-import de.htwg.winesmeeper.Controller.{CommandTrait, CommandCORTrait, ControllerTrait}
+import de.htwg.winesmeeper.Controller.{CommandCORTrait, CommandTrait, ControllerTrait}
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
-import de.htwg.winesmeeper.Config
+import com.google.inject.Guice
+import de.htwg.winesmeeper.WinesmeeperModule
+import net.codingwell.scalaguice.InjectorExtensions.*
 
 import scala.util.{Success, Try}
 
@@ -23,7 +25,9 @@ case class OpenFieldCmd(ctrl: ControllerTrait, x: Int, y: Int) extends CommandTr
     val f = gb.getFieldAt(x, y)
     if discover == f.isOpened then false
     else
-      ctrl.gb = gb.updateField(x, y, Config.standardField(f.isBomb, discover, !discover && isFlag))
+      val injector = Guice.createInjector(WinesmeeperModule)
+      val fMake: (Boolean, Boolean, Boolean) => FieldTrait = injector.instance
+      ctrl.gb = gb.updateField(x, y, fMake(f.isBomb, discover, !discover && isFlag))
       if !discover && !ctrl.inGame then ctrl.changeState("running")
       if f.isBomb && discover then ctrl.changeState("lose");
       else if gb.getBombNeighbour(x, y) == 0 then
