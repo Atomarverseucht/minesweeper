@@ -1,10 +1,7 @@
 package de.htwg.winesmeeper
 
-
 import com.google.inject.AbstractModule
-import com.google.inject.assistedinject.FactoryModuleBuilder
 import net.codingwell.scalaguice.ScalaModule
-import com.google.inject.assistedinject.Assisted
 
 import Controller.{ControllerTrait, TurnCmdManagerTrait, SysCommandManagerTrait}
 import Controller.{ImplController, ImplSysCommands, ImplTurnCommands}
