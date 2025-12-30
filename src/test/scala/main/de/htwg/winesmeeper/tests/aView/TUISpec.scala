@@ -2,16 +2,22 @@ package main.de.htwg.winesmeeper.tests.aView
 
 import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
-import de.htwg.winesmeeper.{Observer, getPrintString}
+import de.htwg.winesmeeper.{Observer, WinesmeeperModule, getPrintString, start}
 import de.htwg.winesmeeper.aView.TUI.TUIHelper.*
-import de.htwg.winesmeeper.start
+
 import scala.util.Try
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-
+import com.google.inject.{Guice, Injector}
+import net.codingwell.scalaguice.InjectorExtensions.*
 import java.io.ByteArrayInputStream
 
 class TUISpec extends AnyWordSpec with Matchers:
+  val injector: Injector = Guice.createInjector(WinesmeeperModule)
+  val ctrlMaker: (Int, Int, BoardTrait) => ControllerTrait = injector.instance
+  val boardMaker: Vector[Vector[FieldTrait]] => BoardTrait = injector.instance
+  val boardGenerator: (Int, Int, Int, Int, Int) => BoardTrait = injector.instance
+  val fieldMaker: (Boolean, Boolean, Boolean) => FieldTrait = injector.instance
   "The TUI" should:
     val sizeX = 25
     val sizeY = 25
@@ -39,8 +45,8 @@ class TUISpec extends AnyWordSpec with Matchers:
     "have right end-msgs" in:
       val w = buildController(10, 10, 5, 5, 91)
       gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
-      val lBoard = Config.standardBoard(Vector.fill(10, 10)(Config.standardField(true, false, false)))
-      val l = Config.standardController(9, 9, lBoard.updateField(1, 1, Config.standardField(false, false, false)))
+      val lBoard = boardMaker(Vector.fill(10, 10)(fieldMaker(true, false, false)))
+      val l = ctrlMaker(9, 9, lBoard.updateField(1, 1, fieldMaker(false, false, false)))
       turn("flag 2 2", l) shouldBe ""
       turn("open 2 2", l) shouldBe ""
       gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
@@ -90,4 +96,7 @@ class TUISpec extends AnyWordSpec with Matchers:
     override def update(): Unit = {}
     
 def buildController(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): ControllerTrait =
-  Config.standardController(xStart, yStart, Config.standardBoardGenerate(xSize, ySize, xStart, yStart, bombCount))
+  val injector: Injector = Guice.createInjector(WinesmeeperModule)
+  val ctrlMaker: (Int, Int, BoardTrait) => ControllerTrait = injector.instance
+  val boardGenerator: (Int, Int, Int, Int, Int) => BoardTrait = injector.instance
+  ctrlMaker(xStart, yStart, boardGenerator(xSize, ySize, xStart, yStart, bombCount))
