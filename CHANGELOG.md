@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/Atomarverseucht/minesweeper/compare/1.2.1...1.2.2) (2026-01-08)
+
+
+### Bug Fixes
+
+* Guice is now running ([0f7a220](https://github.com/Atomarverseucht/minesweeper/commit/0f7a22082a54c9b0460b400202eb3d3a9b9460d1))
+
 ## [1.2.2-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/1.2.1...1.2.2-dev.1) (2025-12-30)
 
 
