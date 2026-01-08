@@ -17,16 +17,16 @@ class Controller @Inject() (var gb: BoardTrait) extends ControllerTrait():
   override val undo: TurnCmdManagerTrait = undoMaker(this)
   override val sysCmd: SysCommandManagerTrait = injector.instance
   
-  override def turn(cmd: String, x: Try[Int], y: Try[Int]): Try[Boolean] = {
-    Try(state.turn(cmd.toLowerCase, x.get, y.get))
+  override def turn(observerID: Int, cmd: String, x: Try[Int], y: Try[Int]): Try[Boolean] = {
+    Try(state.turn(observerID, cmd.toLowerCase, x.get, y.get))
   }
 
   override def changeState(newState: String): Unit = state.changeState(newState)
 
   override def isSysCmd(cmd: String): Boolean = sysCmd.isSysCmd(cmd.toLowerCase())
   
-  override def doSysCmd(cmd: String, params: Vector[String] = Vector("no params")): Option[String] =
-    sysCmd.doSysCmd(this, cmd.toLowerCase(), params)
+  override def doSysCmd(observerID: Int, cmd: String, params: Vector[String] = Vector("no params")): Option[String] =
+    sysCmd.doSysCmd(observerID, this, cmd.toLowerCase(), params)
     
   override def getBoard: Vector[Vector[Int]] = gb.getBoard
   
@@ -57,5 +57,5 @@ object Controller:
       Guice.createInjector(WinesmeeperModule).instance
     val undo = undoMaker(out)
     for fx <- xStart - 1 to xStart + 1; fy <- yStart - 1 to yStart + 1 do
-      if gb.in(fx, fy) then undo.doCmd("open", fx, fy)
+      if gb.in(fx, fy) then undo.doCmd(-1,"open", fx, fy)
     out

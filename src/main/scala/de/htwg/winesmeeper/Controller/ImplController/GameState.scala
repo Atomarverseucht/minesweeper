@@ -4,17 +4,17 @@ trait GameState:
     val context: Controller
     def gameState: String
     def inGame: Boolean = false
-    def turn(cmd: String, x: Int, y: Int): Boolean = false
+    def turn(observerID: Int, cmd: String, x: Int, y: Int): Boolean = false
     def changeState(state: String): Unit = context.state = CORStatRunning.changeState(state, context)
 
 class Running(override val context: Controller) extends GameState:
     override def gameState: String = "running"
     override def inGame: Boolean = true
 
-    override def turn(cmd: String, x: Int, y: Int): Boolean =
+    override def turn(observerID: Int, cmd: String, x: Int, y: Int): Boolean =
       if !context.gb.in(x, y) then false
       else
-        context.undo.doCmd(cmd, x, y)
+        context.undo.doCmd(observerID, cmd, x, y)
 
 class Won(override val context: Controller) extends GameState:
     override def gameState: String = "win"

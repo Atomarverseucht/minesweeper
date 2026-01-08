@@ -5,7 +5,7 @@ import javafx.scene.input.KeyCode
 trait SysCommandManagerTrait:
   def isSysCmd(cmd: String): Boolean
   
-  def doSysCmd(ctrl: ControllerTrait, cmd: String, params: Vector[String]): Option[String]
+  def doSysCmd(observerID: Int, ctrl: ControllerTrait, cmd: String, params: Vector[String]): Option[String]
 
   def doShortCut(ctrl: ControllerTrait, key: KeyCode): Option[String]
   def getSysCmdList: List[SysCommandCORTrait]

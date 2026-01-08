@@ -11,7 +11,7 @@ object SysCommandManager extends SysCommandManagerTrait:
   override def isSysCmd(cmd: String): Boolean =
     firstSysCmd.getSysCmd(cmd).nonEmpty
 
-  override def doSysCmd(ctrl: ControllerTrait, cmd: String, params: Vector[String]): Option[String] =
+  override def doSysCmd(observerID: Int, ctrl: ControllerTrait, cmd: String, params: Vector[String]): Option[String] =
     val com = firstSysCmd.getSysCmd(cmd)
     com match
       case Some(value) => value.execute(ctrl, params)

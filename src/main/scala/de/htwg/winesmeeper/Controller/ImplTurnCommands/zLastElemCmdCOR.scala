@@ -8,7 +8,7 @@ object zLastElemCmdCOR extends CommandCORTrait:
   override val next: CommandCORTrait = this
   override val cmd: String = ""
   override val helpMsg: String = ""
-  override def buildCmd(cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait] =  Failure(IllegalArgumentException())
+  override def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait] =  Failure(IllegalArgumentException())
   
   override def listCmds: List[CommandCORTrait] = Nil
 

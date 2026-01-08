@@ -8,7 +8,7 @@ import net.codingwell.scalaguice.InjectorExtensions.*
 
 import scala.util.{Success, Try}
 
-case class OpenFieldCmd(ctrl: ControllerTrait, x: Int, y: Int) extends CommandTrait:
+case class OpenFieldCmd(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int) extends CommandTrait(observerID_):
 
   val isFlag: Boolean = ctrl.gb.getFieldAt(x, y).isBomb
   override def doStep(): Boolean =
@@ -34,7 +34,7 @@ case class OpenFieldCmd(ctrl: ControllerTrait, x: Int, y: Int) extends CommandTr
           for fx <- x - 1 to x + 1
             fy <- y - 1 to y + 1 do
             if gb.in(fx, fy) && !gb.getFieldAt(fx, fy).isOpened == discover then
-              OpenFieldCmd(ctrl, fx, fy).step(discover)
+              OpenFieldCmd(observerID, ctrl, fx, fy).step(discover)
       if ctrl.isVictory && discover then ctrl.changeState("win")
       true
 
@@ -50,6 +50,6 @@ object OpenFieldCOR extends CommandCORTrait:
       |  But no pressure you can undo your fault!
       |""".stripMargin
 
-  override def buildCmd(cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait] =
-    if cmd == this.cmd then Success(OpenFieldCmd(ctrl, x, y)) else next.buildCmd(cmd,x,y,ctrl)
-
+  override def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait] =
+    if cmd == this.cmd then Success(OpenFieldCmd(observerID: Int, ctrl, x, y)) 
+    else next.buildCmd(observerID: Int, cmd, x, y, ctrl)

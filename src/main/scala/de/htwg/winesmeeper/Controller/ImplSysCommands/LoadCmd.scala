@@ -69,7 +69,7 @@ object LoadCmd extends SysCommandCORTrait:
           for cmdS <- inputs do
             val cmd = cmdS.split("\\(")
             val inputInt = cmd(1).replace(")","").split(", ")
-            val element = ctrl.undo.buildCmd(cmd(0), inputInt(0).toInt, inputInt(1).toInt, ctrl).get
+            val element = ctrl.undo.buildCmd(inputInt(0).toInt, cmd(0), inputInt(1).toInt, inputInt(2).toInt, ctrl).get
             inputStack.push(element)
 
       case Failure(exception) =>

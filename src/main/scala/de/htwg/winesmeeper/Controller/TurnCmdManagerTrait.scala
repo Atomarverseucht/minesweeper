@@ -4,7 +4,7 @@ import scala.collection.mutable.Stack
 import scala.util.Try
 
 trait TurnCmdManagerTrait:
-  def doCmd(cmd: String, x: Int, y: Int): Boolean
+  def doCmd(observerID: Int, cmd: String, x: Int, y: Int): Boolean
 
   def getStacks: (Stack[CommandTrait], Stack[CommandTrait])
 
@@ -18,9 +18,9 @@ trait TurnCmdManagerTrait:
   
   def undoStep(): Unit
   
-  def buildCmd(cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait]
+  def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait]
 
-trait CommandTrait:
+trait CommandTrait(val observerID: Int):
   def doStep(): Boolean
   def undoStep(): Boolean
   def redoStep(): Boolean
@@ -29,7 +29,7 @@ trait CommandCORTrait extends AbstractCmdCOR: // für Hilfsmethode erbt CommandC
   val cmd: String
   val helpMsg: String
   val next: CommandCORTrait
-  def buildCmd(cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait]
+  def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait]
   def listCmds: List[CommandCORTrait] = this::next.listCmds
   def getCmd(cmd: String): Option[CommandCORTrait] = if cmd == this.cmd then Some(this) else next.getCmd(cmd)
 
