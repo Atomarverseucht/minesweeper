@@ -1,7 +1,7 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
 import de.htwg.winesmeeper.Controller.ImplController.Controller
-import de.htwg.winesmeeper.Model.BoardImplementation.Board
+import de.htwg.winesmeeper.Model.ImplBoard.Board
 import de.htwg.winesmeeper.Model.ImplField.Field
 import main.de.htwg.winesmeeper.tests.aView.buildController
 import scala.util.Try
