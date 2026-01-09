@@ -16,7 +16,7 @@ object HelpCmd extends SysCommandCORTrait:
       |""".stripMargin
 
 
-  override def execute(ctrl: ControllerTrait, params: Vector[String]): Option[String] =
+  override def execute(observerID: Int, ctrl: ControllerTrait, params: Vector[String]): Option[String] =
     val command = if params.length > 1 then SysCommandManager.getAbstractCmd(params(1), ctrl) else None
     command match
       case Some(value) => Some(value.specHelpMsg)

@@ -38,7 +38,7 @@ class Controller @Inject() (var gb: BoardTrait) extends ControllerTrait():
   
   override def getSysCmdList: List[String] = sysCmd.getSysCmdList.map(sys => sys.cmd)
   
-  override def doShortCut(key: KeyCode): Option[String] = sysCmd.doShortCut(this, key)
+  override def doShortCut(observerID: Int, key: KeyCode): Option[String] = sysCmd.doShortCut(observerID, this, key)
 
   override def isVictory: Boolean = gb.isVictory
 

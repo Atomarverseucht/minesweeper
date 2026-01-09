@@ -18,7 +18,7 @@ object SaveCmd extends SysCommandCORTrait:
       |  saves game at a given file (without the ending)
       |""".stripMargin
   
-  override def execute(ctrl: ControllerTrait, params: Vector[String]): Option[String] =
+  override def execute(observerID: Int, ctrl: ControllerTrait, params: Vector[String]): Option[String] =
     Files.write(SysCommandManager.savedGame(Try(params(1))), ctrl.toString.getBytes())
     Some("Board saved")
 

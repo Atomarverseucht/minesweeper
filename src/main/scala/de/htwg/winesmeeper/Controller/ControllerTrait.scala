@@ -6,7 +6,7 @@ import javafx.scene.input.KeyCode
 
 import scala.util.Try
 
-trait ControllerTrait() extends Observable:
+trait ControllerTrait extends Observable:
   val undo: TurnCmdManagerTrait
   val sysCmd: SysCommandManagerTrait
   var gb: BoardTrait
@@ -25,7 +25,7 @@ trait ControllerTrait() extends Observable:
 
   def turn(subID: Int, cmd: String, x: Try[Int], y: Try[Int]): Try[Boolean]
 
-  def doShortCut(key: KeyCode): Option[String]
+  def doShortCut(observerID: Int, key: KeyCode): Option[String]
 
   def getSysCmdList: List[String]
   

@@ -18,7 +18,7 @@ object RedoCmd extends SysCommandCORTrait:
       |  makes your last <count> undos done!
       |""".stripMargin
 
-  override def execute(ctrl: ControllerTrait, params: Vector[String]): Option[String] =
+  override def execute(observerID: Int, ctrl: ControllerTrait, params: Vector[String]): Option[String] =
     val count: Int = Try(params(1).toInt) match
       case Failure(exception) => 1
       case Success(value) => value

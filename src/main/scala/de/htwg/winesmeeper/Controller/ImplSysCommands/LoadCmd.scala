@@ -24,7 +24,7 @@ object LoadCmd extends SysCommandCORTrait:
       |  overrides game with a given file (without the ending)
       |""".stripMargin
 
-  override def execute(ctrl: ControllerTrait, params: Vector[String]): Option[String] =
+  override def execute(observerID: Int, ctrl: ControllerTrait, params: Vector[String]): Option[String] =
     Try{
       val savedVal = Files.readString(SysCommandManager.savedGame(Try(params(1)))).split("\n")
       val savedVals = Try(savedVal.map(sv => sv.split(": ")(1)))

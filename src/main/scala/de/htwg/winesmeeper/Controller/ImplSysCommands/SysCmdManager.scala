@@ -6,7 +6,7 @@ import scala.util.{Failure, Success, Try}
 import java.nio.file.{Path, Paths}
 
 object SysCommandManager extends SysCommandManagerTrait:
-  val firstSysCmd: SysCommandCORTrait = HelpCmd
+  val firstSysCmd: SysCommandCORTrait = GenerateCmd
 
   override def isSysCmd(cmd: String): Boolean =
     firstSysCmd.getSysCmd(cmd).nonEmpty
@@ -14,7 +14,7 @@ object SysCommandManager extends SysCommandManagerTrait:
   override def doSysCmd(observerID: Int, ctrl: ControllerTrait, cmd: String, params: Vector[String]): Option[String] =
     val com = firstSysCmd.getSysCmd(cmd)
     com match
-      case Some(value) => value.execute(ctrl, params)
+      case Some(value) => value.execute(observerID, ctrl, params)
       case None => None
 
   def savedGame(fileName: Try[String]): Path =
@@ -30,8 +30,8 @@ object SysCommandManager extends SysCommandManagerTrait:
     if sysCmd.nonEmpty then sysCmd
     else ctrl.undo.getCmd(cmd)
     
-  override def doShortCut(ctrl: ControllerTrait, key: KeyCode): Option[String] =
-    val out = firstSysCmd.getSysCmd(key).map[Option[String]](_.execute(ctrl))
+  override def doShortCut(observerID: Int, ctrl: ControllerTrait, key: KeyCode): Option[String] =
+    val out = firstSysCmd.getSysCmd(key).map[Option[String]](_.execute(observerID, ctrl))
     out match
       case Some(None) => None
       case Some(Some(value)) => Some(value)
@@ -42,7 +42,7 @@ object LastElemSysCommand extends SysCommandCORTrait:
   override val helpMsg: String = ""
   override val next: SysCommandCORTrait = this
 
-  override def execute(ctrl: ControllerTrait, params: Vector[String]): Option[String] = Some("No such command!")
+  override def execute(observerID: Int, ctrl: ControllerTrait, params: Vector[String]): Option[String] = Some("No such command!")
 
   override def getSysCmd(cmd: String): Option[SysCommandCORTrait] = None
 
