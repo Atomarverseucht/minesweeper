@@ -1,3 +1,10 @@
+## [1.3.2-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/1.3.1...1.3.2-dev.1) (2026-01-09)
+
+
+### Bug Fixes
+
+* flag bug fixed ([9ee441e](https://github.com/Atomarverseucht/minesweeper/commit/9ee441e5ee50788af36e4785efafc5d1054f7737))
+
 ## [1.3.1](https://github.com/Atomarverseucht/minesweeper/compare/1.3.0...1.3.1) (2026-01-09)
 
 
