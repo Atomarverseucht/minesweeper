@@ -82,10 +82,11 @@ class TUISpec extends AnyWordSpec with Matchers:
           |90
           |flag 7 7
           |open.10000usifduoiwstrhfgu9sfh10000
-          |open.1,1
           |flag 9 9
           |flag 8 8
+          |open.1,1
           |help
+          |undo
           |undo
           |redo
           |save
