@@ -25,7 +25,7 @@ class Controller @Inject() (var gb: BoardTrait) extends ControllerTrait():
 
   override def isSysCmd(cmd: String): Boolean = sysCmd.isSysCmd(cmd.toLowerCase())
   
-  override def doSysCmd(observerID: Int, cmd: String, params: Vector[String] = Vector("no params")): Option[String] =
+  override def doSysCmd(observerID: Int, cmd: String, params: Vector[String]): Option[String] =
     sysCmd.doSysCmd(observerID, this, cmd.toLowerCase(), params)
     
   override def getBoard: Vector[Vector[Int]] = gb.getBoard
