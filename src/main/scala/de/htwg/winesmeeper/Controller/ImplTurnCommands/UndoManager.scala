@@ -2,11 +2,10 @@ package de.htwg.winesmeeper.Controller.ImplTurnCommands
 
 import de.htwg.winesmeeper.Controller.{CommandTrait, CommandCORTrait, ControllerTrait, TurnCmdManagerTrait}
 
-import jakarta.inject.Inject
 import scala.util.{Success, Try}
 import scala.collection.mutable.Stack
 
-case class UndoManager @Inject() (control: ControllerTrait) extends TurnCmdManagerTrait:
+case class UndoManager (control: ControllerTrait) extends TurnCmdManagerTrait:
   private val undoStack: Stack[CommandTrait] = new Stack()
   private val redoStack: Stack[CommandTrait] = new Stack()
   val firstCommandCOR: CommandCORTrait = FlagCOR

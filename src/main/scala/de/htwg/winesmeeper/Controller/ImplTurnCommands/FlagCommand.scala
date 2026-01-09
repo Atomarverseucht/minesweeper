@@ -1,12 +1,9 @@
 package de.htwg.winesmeeper.Controller.ImplTurnCommands
 
 import de.htwg.winesmeeper.Controller.{CommandTrait, CommandCORTrait, ControllerTrait}
-import de.htwg.winesmeeper.Model.FieldTrait
 import de.htwg.winesmeeper.Config
 
 import scala.util.{Success, Try}
-import com.google.inject.Guice
-import net.codingwell.scalaguice.InjectorExtensions._
 
 case class FlagCommand(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int) extends CommandTrait(observerID_):
   
