@@ -8,26 +8,27 @@ import scala.io.StdIn.{readLine, readInt}
 import scala.util.{Failure, Success, Try}
 
 class TUI(ctrl: ControllerTrait) extends Observer(ctrl):
-  val initVals = new Array[String](6)
   update()
   nextTurn
   
   @tailrec
   final def nextTurn: Unit =
-    println(turn(readLine, ctrl))
+    println(TUIHelp.turn(observerID, readLine, ctrl))
     nextTurn
 
   override def update(): Unit =
-    println(getBoardString(ctrl))
+    println(TUIHelp.getBoardString(ctrl))
     if !ctrl.inGame then
-      println(gameEndMsg(ctrl))
+      println(TUIHelp.gameEndMsg(ctrl))
 
   override def generate(): Unit =
     for i <- 1 until 6 do
-      println(getPrintString(i-1))
-      initVals(i) = readLine
-    ctrl.doSysCmd(observerID, "generate", initVals.toVector)
-    
+      println(TUIHelp.getPrintString(i-1))
+      TUIHelp.initVals(i) = readLine
+    ctrl.doSysCmd(observerID, "generate", TUIHelp.initVals.toVector)
+
+object TUIHelp:
+  val initVals = new Array[String](6)
   def getBoardString(ctrl: ControllerTrait): String = // TUI-design for the Board
     val b = ctrl.getBoard
     val size = ctrl.getSize
@@ -45,7 +46,7 @@ class TUI(ctrl: ControllerTrait) extends Observer(ctrl):
       case -3 => "\u001b[1;31m#\u001b[0m" 
       case _ => s"\u001b[1;94m${field}\u001b[0m"
 
-  def turn(input: String, ctrl: ControllerTrait): String =
+  def turn(observerID: Int, input: String, ctrl: ControllerTrait): String =
     val in = input.split("[^\\w\\d]+").toVector
     if ctrl.isSysCmd(in(0)) then
       ctrl.doSysCmd(observerID, in(0), in) match
