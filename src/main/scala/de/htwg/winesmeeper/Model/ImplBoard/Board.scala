@@ -1,15 +1,13 @@
 package de.htwg.winesmeeper.Model.ImplBoard
 
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
-import de.htwg.winesmeeper.WinesmeeperModule
+import de.htwg.winesmeeper.Config
 
 import com.google.inject.{Injector, Guice}
 import scala.annotation.tailrec
 import scala.util.Random
-import jakarta.inject.Inject
-import net.codingwell.scalaguice.InjectorExtensions._
 
-case class Board @Inject() (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
+case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
 
   override def getBombNeighbour(x: Int, y: Int): Int =
     (for
@@ -67,10 +65,8 @@ object Board:
     val bMax: Int = Board.maxBombs(xSize, ySize) + ex
     require(bombCount >= 1 && bombCount <= bMax, s"Bomb Count must be between 1 and $bMax")
 
-    val injector = Guice.createInjector(WinesmeeperModule)
-    val makeField: (Boolean, Boolean, Boolean) => FieldTrait = injector.instance
     val boardv = initField(0, 0, xStart, yStart,
-      Vector.fill(xSize, ySize)(makeField(false, true, false)), bombCount, bMax)
+      Vector.fill(xSize, ySize)(Config.standardField(false, true, false)), bombCount, bMax)
     new Board(boardv)
     
   @tailrec
@@ -78,14 +74,12 @@ object Board:
     if fieldCount <= 0 then
       boardv
     else
-      val injector = Guice.createInjector(WinesmeeperModule)
-      val makeField: (Boolean, Boolean, Boolean) => FieldTrait = injector.instance
       val newV =
         if Board.isNeighbour(xStart, yStart, indx, indy) then
-          (false, fieldCount, makeField(false, false, false))
+          (false, fieldCount, Config.standardField(false, false, false))
         else
           val isBomb = Random.nextInt(fieldCount) < bombCount
-          (isBomb, fieldCount - 1, makeField(isBomb, false, false))
+          (isBomb, fieldCount - 1, Config.standardField(isBomb, false, false))
       val nboard = boardv.updated(indx, boardv(indx).updated(indy, newV._3))
       val nbc = if newV._1 then bombCount - 1 else bombCount
       val nextC = if indx + 1 < boardv.length then (indx + 1, indy) else (0, indy + 1)

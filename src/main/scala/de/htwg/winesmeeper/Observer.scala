@@ -1,8 +1,5 @@
 package de.htwg.winesmeeper
 
-import de.htwg.winesmeeper.Controller.ControllerTrait
-
-
 trait Observer(observable: Observable) {
   val observerID: Int = observable.addSub(this)
   def update(): Unit

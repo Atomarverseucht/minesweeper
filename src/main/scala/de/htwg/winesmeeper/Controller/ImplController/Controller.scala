@@ -2,20 +2,16 @@ package de.htwg.winesmeeper.Controller.ImplController
 
 import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandManagerTrait, TurnCmdManagerTrait}
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
-import de.htwg.winesmeeper.WinesmeeperModule
+import de.htwg.winesmeeper.Config
 import javafx.scene.input.KeyCode
-import com.google.inject.{Guice, Inject, Injector}
-import net.codingwell.scalaguice.InjectorExtensions.*
 
 import scala.util.Try
 
-class Controller @Inject() (var gb: BoardTrait) extends ControllerTrait():
+class Controller (var gb: BoardTrait) extends ControllerTrait():
  
   var state: GameState = Running(this)
-  private val injector = Guice.createInjector(WinesmeeperModule)
-  private val undoMaker: ControllerTrait => TurnCmdManagerTrait = injector.instance
-  override val undo: TurnCmdManagerTrait = undoMaker(this)
-  override val sysCmd: SysCommandManagerTrait = injector.instance
+  override val undo: TurnCmdManagerTrait = Config.standardUndo(this)
+  override val sysCmd: SysCommandManagerTrait = Config.standardSysCmdMan
   
   override def turn(observerID: Int, cmd: String, x: Try[Int], y: Try[Int]): Try[Boolean] = {
     Try(state.turn(observerID, cmd.toLowerCase, x.get, y.get))
@@ -53,9 +49,7 @@ class Controller @Inject() (var gb: BoardTrait) extends ControllerTrait():
 object Controller:
   def apply(xStart: Int, yStart: Int, gb: BoardTrait): Controller =
     val out = new Controller(gb)
-    val undoMaker: ControllerTrait => TurnCmdManagerTrait = 
-      Guice.createInjector(WinesmeeperModule).instance
-    val undo = undoMaker(out)
+    val undo = Config.standardUndo(out)
     for fx <- xStart - 1 to xStart + 1; fy <- yStart - 1 to yStart + 1 do
       if gb.in(fx, fy) then undo.doCmd(-1,"open", fx, fy)
     out

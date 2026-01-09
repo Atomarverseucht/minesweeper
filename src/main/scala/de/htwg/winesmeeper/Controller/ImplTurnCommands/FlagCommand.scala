@@ -2,7 +2,7 @@ package de.htwg.winesmeeper.Controller.ImplTurnCommands
 
 import de.htwg.winesmeeper.Controller.{CommandTrait, CommandCORTrait, ControllerTrait}
 import de.htwg.winesmeeper.Model.FieldTrait
-import de.htwg.winesmeeper.WinesmeeperModule
+import de.htwg.winesmeeper.Config
 
 import scala.util.{Success, Try}
 import com.google.inject.Guice
@@ -13,9 +13,7 @@ case class FlagCommand(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int)
   override def doStep(): Boolean =
     val f = ctrl.gb.getFieldAt(x, y)
     if (!f.isOpened) then
-      val injector = Guice.createInjector(WinesmeeperModule)
-      val fMake: (Boolean, Boolean, Boolean) => FieldTrait = injector.instance
-      ctrl.gb = ctrl.gb.updateField(x, y, fMake(f.isBomb, f.isOpened, !f.isFlag))
+      ctrl.gb = ctrl.gb.updateField(x, y, Config.standardField(f.isBomb, f.isOpened, !f.isFlag))
       true
     else false
 
