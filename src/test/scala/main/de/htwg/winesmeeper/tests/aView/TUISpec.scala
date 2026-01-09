@@ -3,7 +3,7 @@ package main.de.htwg.winesmeeper.tests.aView
 import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
 import de.htwg.winesmeeper.{Observer, WinesmeeperModule, start}
-import de.htwg.winesmeeper.aView.TUI.TUIHelp
+import de.htwg.winesmeeper.aView.TUI.TUI
 
 import scala.util.Try
 import org.scalatest.matchers.should.Matchers
@@ -21,13 +21,14 @@ class TUISpec extends AnyWordSpec with Matchers:
   "The TUI" should:
     val sizeX = 25
     val sizeY = 25
+    val c: ControllerTrait = buildController(10, 10, 1, 1, 20)
     val ctrl = buildController(sizeX, sizeY, 5, 5, 20)
     "have the right size" in:
       sizeX shouldBe ctrl.getSize._1
       sizeY shouldBe ctrl.getSize._2
 
     "have output strings" in:
-      (for i <- 0 until 5 yield TUIHelp.getPrintString(i)).toVector shouldBe
+      (for i <- 0 until 5 yield tui.getPrintString(i)).toVector shouldBe
         Vector("Please enter the size of the x coordinate. It must be >= 10",
         "Please enter the size of the y coordinate. It must be >= 10",
         "Please enter your x starting coordinate between 0 and 24",
@@ -58,6 +59,7 @@ class TUISpec extends AnyWordSpec with Matchers:
       TUIHelp.turn(-1, "gfjzgfkf", c) shouldBe "Invalid command!"
       TUIHelp.turn(-1, "1000 1000", c) shouldBe "Invalid command!"
       TUIHelp.turn(-1, "load hi lul", c)
+      TUIHelp.turn("generate 10 10 1 1 10")
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
@@ -66,6 +68,7 @@ class TUISpec extends AnyWordSpec with Matchers:
       ctrl_.turn(-1, "flag", Try(10), Try(10)).get shouldBe true
       ctrl_.turn(-1, "open", Try(1), Try(1)).get shouldBe false
       ctrl_.turn(-1, "flag", Try(1), Try(1)).get shouldBe false
+      ctrl_.doSysCmd(sub.observerID, "generate", Vector("nothing"))
       ctrl_.removeSub(sub)
 
   "an User Interface" should:
