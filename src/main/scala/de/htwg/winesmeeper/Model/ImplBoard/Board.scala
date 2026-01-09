@@ -41,7 +41,7 @@ case class Board @Inject() (board: Vector[Vector[FieldTrait]]) extends BoardTrai
 
   override def in(x: Int, y: Int): Boolean = x >= 0 && y >= 0 && x < board.length && y < board(0).length
 
-  def nextField(x: Int, y: Int): (Int, Int) = if x + 1 < board.length then (x + 1, y) else (0, y+1)
+  
 
   override def updateField (indX: Int, indY: Int, field: FieldTrait): BoardTrait =
     new Board(board.updated(indX, board(indX).updated(indY, field)))

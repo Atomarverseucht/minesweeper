@@ -89,8 +89,8 @@ class TUISpec extends AnyWordSpec with Matchers:
           |undo
           |undo
           |redo
-          |save
-          |load
+          |save saveGame
+          |load saveGame forced
           |quit
           |""".stripMargin
 
