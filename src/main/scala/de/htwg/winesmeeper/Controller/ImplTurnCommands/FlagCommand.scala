@@ -3,23 +3,27 @@ package de.htwg.winesmeeper.Controller.ImplTurnCommands
 import de.htwg.winesmeeper.Controller.{CommandTrait, CommandCORTrait, ControllerTrait}
 import de.htwg.winesmeeper.Config
 
-import scala.util.{Success, Try}
+import scala.util.{Success, Try, Failure}
 
 case class FlagCommand(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int) extends CommandTrait(observerID_):
   
-  override def doStep(): Boolean =
+  override def doStep(): Try[String] =
     val f = ctrl.gb.getFieldAt(x, y)
     if (!f.isOpened) then
       ctrl.gb = ctrl.gb.updateField(x, y, Config.standardField(f.isBomb, f.isOpened, !f.isFlag))
-      true
-    else false
+      Success("flag successful")
+    else Failure(IllegalArgumentException("flag cannot be set on a opened field"))
 
-  override def undoStep(): Boolean = doStep()
+  override def undoStep(): String = doStep().get
 
-  override def redoStep(): Boolean = doStep()
+  override def redoStep(): String = doStep().get
+
+  override def startStep(): Try[String] = Failure(IllegalArgumentException("You cannot start with the flag command"))
 
   override def toString: String = f"flag($observerID, $x, $y)"
-  
+
+
+
 object FlagCOR extends CommandCORTrait:
   override val cmd = "flag"
   override val helpMsg: String = "flag or unflag the given coordinate"

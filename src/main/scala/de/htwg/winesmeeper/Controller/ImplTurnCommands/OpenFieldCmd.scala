@@ -3,24 +3,30 @@ package de.htwg.winesmeeper.Controller.ImplTurnCommands
 import de.htwg.winesmeeper.Controller.{CommandCORTrait, CommandTrait, ControllerTrait}
 import de.htwg.winesmeeper.Config
 
-import scala.util.{Success, Try}
+import scala.util.{Failure, Success, Try}
 
 case class OpenFieldCmd(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int) extends CommandTrait(observerID_):
 
   val isFlag: Boolean = ctrl.gb.getFieldAt(x, y).isFlag
-  override def doStep(): Boolean =
+
+  override def startStep(): Try[String] =
+    val size = ctrl.getSize
+    Try(ctrl.doSysCmd(observerID, "generate", 
+      Vector("generate", size._1.toString, size._2.toString, x.toString, y.toString, Config.stdBombCount.toString)).get)
+
+  override def doStep(): Try[String] =
     step(true)
 
-  override def undoStep(): Boolean =
-    step(false)
+  override def undoStep(): String =
+    step(false).get
 
-  override def redoStep(): Boolean =
-    step(true)
+  override def redoStep(): String =
+    step(true).get
 
-  private def step(discover: Boolean): Boolean =
+  private def step(discover: Boolean): Try[String] =
     val gb = ctrl.gb
     val f = gb.getFieldAt(x, y)
-    if discover == f.isOpened then false
+    if discover == f.isOpened then Failure(new IllegalArgumentException("Field is already open"))
     else
       ctrl.gb = gb.updateField(x, y, Config.standardField(f.isBomb, discover, !discover && isFlag))
       if !discover && !ctrl.inGame then ctrl.changeState("running")
@@ -31,7 +37,7 @@ case class OpenFieldCmd(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int
             if gb.in(fx, fy) && !gb.getFieldAt(fx, fy).isOpened == discover then
               OpenFieldCmd(observerID, ctrl, fx, fy).step(discover)
       if discover && ctrl.isVictory && !f.isBomb then ctrl.changeState("win")
-      true
+      Success("")
 
   override def toString: String = f"open($observerID, $x, $y)"
 

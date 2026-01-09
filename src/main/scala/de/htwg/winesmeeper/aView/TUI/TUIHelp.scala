@@ -31,8 +31,8 @@ object TUIHelp:
         case None => ""
     else
       ctrl.turn(observerID, in(0), Try(in(1).toInt), Try(in(2).toInt)) match {
-        case Success(value) => ""
-        case Failure(ex) => "Invalid command!"
+        case Success(value) => value
+        case Failure(ex) => ex.getMessage
       }
 
   def gameEndMsg(ctrl: ControllerTrait): String =

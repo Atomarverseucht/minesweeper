@@ -28,4 +28,6 @@ object Config {
 
   val standardSysCmdMan: SysCommandManagerTrait =
     ImplSysCommands.SysCommandManager
+
+  val stdBombCount: Int = 10
 }

@@ -10,12 +10,12 @@ case class UndoManager (control: ControllerTrait) extends TurnCmdManagerTrait:
   private val redoStack: Stack[CommandTrait] = new Stack()
   val firstCommandCOR: CommandCORTrait = FlagCOR
   
-  private def doStep(cmd: CommandTrait): Boolean =
-    val change = cmd.doStep()
-    if change then
+  private def doStep(cmd: CommandTrait): Try[String] =
+    val step = cmd.doStep()
+    if step.isSuccess then
       undoStack.push(cmd)
       control.notifyObservers()
-    change
+    step
 
   override def redoStep(): Unit =
     val cmd = redoStack.pop
@@ -28,11 +28,9 @@ case class UndoManager (control: ControllerTrait) extends TurnCmdManagerTrait:
     redoStack.push(step)
 
 
-  override def doCmd(observerID: Int, cmd: String, x: Int, y: Int): Boolean =
-    val command = firstCommandCOR.buildCmd(observerID,cmd, x, y, control)
-    command match
+  override def doCmd(observerID: Int, cmd: String, x: Int, y: Int): Try[String] =
+    firstCommandCOR.buildCmd(observerID,cmd, x, y, control) match
       case Success(value) => doStep(value)
-      case _ => false
 
   override def getStacks: (Stack[CommandTrait], Stack[CommandTrait]) = (undoStack.clone, redoStack.clone)
   
@@ -48,5 +46,10 @@ case class UndoManager (control: ControllerTrait) extends TurnCmdManagerTrait:
   
   override def getCmd(cmd: String): Option[CommandCORTrait] = firstCommandCOR.getCmd(cmd)
 
-  def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait] = 
+  override def startCmd(observerID: Int, cmd: String, x: Int, y: Int): Try[String] =
+    val command = firstCommandCOR.buildCmd(observerID, cmd, x, y, control)
+    command match
+      case Success(value) => value.startStep()
+  
+  def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait] =
     firstCommandCOR.buildCmd(observerID, cmd, x, y, ctrl)

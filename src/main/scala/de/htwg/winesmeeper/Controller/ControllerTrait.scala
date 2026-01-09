@@ -23,7 +23,7 @@ trait ControllerTrait extends Observable:
 
   def doSysCmd(subID: Int, cmd: String, params: Vector[String]): Option[String]
 
-  def turn(subID: Int, cmd: String, x: Try[Int], y: Try[Int]): Try[Boolean]
+  def turn(subID: Int, cmd: String, x: Try[Int], y: Try[Int]): Try[String]
 
   def doShortCut(observerID: Int, key: KeyCode): Option[String]
 
