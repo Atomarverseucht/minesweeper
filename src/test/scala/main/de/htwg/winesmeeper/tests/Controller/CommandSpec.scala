@@ -2,14 +2,13 @@ package main.de.htwg.winesmeeper.tests.Controller
 
 import de.htwg.winesmeeper.Controller.ImplSysCommands.{LastElemSysCommand, LoadCmd, SysCommandManager}
 import de.htwg.winesmeeper.Controller.ImplTurnCommands.zLastElemCmdCOR
-import de.htwg.winesmeeper.Controller.ImplController.Controller
 import main.de.htwg.winesmeeper.tests.aView.buildController
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import javafx.scene.input.KeyCode
 
 import scala.util.Failure
-import java.nio.file.{Files, Paths}
+import java.nio.file.{Files}
 
 class CommandSpec extends AnyWordSpec with Matchers:
   "The Command" should:

@@ -3,7 +3,6 @@ package de.htwg.winesmeeper.Model.ImplBoard
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
 import de.htwg.winesmeeper.Config
 
-import com.google.inject.{Injector, Guice}
 import scala.annotation.tailrec
 import scala.util.Random
 
