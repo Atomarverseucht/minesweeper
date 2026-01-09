@@ -28,8 +28,8 @@ class TUISpec extends AnyWordSpec with Matchers:
       sizeY shouldBe ctrl.getSize._2
 
     "have output strings" in:
-      (for i <- 0 until 5 yield TUIHelp.getPrintString(i)).toVector shouldBe
-        Vector("Please enter the size of the x coordinate. It must be >= 10",
+      (for i <- 0 until 5 yield TUIHelp.getPrintString(i)) shouldBe
+        IndexedSeq("Please enter the size of the x coordinate. It must be >= 10",
         "Please enter the size of the y coordinate. It must be >= 10",
         "Please enter your x starting coordinate between 0 and 24",
         "Please enter your starting y coordinate between 0 and 24",
@@ -87,7 +87,7 @@ class TUISpec extends AnyWordSpec with Matchers:
           |10
           |1
           |1
-          |25
+          |90
           |flag 9 9
           |flag 8 8
           |help
