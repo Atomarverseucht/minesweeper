@@ -1,3 +1,10 @@
+# [1.3.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/1.3.0-dev.1...1.3.0-dev.2) (2026-01-09)
+
+
+### Features
+
+* generate cmd to generate a new board ([3e38a5b](https://github.com/Atomarverseucht/minesweeper/commit/3e38a5b3b92ceb4c3fa1c2feaeb4ccf6c88f8213))
+
 # [1.3.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/1.2.2...1.3.0-dev.1) (2026-01-08)
 
 
