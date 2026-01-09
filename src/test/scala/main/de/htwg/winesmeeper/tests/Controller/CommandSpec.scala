@@ -28,7 +28,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
       testCtrl.undo.doCmd(-1, "flag", 9, 9) shouldBe true
       testCtrl.undo.doCmd(-1, "flag", 8, 8) shouldBe true
       testCtrl.undo.doCmd(-1, "open", 9, 9) shouldBe true
-      testCtrl.undo.doCmd(-1, "flag", 8, 8) shouldBe true
+      testCtrl.undo.doCmd(-1, "flag", 0, 9)
       testCtrl.doSysCmd(-1, "undo", Vector())
       testCtrl.doSysCmd(-1, "undo", Vector())
 
