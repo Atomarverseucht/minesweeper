@@ -15,47 +15,47 @@ class CommandSpec extends AnyWordSpec with Matchers:
   "The Command" should:
     val testCtrl = buildController(10, 10, 1, 1, 25)
     "should safe and load" in:
-      testCtrl.doSysCmd("save")
-      testCtrl.doSysCmd("load")
-      testCtrl.doSysCmd("help")
-      testCtrl.doSysCmd("help", Vector("", "load"))
+      testCtrl.doSysCmd(-1, "save", Vector())
+      testCtrl.doSysCmd(-1, "load", Vector())
+      testCtrl.doSysCmd(-1, "help", Vector())
+      testCtrl.doSysCmd(-1, "help", Vector("", "load"))
     "throw Exceptions" in:
-      zLastElemCmdCOR.buildCmd("doesn't matter", 5, 5, testCtrl).isFailure shouldBe true
-      LastElemSysCommand.execute(testCtrl,Vector("invalid")).get shouldBe "No such command!"
+      zLastElemCmdCOR.buildCmd(-1, "doesn't matter", 5, 5, testCtrl).isFailure shouldBe true
+      LastElemSysCommand.execute(-1, testCtrl,Vector("invalid")).get shouldBe "No such command!"
       zLastElemCmdCOR.getCmd("hi") shouldBe None
 
     "should discard with undo" in:
-      testCtrl.undo.doCmd("flag", 9, 9) shouldBe true
-      testCtrl.undo.doCmd("flag", 8, 8) shouldBe true
-      testCtrl.undo.doCmd("open", 9, 9) shouldBe true
-      testCtrl.doSysCmd("undo")
-      testCtrl.doSysCmd("undo")
+      testCtrl.undo.doCmd(-1, "flag", 9, 9) shouldBe true
+      testCtrl.undo.doCmd(-1, "flag", 8, 8) shouldBe true
+      testCtrl.undo.doCmd(-1, "open", 9, 9) shouldBe true
+      testCtrl.doSysCmd(-1, "undo", Vector())
+      testCtrl.doSysCmd(-1, "undo", Vector())
 
     "should be false with unvalid turns" in:
-      testCtrl.undo.doCmd("error", 9, 9) shouldBe false
+      testCtrl.undo.doCmd(-1, "error", 9, 9) shouldBe false
 
     "should have redo" in:
-      testCtrl.doSysCmd("redo", Vector("", "2"))
-      testCtrl.doSysCmd("undo", Vector("", "2"))
+      testCtrl.doSysCmd(-1, "redo", Vector("", "2"))
+      testCtrl.doSysCmd(-1, "undo", Vector("", "2"))
 
     "should checks version by loading" in:
-      testCtrl.doSysCmd("save")
-      testCtrl.doSysCmd("load", Vector("load", "file"))
-      testCtrl.doSysCmd("load")
+      testCtrl.doSysCmd(-1, "save", Vector())
+      testCtrl.doSysCmd(-1, "load", Vector("load", "file"))
+      testCtrl.doSysCmd(-1, "load", Vector())
       Files.write(SysCommandManager.savedGame(Failure(IllegalArgumentException())), "version: invalid\n".getBytes())
-      testCtrl.doSysCmd("load")
+      testCtrl.doSysCmd(-1, "load", Vector())
 
     "specific help messages:" in:
-      testCtrl.doSysCmd("help", Vector("help", "open"))
+      testCtrl.doSysCmd(-1, "help", Vector("help", "open"))
       LoadCmd.getStacks(Failure(IllegalArgumentException()), testCtrl)
 
       testCtrl.undo.getCmd("feuzighoiz") shouldBe None
 
     "have a shortcut" in:
-      testCtrl.doShortCut(KeyCode.H)
-      testCtrl.doShortCut(KeyCode.Z)
-      testCtrl.doShortCut(KeyCode.LEFT_PARENTHESIS)
-      testCtrl.doSysCmd("sduzgasdfui")
+      testCtrl.doShortCut(-1, KeyCode.H)
+      testCtrl.doShortCut(-1, KeyCode.Z)
+      testCtrl.doShortCut(-1, KeyCode.LEFT_PARENTHESIS)
+      testCtrl.doSysCmd(-1, "sduzgasdfui", Vector())
 
     "have a List" in:
       testCtrl.getSysCmdList
