@@ -35,7 +35,7 @@ printf "\e[1;32mdone\e[0m\n"
 # Deploy SonarQube 9.9 LTS
 printf "\e[34mDeploying SonarQube (9.9 LTS)...\e[0m\n"
 kubectl apply -f k8s/sonarqube.yaml
-kubectl apply -f k8s/sonarqube-service.yaml
+kubectl apply -f k8s/sq-service.yaml
 printf "\e[1;32mdone\e[0m\n"
 
 # Wait for SonarQube pod
