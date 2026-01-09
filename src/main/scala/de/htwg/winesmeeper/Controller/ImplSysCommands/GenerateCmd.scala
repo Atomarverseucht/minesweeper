@@ -22,7 +22,7 @@ object GenerateCmd extends SysCommandCORTrait:
       val bMake: (Int, Int, Int, Int, Int) => BoardTrait = injector.instance
       val gb = bMake(params(1).toInt, params(2).toInt, params(3).toInt, params(4).toInt, params(5).toInt)
       ctrl.gb = gb
-      ctrl.changeState("Running")
+      ctrl.changeState("running")
       ctrl.turn(-1, "open", Try(params(3).toInt), Try(params(4).toInt))
       ctrl.undo.overrideStacks(Stack(), Stack())
     } match
