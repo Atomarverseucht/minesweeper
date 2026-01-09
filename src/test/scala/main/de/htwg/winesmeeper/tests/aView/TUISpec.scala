@@ -23,8 +23,6 @@ class TUISpec extends AnyWordSpec with Matchers:
     val sizeY = 25
     val c: ControllerTrait = buildController(10, 10, 1, 1, 20)
     val ctrl = buildController(sizeX, sizeY, 5, 5, 20)
-    val tui = TUI(ctrl)
-    val tui2 = TUI(c)
     "have the right size" in:
       sizeX shouldBe ctrl.getSize._1
       sizeY shouldBe ctrl.getSize._2
@@ -38,30 +36,30 @@ class TUISpec extends AnyWordSpec with Matchers:
         "Please enter the count of bombs. It must be between 1 and 616")
 
     "have a String of the board" in:
-      tui.getBoardString shouldBe a[String]
+      TUIHelp.getBoardString(ctrl) shouldBe a[String]
 
     "have the right bomb emoji" in:
-      tui.emojify(-2) shouldBe "*"
-      tui.emojify(-1) shouldBe "\u001b[1;37m#\u001b[0m"
-      tui.emojify(1) shouldBe "\u001b[1;94m1\u001b[0m"
+      TUIHelp.emojify(-2) shouldBe "*"
+      TUIHelp.emojify(-1) shouldBe "\u001b[1;37m#\u001b[0m"
+      TUIHelp.emojify(1) shouldBe "\u001b[1;94m1\u001b[0m"
 
     "have right end-msgs" in:
       val w = buildController(10, 10, 5, 5, 91)
-      tui.gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
+      TUIHelp.gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
       val lBoard = boardMaker(Vector.fill(10, 10)(fieldMaker(true, false, false)))
-      val l = TUI(ctrlMaker(9, 9, lBoard.updateField(1, 1, fieldMaker(false, false, false))))
-      l.turn("flag 2 2") shouldBe ""
-      l.turn("open 2 2") shouldBe ""
-      l.gameEndMsg.equals("\u001b[1;31mGame lost\u001b[0m!") 
-      tui.gameEndMsg(ctrl) shouldBe "???"
-      l.turn("open 2 2")
+      val l = ctrlMaker(9, 9, lBoard.updateField(1, 1, fieldMaker(false, false, false)))
+      TUIHelp.turn(-1, "flag 2 2", l) shouldBe ""
+      TUIHelp.turn(-1, "open 2 2", l) shouldBe ""
+      TUIHelp.gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
+      TUIHelp.gameEndMsg(ctrl) shouldBe "???"
+      TUIHelp.turn(-1, "open 2 2", l) shouldBe ""
 
     "checked unvalid turn" in :
-      
-      tui2.turn("gfjzgfkf") shouldBe "Invalid command!"
-      tui2.turn("1000 1000") shouldBe "Invalid command!"
-      tui2.turn("load hi lul")
-      tui2.turn("generate 10 10 1 1 10")
+      val c: ControllerTrait = buildController(10, 10, 1, 1, 20)
+      TUIHelp.turn(-1, "gfjzgfkf", c) shouldBe "Invalid command!"
+      TUIHelp.turn(-1, "1000 1000", c) shouldBe "Invalid command!"
+      TUIHelp.turn(-1, "load hi lul", c)
+      TUIHelp.turn("generate 10 10 1 1 10")
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
