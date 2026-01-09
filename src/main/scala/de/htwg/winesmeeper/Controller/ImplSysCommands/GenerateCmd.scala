@@ -5,9 +5,7 @@ import de.htwg.winesmeeper.Model.BoardTrait
 import javafx.scene.input.KeyCode
 
 import scala.util.{Failure, Success, Try}
-import de.htwg.winesmeeper.WinesmeeperModule
-import com.google.inject.Guice
-import net.codingwell.scalaguice.InjectorExtensions.*
+import de.htwg.winesmeeper.Config
 
 import scala.collection.mutable.Stack
 
@@ -18,9 +16,7 @@ object GenerateCmd extends SysCommandCORTrait:
 
   override def execute(observerID: Int, ctrl: ControllerTrait, params: Vector[String]): Option[String] =
     Try{
-      val injector = Guice.createInjector(WinesmeeperModule)
-      val bMake: (Int, Int, Int, Int, Int) => BoardTrait = injector.instance
-      val gb = bMake(params(1).toInt, params(2).toInt, params(3).toInt, params(4).toInt, params(5).toInt)
+      val gb = Config.standardBoardGenerate(params(1).toInt, params(2).toInt, params(3).toInt, params(4).toInt, params(5).toInt)
       ctrl.gb = gb
       ctrl.changeState("running")
       ctrl.turn(-1, "open", Try(params(3).toInt), Try(params(4).toInt))

@@ -2,15 +2,13 @@ package de.htwg.winesmeeper.Controller.ImplSysCommands
 
 import de.htwg.winesmeeper.Controller.{CommandTrait, ControllerTrait, SysCommandCORTrait, TurnCmdManagerTrait}
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
-import de.htwg.winesmeeper.WinesmeeperModule
+import de.htwg.winesmeeper.Config
 
 import javafx.scene.input.KeyCode
 import java.nio.file.{Files, Paths}
 import scala.collection.mutable
 import scala.collection.mutable.Stack
 import scala.util.{Failure, Success, Try}
-import com.google.inject.Guice
-import net.codingwell.scalaguice.InjectorExtensions._
 
 object LoadCmd extends SysCommandCORTrait:
   override val cmd: String = "load"
@@ -46,9 +44,6 @@ object LoadCmd extends SysCommandCORTrait:
 
 
   private def getBoard(boardString: String): BoardTrait =
-    val injector = Guice.createInjector(WinesmeeperModule)
-    val fMake: (Boolean, Boolean, Boolean) => FieldTrait = injector.instance
-    val bMake: Vector[Vector[FieldTrait]] => BoardTrait = injector.instance
     val vecBuild = boardString.split("\\), Vector\\(")
     val vector = (for vec <- vecBuild yield
       val victorS = vec.replace("Vector(","").split("Field\\(")
@@ -57,8 +52,8 @@ object LoadCmd extends SysCommandCORTrait:
         val boolVal = for bs <- boolS yield
           if bs == "true" then true
           else false
-        fMake(boolVal(0), boolVal(1), boolVal(2))).toVector).toVector
-    bMake(vector)
+        Config.standardField(boolVal(0), boolVal(1), boolVal(2))).toVector).toVector
+    Config.standardBoard(vector)
 
   def getStacks(input: Try[String], ctrl: ControllerTrait): Stack[CommandTrait] =
     val inputStack = new Stack[CommandTrait]

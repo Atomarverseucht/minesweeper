@@ -3,10 +3,8 @@ package de.htwg.winesmeeper
 import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Model.BoardTrait
 import de.htwg.winesmeeper.aView.TUI.TUI
-import de.htwg.winesmeeper.WinesmeeperModule
+import de.htwg.winesmeeper.Config
 
-import com.google.inject.Guice
-import net.codingwell.scalaguice.InjectorExtensions._
 import scala.io.StdIn.readInt
 
 val initVals = new Array[Int](5)
@@ -15,11 +13,8 @@ val initVals = new Array[Int](5)
   for i <- 0 until 5 do
     println(getPrintString(i))
     initVals(i) = readInt
-  val injector = Guice.createInjector(WinesmeeperModule)
-  val bMaker: (Int, Int, Int, Int, Int) => BoardTrait = injector.instance
-  val ctrlMaker: (Int, Int, BoardTrait) => ControllerTrait = injector.instance
-  val gb = bMaker(initVals(0), initVals(1), initVals(2), initVals(3), initVals(4))
-  val ctrl = ctrlMaker(initVals(2), initVals(3), gb)
+  val gb = Config.standardBoardGenerate(initVals(0), initVals(1), initVals(2), initVals(3), initVals(4))
+  val ctrl = Config.standardController(initVals(2), initVals(3), gb)
   new Thread(() => {
   val tui = TUI(ctrl)
   }).start()
