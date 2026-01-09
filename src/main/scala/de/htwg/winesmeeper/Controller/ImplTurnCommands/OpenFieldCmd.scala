@@ -38,7 +38,7 @@ case class OpenFieldCmd(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int
       if ctrl.isVictory && discover then ctrl.changeState("win")
       true
 
-  override def toString: String = f"open($x, $y)"
+  override def toString: String = f"open($observerID, $x, $y)"
 
 object OpenFieldCOR extends CommandCORTrait:
   override val cmd = "open"

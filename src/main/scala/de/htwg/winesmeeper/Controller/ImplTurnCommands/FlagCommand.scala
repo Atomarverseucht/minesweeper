@@ -23,7 +23,7 @@ case class FlagCommand(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int)
 
   override def redoStep(): Boolean = doStep()
 
-  override def toString: String = f"flag($x, $y)"
+  override def toString: String = f"flag($observerID, $x, $y)"
   
 object FlagCOR extends CommandCORTrait:
   override val cmd = "flag"
