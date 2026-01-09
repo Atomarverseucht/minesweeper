@@ -18,7 +18,7 @@ import scala.language.postfixOps
 import scala.util.Try
 import de.htwg.winesmeeper.Observer
 
-case class GUI(ctrl: ControllerTrait) extends JFXApp3 with Observer:
+case class GUI(ctrl: ControllerTrait) extends JFXApp3 with Observer(ctrl):
 
   private val heightToolBar = 30
   private var fieldSize: Int = 32
@@ -80,11 +80,11 @@ case class GUI(ctrl: ControllerTrait) extends JFXApp3 with Observer:
 
   private def turn(cmd: String, x: Int, y: Int): Unit =
     val index = getIndex(x, y)
-    ctrl.turn(cmd, Try(index._1), Try(index._2))
+    ctrl.turn(observerID, cmd, Try(index._1), Try(index._2))
 
   private def keyListener(event: KeyEvent): Unit =
     if event.isControlDown then
-      outputWindowSysCmd(ctrl.doShortCut(event.getCode))
+      outputWindowSysCmd(ctrl.doShortCut(observerID: Int, event.getCode))
 
   private def outputWindowSysCmd(output: Option[String]): Unit =
     output match
@@ -109,6 +109,16 @@ case class GUI(ctrl: ControllerTrait) extends JFXApp3 with Observer:
     val sysCmds = ctrl.getSysCmdList
     val cmds: Seq[Button] = (for cmd <- sysCmds yield
       new Button(cmd){
-        onAction = _ => outputWindowSysCmd(ctrl.doSysCmd(cmd, Vector("")))})
+        onAction = _ => outputWindowSysCmd(ctrl.doSysCmd(observerID, cmd, Vector("")))})
     new ToolBar{content = cmds}
+
+  override def generate(): Unit =
+    val dialog = new GeneratorGUI
+    val result = dialog.showAndWait()
+    result match {
+      case Some(data: GeneratorData) =>
+         ctrl.doSysCmd(observerID, "generate", Vector("", data.val1, data.val2, data.val3, data.val4, data.val5))
+      case _ =>
+    }
+
 

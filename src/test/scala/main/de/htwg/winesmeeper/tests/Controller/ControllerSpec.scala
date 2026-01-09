@@ -29,7 +29,9 @@ class ControllerSpec extends AnyWordSpec with Matchers:
       ctrl.gameState shouldBe "running"
       val w = buildController(10, 10, 5, 5, 91)
       w.gameState shouldBe "win"
-      val l = buildController(10, 10, 5, 5, 90); l.turn("open", Try(1524), Try(1243)); l.turn("open", Try(1), Try(1))
+      val l = buildController(10, 10, 5, 5, 90)
+      l.turn(-1, "open", Try(1524), Try(1243))
+      l.turn(-1, "open", Try(1), Try(1))
       l.gameState shouldBe "lose"
       l.getBoard
 

@@ -2,8 +2,8 @@ package main.de.htwg.winesmeeper.tests.aView
 
 import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
-import de.htwg.winesmeeper.{Observer, WinesmeeperModule, getPrintString, start}
-import de.htwg.winesmeeper.aView.TUI.TUIHelper.*
+import de.htwg.winesmeeper.{Observer, WinesmeeperModule, start}
+import de.htwg.winesmeeper.aView.TUI.TUIHelp
 
 import scala.util.Try
 import org.scalatest.matchers.should.Matchers
@@ -21,52 +21,56 @@ class TUISpec extends AnyWordSpec with Matchers:
   "The TUI" should:
     val sizeX = 25
     val sizeY = 25
-    val gb = buildController(sizeX, sizeY, 5, 5, 20)
+    val c: ControllerTrait = buildController(10, 10, 1, 1, 20)
+    val ctrl = buildController(sizeX, sizeY, 5, 5, 20)
     "have the right size" in:
-      sizeX shouldBe gb.getSize._1
-      sizeY shouldBe gb.getSize._2
+      sizeX shouldBe ctrl.getSize._1
+      sizeY shouldBe ctrl.getSize._2
 
     "have output strings" in:
-      (for i <- 0 until 5 yield getPrintString(i)).toVector shouldBe
-        Vector("Please enter the size of the x coordinate. It must be >= 10",
-        "Please enter the size of the y coordinate. It must be >= 10",
-        "Please enter your x starting coordinate between 0 and 24",
-        "Please enter your starting y coordinate between 0 and 24",
+      TUIHelp.initVals = Array("","25","25","1","1","10")
+      (for i <- 0 until 5 yield TUIHelp.getPrintString(i)) shouldBe
+        IndexedSeq("Please enter the size of the x-coordinate. It must be >= 10",
+        "Please enter the size of the y-coordinate. It must be >= 10",
+        "Please enter your starting x-coordinate between 0 and 24",
+        "Please enter your starting y-coordinate between 0 and 24",
         "Please enter the count of bombs. It must be between 1 and 616")
 
     "have a String of the board" in:
-      getBoardString(gb) shouldBe a[String]
+      TUIHelp.getBoardString(ctrl) shouldBe a[String]
 
     "have the right bomb emoji" in:
-      emojify(-2) shouldBe "*"
-      emojify(-1) shouldBe "\u001b[1;37m#\u001b[0m"
-      emojify(1) shouldBe "\u001b[1;94m1\u001b[0m"
+      TUIHelp.emojify(-2) shouldBe "*"
+      TUIHelp.emojify(-1) shouldBe "\u001b[1;37m#\u001b[0m"
+      TUIHelp.emojify(1) shouldBe "\u001b[1;94m1\u001b[0m"
 
     "have right end-msgs" in:
       val w = buildController(10, 10, 5, 5, 91)
-      gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
+      TUIHelp.gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
       val lBoard = boardMaker(Vector.fill(10, 10)(fieldMaker(true, false, false)))
       val l = ctrlMaker(9, 9, lBoard.updateField(1, 1, fieldMaker(false, false, false)))
-      turn("flag 2 2", l) shouldBe ""
-      turn("open 2 2", l) shouldBe ""
-      gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
-      gameEndMsg(gb) shouldBe "???"
-      turn("open 2 2", l) shouldBe ""
+      TUIHelp.turn(-1, "flag 2 2", l) shouldBe ""
+      TUIHelp.turn(-1, "open 2 2", l) shouldBe ""
+      TUIHelp.gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
+      TUIHelp.gameEndMsg(ctrl) shouldBe "???"
+      TUIHelp.turn(-1, "open 2 2", l) shouldBe ""
 
     "checked unvalid turn" in :
       val c: ControllerTrait = buildController(10, 10, 1, 1, 20)
-      turn("gfjzgfkf", c) shouldBe "Invalid command!"
-      turn("1000 1000", c) shouldBe "Invalid command!"
-      turn("load hi lul", c)
+      TUIHelp.turn(-1, "gfjzgfkf", c) shouldBe "Invalid command!"
+      TUIHelp.turn(-1, "1000 1000", c) shouldBe "Invalid command!"
+      TUIHelp.turn(-1, "load hi lul", c)
+      TUIHelp.turn(-1, "generate 10 10 1 1 10", c)
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
-      val ctrl = buildController(20, 20, 1, 1, 100)
-      ctrl.addSub(dummySub)
-      ctrl.turn("flag", Try(10), Try(10)).get shouldBe true
-      ctrl.turn("open", Try(1), Try(1)).get shouldBe false
-      ctrl.turn("flag", Try(1), Try(1)).get shouldBe false
-      ctrl.removeSub(dummySub)
+      val ctrl_ = buildController(20, 20, 1, 1, 100)
+      val sub = dummySub(ctrl_)
+      ctrl_.turn(-1, "flag", Try(10), Try(10)).get shouldBe true
+      ctrl_.turn(-1, "open", Try(1), Try(1)).get shouldBe false
+      ctrl_.turn(-1, "flag", Try(1), Try(1)).get shouldBe false
+      ctrl_.doSysCmd(sub.observerID, "generate", Vector("nothing"))
+      ctrl_.removeSub(sub)
 
   "an User Interface" should:
     "be useable" in:
@@ -78,12 +82,15 @@ class TUISpec extends AnyWordSpec with Matchers:
           |90
           |flag 7 7
           |open.10000usifduoiwstrhfgu9sfh10000
+          |flag 9 9
+          |flag 8 8
           |open.1,1
           |help
           |undo
+          |undo
           |redo
-          |save
-          |load
+          |save saveGame
+          |load saveGame forced
           |quit
           |""".stripMargin
 
@@ -92,9 +99,11 @@ class TUISpec extends AnyWordSpec with Matchers:
         start
       }
 
-  object dummySub extends Observer:
+  class dummySub(ctrl: ControllerTrait) extends Observer(ctrl):
     override def update(): Unit = {}
-    
+
+    override def generate(): Unit = {}
+
 def buildController(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): ControllerTrait =
   val injector: Injector = Guice.createInjector(WinesmeeperModule)
   val ctrlMaker: (Int, Int, BoardTrait) => ControllerTrait = injector.instance

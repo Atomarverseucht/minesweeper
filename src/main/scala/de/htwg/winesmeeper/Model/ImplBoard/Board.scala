@@ -41,7 +41,7 @@ case class Board @Inject() (board: Vector[Vector[FieldTrait]]) extends BoardTrai
 
   override def in(x: Int, y: Int): Boolean = x >= 0 && y >= 0 && x < board.length && y < board(0).length
 
-  def nextField(x: Int, y: Int): (Int, Int) = if x + 1 < board.length then (x + 1, y) else (0, y+1)
+  
 
   override def updateField (indX: Int, indY: Int, field: FieldTrait): BoardTrait =
     new Board(board.updated(indX, board(indX).updated(indY, field)))
@@ -68,7 +68,7 @@ object Board:
     require(bombCount >= 1 && bombCount <= bMax, s"Bomb Count must be between 1 and $bMax")
 
     val injector = Guice.createInjector(WinesmeeperModule)
-    val makeField = injector.instance[(Boolean, Boolean, Boolean) => FieldTrait]
+    val makeField: (Boolean, Boolean, Boolean) => FieldTrait = injector.instance
     val boardv = initField(0, 0, xStart, yStart,
       Vector.fill(xSize, ySize)(makeField(false, true, false)), bombCount, bMax)
     new Board(boardv)

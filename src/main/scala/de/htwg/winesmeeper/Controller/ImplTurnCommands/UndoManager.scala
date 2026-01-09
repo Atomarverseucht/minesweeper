@@ -29,8 +29,8 @@ case class UndoManager @Inject() (control: ControllerTrait) extends TurnCmdManag
     redoStack.push(step)
 
 
-  override def doCmd(cmd: String, x: Int, y: Int): Boolean =
-    val command = firstCommandCOR.buildCmd(cmd, x, y, control)
+  override def doCmd(observerID: Int, cmd: String, x: Int, y: Int): Boolean =
+    val command = firstCommandCOR.buildCmd(observerID,cmd, x, y, control)
     command match
       case Success(value) => doStep(value)
       case _ => false
@@ -49,5 +49,5 @@ case class UndoManager @Inject() (control: ControllerTrait) extends TurnCmdManag
   
   override def getCmd(cmd: String): Option[CommandCORTrait] = firstCommandCOR.getCmd(cmd)
 
-  def buildCmd(cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait] = 
-    firstCommandCOR.buildCmd(cmd, x, y, ctrl)
+  def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait] = 
+    firstCommandCOR.buildCmd(observerID, cmd, x, y, ctrl)
