@@ -1,3 +1,10 @@
+## [1.3.1-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/1.3.0...1.3.1-dev.1) (2026-01-09)
+
+
+### Bug Fixes
+
+* remove Guice ([6fb3980](https://github.com/Atomarverseucht/minesweeper/commit/6fb398044c3ddfc16500840490874b5a063cb6db))
+
 # [1.3.0](https://github.com/Atomarverseucht/minesweeper/compare/1.2.2...1.3.0) (2026-01-09)
 
 
