@@ -62,12 +62,12 @@ class TUISpec extends AnyWordSpec with Matchers:
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
-      val ctrl = buildController(20, 20, 1, 1, 100)
-      val sub = dummySub(ctrl)
-      ctrl.turn(-1, "flag", Try(10), Try(10)).get shouldBe true
-      ctrl.turn(-1, "open", Try(1), Try(1)).get shouldBe false
-      ctrl.turn(-1, "flag", Try(1), Try(1)).get shouldBe false
-      ctrl.removeSub(sub)
+      val ctrl_ = buildController(20, 20, 1, 1, 100)
+      val sub = dummySub(ctrl_)
+      ctrl_.turn(-1, "flag", Try(10), Try(10)).get shouldBe true
+      ctrl_.turn(-1, "open", Try(1), Try(1)).get shouldBe false
+      ctrl_.turn(-1, "flag", Try(1), Try(1)).get shouldBe false
+      ctrl_.removeSub(sub)
 
   "an User Interface" should:
     "be useable" in:
@@ -95,7 +95,9 @@ class TUISpec extends AnyWordSpec with Matchers:
 
   class dummySub(ctrl: ControllerTrait) extends Observer(ctrl):
     override def update(): Unit = {}
-    
+
+    override def generate(): Unit = {}
+
 def buildController(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): ControllerTrait =
   val injector: Injector = Guice.createInjector(WinesmeeperModule)
   val ctrlMaker: (Int, Int, BoardTrait) => ControllerTrait = injector.instance
