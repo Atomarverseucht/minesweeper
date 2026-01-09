@@ -1,3 +1,10 @@
+# [1.3.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/1.3.0-dev.2...1.3.0-dev.3) (2026-01-09)
+
+
+### Bug Fixes
+
+* generate doesn't generate ([0843150](https://github.com/Atomarverseucht/minesweeper/commit/08431507ad03b67a4b84fcd1018ec425c1616b03))
+
 # [1.3.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/1.3.0-dev.1...1.3.0-dev.2) (2026-01-09)
 
 
