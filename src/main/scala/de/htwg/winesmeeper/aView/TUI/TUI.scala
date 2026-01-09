@@ -14,11 +14,11 @@ class TUI(ctrl: ControllerTrait) extends Observer(ctrl):
   
   @tailrec
   final def nextTurn: Unit =
-    println(turn(readLine, ctrl))
+    println(turn(readLine))
     nextTurn
 
   override def update(): Unit =
-    println(getBoardString(ctrl))
+    println(getBoardString)
     if !ctrl.inGame then
       println(gameEndMsg(ctrl))
 
@@ -28,7 +28,7 @@ class TUI(ctrl: ControllerTrait) extends Observer(ctrl):
       initVals(i) = readLine
     ctrl.doSysCmd(observerID, "generate", initVals.toVector)
     
-  def getBoardString(ctrl: ControllerTrait): String = // TUI-design for the Board
+  def getBoardString: String = // TUI-design for the Board
     val b = ctrl.getBoard
     val size = ctrl.getSize
     (for y <- 0 until size._2
@@ -45,7 +45,7 @@ class TUI(ctrl: ControllerTrait) extends Observer(ctrl):
       case -3 => "\u001b[1;31m#\u001b[0m" 
       case _ => s"\u001b[1;94m${field}\u001b[0m"
 
-  def turn(input: String, ctrl: ControllerTrait): String =
+  def turn(input: String): String =
     val in = input.split("[^\\w\\d]+").toVector
     if ctrl.isSysCmd(in(0)) then
       ctrl.doSysCmd(observerID, in(0), in) match

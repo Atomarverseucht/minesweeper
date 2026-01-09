@@ -21,8 +21,10 @@ class TUISpec extends AnyWordSpec with Matchers:
   "The TUI" should:
     val sizeX = 25
     val sizeY = 25
+    val c: ControllerTrait = buildController(10, 10, 1, 1, 20)
     val ctrl = buildController(sizeX, sizeY, 5, 5, 20)
     val tui = TUI(ctrl)
+    val tui2 = TUI(c)
     "have the right size" in:
       sizeX shouldBe ctrl.getSize._1
       sizeY shouldBe ctrl.getSize._2
@@ -36,7 +38,7 @@ class TUISpec extends AnyWordSpec with Matchers:
         "Please enter the count of bombs. It must be between 1 and 616")
 
     "have a String of the board" in:
-      tui.getBoardString(ctrl) shouldBe a[String]
+      tui.getBoardString shouldBe a[String]
 
     "have the right bomb emoji" in:
       tui.emojify(-2) shouldBe "*"
@@ -47,18 +49,19 @@ class TUISpec extends AnyWordSpec with Matchers:
       val w = buildController(10, 10, 5, 5, 91)
       tui.gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
       val lBoard = boardMaker(Vector.fill(10, 10)(fieldMaker(true, false, false)))
-      val l = ctrlMaker(9, 9, lBoard.updateField(1, 1, fieldMaker(false, false, false)))
-      tui.turn("flag 2 2", l) shouldBe ""
-      tui.turn("open 2 2", l) shouldBe ""
-      tui.gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
+      val l = TUI(ctrlMaker(9, 9, lBoard.updateField(1, 1, fieldMaker(false, false, false))))
+      l.turn("flag 2 2") shouldBe ""
+      l.turn("open 2 2") shouldBe ""
+      l.gameEndMsg.equals("\u001b[1;31mGame lost\u001b[0m!") 
       tui.gameEndMsg(ctrl) shouldBe "???"
-      tui.turn("open 2 2", l) shouldBe ""
+      l.turn("open 2 2")
 
     "checked unvalid turn" in :
-      val c: ControllerTrait = buildController(10, 10, 1, 1, 20)
-      tui.turn("gfjzgfkf", c) shouldBe "Invalid command!"
-      tui.turn("1000 1000", c) shouldBe "Invalid command!"
-      tui.turn("load hi lul", c)
+      
+      tui2.turn("gfjzgfkf") shouldBe "Invalid command!"
+      tui2.turn("1000 1000") shouldBe "Invalid command!"
+      tui2.turn("load hi lul")
+      tui2.turn("generate 10 10 1 1 10")
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
@@ -67,6 +70,7 @@ class TUISpec extends AnyWordSpec with Matchers:
       ctrl_.turn(-1, "flag", Try(10), Try(10)).get shouldBe true
       ctrl_.turn(-1, "open", Try(1), Try(1)).get shouldBe false
       ctrl_.turn(-1, "flag", Try(1), Try(1)).get shouldBe false
+      ctrl_.doSysCmd(sub.observerID, "generate", Vector("nothing"))
       ctrl_.removeSub(sub)
 
   "an User Interface" should:
