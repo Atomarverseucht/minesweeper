@@ -7,7 +7,7 @@ import scala.util.{Success, Try}
 
 case class OpenFieldCmd(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int) extends CommandTrait(observerID_):
 
-  val isFlag: Boolean = ctrl.gb.getFieldAt(x, y).isBomb
+  val isFlag: Boolean = ctrl.gb.getFieldAt(x, y).isFlag
   override def doStep(): Boolean =
     step(true)
 
@@ -30,7 +30,7 @@ case class OpenFieldCmd(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int
             fy <- y - 1 to y + 1 do
             if gb.in(fx, fy) && !gb.getFieldAt(fx, fy).isOpened == discover then
               OpenFieldCmd(observerID, ctrl, fx, fy).step(discover)
-      if ctrl.isVictory && discover then ctrl.changeState("win")
+      if discover && ctrl.isVictory && !f.isBomb then ctrl.changeState("win")
       true
 
   override def toString: String = f"open($observerID, $x, $y)"

@@ -7,7 +7,7 @@ import javafx.scene.input.KeyCode
 
 import scala.util.Try
 
-class Controller (var gb: BoardTrait) extends ControllerTrait():
+case class Controller (var gb: BoardTrait) extends ControllerTrait:
  
   var state: GameState = Running(this)
   override val undo: TurnCmdManagerTrait = Config.standardUndo(this)
