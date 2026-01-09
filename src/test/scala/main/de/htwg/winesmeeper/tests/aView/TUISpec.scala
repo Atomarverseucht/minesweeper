@@ -28,6 +28,7 @@ class TUISpec extends AnyWordSpec with Matchers:
       sizeY shouldBe ctrl.getSize._2
 
     "have output strings" in:
+      TUIHelp.initVals = Array("","25","25","1","1","10")
       (for i <- 0 until 5 yield TUIHelp.getPrintString(i)) shouldBe
         IndexedSeq("Please enter the size of the x coordinate. It must be >= 10",
         "Please enter the size of the y coordinate. It must be >= 10",
@@ -82,12 +83,7 @@ class TUISpec extends AnyWordSpec with Matchers:
           |flag 7 7
           |open.10000usifduoiwstrhfgu9sfh10000
           |open.1,1
-          |generate
-          |10
-          |10
-          |1
-          |1
-          |90
+          |generate 10 10 1 1 10
           |flag 9 9
           |flag 8 8
           |help

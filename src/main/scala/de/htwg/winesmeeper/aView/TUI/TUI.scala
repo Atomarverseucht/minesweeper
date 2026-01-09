@@ -28,7 +28,7 @@ class TUI(ctrl: ControllerTrait) extends Observer(ctrl):
     ctrl.doSysCmd(observerID, "generate", TUIHelp.initVals.toVector)
 
 object TUIHelp:
-  val initVals = new Array[String](6)
+  var initVals = new Array[String](6)
   def getBoardString(ctrl: ControllerTrait): String = // TUI-design for the Board
     val b = ctrl.getBoard
     val size = ctrl.getSize
