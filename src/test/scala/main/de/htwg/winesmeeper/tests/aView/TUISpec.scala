@@ -42,17 +42,17 @@ class TUISpec extends AnyWordSpec with Matchers:
       TUIHelp.gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
       val lBoard = Config.mkBoard(Vector.fill(10, 10)(Config.mkField(true, false, false)))
       val l = Config.mkController(9, 9, lBoard.updateField(1, 1, Config.mkField(false, false, false)))
-      TUIHelp.turn(-1, "flag 2 2", l) shouldBe ""
-      TUIHelp.turn(-1, "open 2 2", l) shouldBe ""
+      TUIHelp.turn(-1, "flag 2 2", l) shouldBe "Invalid command!"
+      TUIHelp.turn(-1, "open 2 2", l) shouldBe "Invalid command!"
       TUIHelp.gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
       TUIHelp.gameEndMsg(ctrl) shouldBe "???"
-      TUIHelp.turn(-1, "open 2 2", l) shouldBe ""
+      TUIHelp.turn(-1, "open 2 2", l) shouldBe "Invalid command!"
 
     "checked invalid turn" in :
       val c: ControllerTrait = buildController(10, 10, 1, 1, 20)
       TUIHelp.turn(-1, "gfjzgfkf", c) shouldBe "Invalid command!"
       TUIHelp.turn(-1, "1000 1000", c) shouldBe "Invalid command!"
-      TUIHelp.turn(-1, "load hi lul", c)
+      TUIHelp.turn(-1, "load hi lul", c) shouldBe "Invalid command!"
       TUIHelp.turn(-1, "generate 10 10 1 1 10", c)
       c.inGame shouldBe true
 
