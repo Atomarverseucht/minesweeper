@@ -50,6 +50,7 @@ object Controller:
   def apply(xStart: Int, yStart: Int, gb: BoardTrait): Controller =
     val out = new Controller(gb)
     val undo = Config.mkUndo(out)
+    out.changeState("running")
     for fx <- xStart - 1 to xStart + 1; fy <- yStart - 1 to yStart + 1 do
       if gb.in(fx, fy) then undo.doCmd(-1,"open", fx, fy)
     out
