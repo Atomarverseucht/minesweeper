@@ -28,7 +28,7 @@ case class OpenFieldCmd(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int
     val f = gb.getFieldAt(x, y)
     if discover == f.isOpened then Failure(new IllegalArgumentException("Field is already open"))
     else
-      ctrl.gb = gb.updateField(x, y, Config.standardField(f.isBomb, discover, !discover && isFlag))
+      ctrl.gb = gb.updateField(x, y, Config.mkField(f.isBomb, discover, !discover && isFlag))
       if !discover && !ctrl.inGame then ctrl.changeState("running")
       if f.isBomb && discover then ctrl.changeState("lose");
       else if gb.getBombNeighbour(x, y) == 0 then

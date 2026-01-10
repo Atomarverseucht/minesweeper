@@ -52,8 +52,8 @@ object LoadCmd extends SysCommandCORTrait:
         val boolVal = for bs <- boolS yield
           if bs == "true" then true
           else false
-        Config.standardField(boolVal(0), boolVal(1), boolVal(2))).toVector).toVector
-    Config.standardBoard(vector)
+        Config.mkField(boolVal(0), boolVal(1), boolVal(2))).toVector).toVector
+    Config.mkBoard(vector)
 
   def getStacks(input: Try[String], ctrl: ControllerTrait): Stack[CommandTrait] =
     val inputStack = new Stack[CommandTrait]

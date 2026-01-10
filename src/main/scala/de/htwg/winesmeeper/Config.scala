@@ -8,23 +8,26 @@ import de.htwg.winesmeeper.Model.ImplBoard.Board
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
 
 object Config {
-  val standardController: (Int, Int, BoardTrait) => ControllerTrait = ImplController.Controller(_, _, _)
+  def mkController (xStart: Int, yStart: Int, board: BoardTrait): ControllerTrait = 
+    ImplController.Controller(xStart, yStart, board)
 
-  val standardField: (isOpened: Boolean, isBomb: Boolean, isFlag: Boolean) => FieldTrait =
-    Model.ImplField.Field(_, _, _)
+  def mkField (isOpened: Boolean, isBomb: Boolean, isFlag: Boolean): FieldTrait =
+    Model.ImplField.Field(isBomb, isOpened, isBomb)
 
-  val standardBoard: Vector[Vector[FieldTrait]] => BoardTrait =
-    Model.ImplBoard.Board(_)
+  def mkBoard(board: Vector[Vector[FieldTrait]]) : BoardTrait =
+    Model.ImplBoard.Board(board)
 
-  val standardBoardGenerate: (Int, Int, Int, Int, Int) => BoardTrait =
-    Model.ImplBoard.Board(_, _, _, _, _)
+  def generateBoard (xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): BoardTrait =
+    Model.ImplBoard.Board(xSize, ySize, xStart, yStart, bombCount)
 
-  val startBoard: BoardTrait = Model.ImplBoard.Board(Vector.fill(10, 10)(Config.standardField(true, false, false)))
+  def startBoard: BoardTrait = 
+    Model.ImplBoard.Board(Vector.fill(10, 10)(Config.mkField(true, false, false)))
 
-  val startController: BoardTrait => ControllerTrait = ImplController.Controller(_)
+  def startController (board: BoardTrait): ControllerTrait = 
+    ImplController.Controller(board)
 
-  val standardUndo: ControllerTrait => TurnCmdManagerTrait =
-    ImplTurnCommands.UndoManager(_)
+  def mkUndo(ctrl: ControllerTrait): TurnCmdManagerTrait =
+    ImplTurnCommands.UndoManager(ctrl)
 
   val standardSysCmdMan: SysCommandManagerTrait =
     ImplSysCommands.SysCommandManager

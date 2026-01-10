@@ -8,9 +8,9 @@ import org.scalatest.wordspec.AnyWordSpec
 
 class BoardSpec extends AnyWordSpec with Matchers:
     "The Board" should:
-        val b: BoardTrait = Config.standardBoardGenerate(12, 12, 3, 4, 50)
+        val b: BoardTrait = Config.generateBoard(12, 12, 3, 4, 50)
         val b2: BoardTrait = Config.standardBoard(Vector.fill(12, 12)
-          (Config.standardField(false, false, false))).updateField(1,1,Config.standardField(false, true, false))
+          (Config.mkField(false, false, false))).updateField(1,1,Config.mkField(false, true, false))
         val bomb = (1,1)
         "throw right Exceptions" in:
             an [IllegalArgumentException] should be thrownBy buildController(12, 12, 3, 4, 1000)

@@ -10,7 +10,7 @@ case class FlagCommand(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int)
   override def doStep(): Try[String] =
     val f = ctrl.gb.getFieldAt(x, y)
     if (!f.isOpened) then
-      ctrl.gb = ctrl.gb.updateField(x, y, Config.standardField(f.isBomb, f.isOpened, !f.isFlag))
+      ctrl.gb = ctrl.gb.updateField(x, y, Config.mkField(f.isBomb, f.isOpened, !f.isFlag))
       Success("flag successful")
     else Failure(IllegalArgumentException("flag cannot be set on a opened field"))
 

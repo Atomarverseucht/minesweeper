@@ -40,8 +40,8 @@ class TUISpec extends AnyWordSpec with Matchers:
     "have right end-msgs" in:
       val w = buildController(10, 10, 5, 5, 91)
       TUIHelp.gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
-      val lBoard = Config.standardBoard(Vector.fill(10, 10)(Config.standardField(true, false, false)))
-      val l = Config.standardController(9, 9, lBoard.updateField(1, 1, Config.standardField(false, false, false)))
+      val lBoard = Config.standardBoard(Vector.fill(10, 10)(Config.mkField(true, false, false)))
+      val l = Config.mkController(9, 9, lBoard.updateField(1, 1, Config.mkField(false, false, false)))
       TUIHelp.turn(-1, "flag 2 2", l) shouldBe ""
       TUIHelp.turn(-1, "open 2 2", l) shouldBe ""
       TUIHelp.gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
@@ -98,4 +98,4 @@ class TUISpec extends AnyWordSpec with Matchers:
     override def generate(): Unit = {}
 
 def buildController(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): ControllerTrait =
-  Config.standardController(xStart, yStart, Config.standardBoardGenerate(xSize, ySize, xStart, yStart, bombCount))
+  Config.mkController(xStart, yStart, Config.generateBoard(xSize, ySize, xStart, yStart, bombCount))

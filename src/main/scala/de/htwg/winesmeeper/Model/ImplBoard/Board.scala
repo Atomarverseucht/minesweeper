@@ -65,7 +65,7 @@ object Board:
     require(bombCount >= 1 && bombCount <= bMax, s"Bomb Count must be between 1 and $bMax")
 
     val boardv = initField(0, 0, xStart, yStart,
-      Vector.fill(xSize, ySize)(Config.standardField(false, true, false)), bombCount, bMax)
+      Vector.fill(xSize, ySize)(Config.mkField(false, true, false)), bombCount, bMax)
     new Board(boardv)
     
   @tailrec
@@ -75,10 +75,10 @@ object Board:
     else
       val newV =
         if Board.isNeighbour(xStart, yStart, indx, indy) then
-          (false, fieldCount, Config.standardField(false, false, false))
+          (false, fieldCount, Config.mkField(false, false, false))
         else
           val isBomb = Random.nextInt(fieldCount) < bombCount
-          (isBomb, fieldCount - 1, Config.standardField(isBomb, false, false))
+          (isBomb, fieldCount - 1, Config.mkField(isBomb, false, false))
       val nboard = boardv.updated(indx, boardv(indx).updated(indy, newV._3))
       val nbc = if newV._1 then bombCount - 1 else bombCount
       val nextC = if indx + 1 < boardv.length then (indx + 1, indy) else (0, indy + 1)

@@ -16,7 +16,7 @@ object GenerateCmd extends SysCommandCORTrait:
 
   override def execute(observerID: Int, ctrl: ControllerTrait, params: Vector[String]): Option[String] =
     Try{
-      val gb = Config.standardBoardGenerate(params(1).toInt, params(2).toInt, params(3).toInt, params(4).toInt, params(5).toInt)
+      val gb = Config.generateBoard(params(1).toInt, params(2).toInt, params(3).toInt, params(4).toInt, params(5).toInt)
       ctrl.gb = gb
       ctrl.changeState("running")
       ctrl.turn(-1, "open", Try(params(3).toInt), Try(params(4).toInt))

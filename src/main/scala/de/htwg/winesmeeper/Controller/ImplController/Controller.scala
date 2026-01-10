@@ -10,7 +10,7 @@ import scala.util.Try
 case class Controller (var gb: BoardTrait) extends ControllerTrait:
  
   var state: GameState = Start(this)
-  override val undo: TurnCmdManagerTrait = Config.standardUndo(this)
+  override val undo: TurnCmdManagerTrait = Config.mkUndo(this)
   override val sysCmd: SysCommandManagerTrait = Config.standardSysCmdMan
   
   override def turn(observerID: Int, cmd: String, x: Try[Int], y: Try[Int]): Try[String] = {
@@ -49,7 +49,7 @@ case class Controller (var gb: BoardTrait) extends ControllerTrait:
 object Controller:
   def apply(xStart: Int, yStart: Int, gb: BoardTrait): Controller =
     val out = new Controller(gb)
-    val undo = Config.standardUndo(out)
+    val undo = Config.mkUndo(out)
     for fx <- xStart - 1 to xStart + 1; fy <- yStart - 1 to yStart + 1 do
       if gb.in(fx, fy) then undo.doCmd(-1,"open", fx, fy)
     out
