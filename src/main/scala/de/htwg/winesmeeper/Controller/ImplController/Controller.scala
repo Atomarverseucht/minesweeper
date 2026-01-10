@@ -14,7 +14,7 @@ case class Controller (var gb: BoardTrait) extends ControllerTrait:
   override val sysCmd: SysCommandManagerTrait = Config.standardSysCmdMan
   
   override def turn(observerID: Int, cmd: String, x: Try[Int], y: Try[Int]): Try[String] = {
-    state.turn(observerID, cmd.toLowerCase, x.get, y.get)
+    Try(state.turn(observerID, cmd.toLowerCase, x.get, y.get).get)
   }
 
   override def changeState(newState: String): Unit = state.changeState(newState)
