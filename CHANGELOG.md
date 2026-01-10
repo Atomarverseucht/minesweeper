@@ -1,3 +1,10 @@
+# [1.4.0-dev.4](https://github.com/Atomarverseucht/minesweeper/compare/1.4.0-dev.3...1.4.0-dev.4) (2026-01-10)
+
+
+### Features
+
+* GUI is now using with cmd "generate" the new pseudo-generate system! ([9e3d7be](https://github.com/Atomarverseucht/minesweeper/commit/9e3d7be092e2d627f8d034c09fa93c19ced1a565))
+
 # [1.4.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/1.4.0-dev.2...1.4.0-dev.3) (2026-01-10)
 
 
