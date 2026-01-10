@@ -13,7 +13,7 @@ import java.nio.file.{Files}
 class CommandSpec extends AnyWordSpec with Matchers:
   "The Command" should:
     val testCtrl = buildController(10, 10, 1, 1, 25)
-    "should safe and load" in:
+    "should safe, load and help" in:
       testCtrl.doSysCmd(-1, "save", Vector())
       testCtrl.doSysCmd(-1, "load", Vector())
       testCtrl.doSysCmd(-1, "help", Vector())
@@ -24,10 +24,9 @@ class CommandSpec extends AnyWordSpec with Matchers:
       zLastElemCmdCOR.getCmd("hi") shouldBe None
 
     "should discard with undo" in:
-      testCtrl.undo.doCmd(-1, "flag", 9, 9) shouldBe true
-      testCtrl.undo.doCmd(-1, "flag", 8, 8) shouldBe true
-      testCtrl.undo.doCmd(-1, "open", 9, 9) shouldBe true
-      testCtrl.undo.doCmd(-1, "flag", 0, 9)
+      testCtrl.undo.doCmd(-1, "flag", 9, 9).isSuccess shouldBe true
+      testCtrl.undo.doCmd(-1, "flag", 8, 8).isSuccess shouldBe true
+      testCtrl.undo.doCmd(-1, "open", 9, 9).isSuccess shouldBe true
       testCtrl.doSysCmd(-1, "undo", Vector())
       testCtrl.doSysCmd(-1, "undo", Vector())
 
