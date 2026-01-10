@@ -13,7 +13,7 @@ import java.nio.file.Files
 class CommandSpec extends AnyWordSpec with Matchers:
   "The Command" should:
     val testCtrl = buildController(10, 10, 1, 1, 25)
-    "should safe, load and help" in:
+    "safe, load and help" in:
       testCtrl.doSysCmd(-1, "save", Vector())
       testCtrl.doSysCmd(-1, "load", Vector())
       testCtrl.doSysCmd(-1, "help", Vector())
@@ -23,21 +23,21 @@ class CommandSpec extends AnyWordSpec with Matchers:
       LastElemSysCommand.execute(-1, testCtrl,Vector("invalid")).get shouldBe "No such command!"
       zLastElemCmdCOR.getCmd("hi") shouldBe None
 
-    "should discard with undo" in:
+    "discard with undo" in:
       testCtrl.undo.doCmd(-1, "flag", 9, 9).isSuccess shouldBe true
       testCtrl.undo.doCmd(-1, "flag", 8, 8).isSuccess shouldBe true
       testCtrl.undo.doCmd(-1, "open", 9, 9).isSuccess shouldBe true
       testCtrl.doSysCmd(-1, "undo", Vector())
       testCtrl.doSysCmd(-1, "undo", Vector())
 
-    "should be false with unvalid turns" in:
+    "be false with unvalid turns" in:
      true // testCtrl.undo.doCmd(-1, "error", 9, 9).isSuccess shouldBe false
 
-    "should have redo" in:
+    "have redo" in:
       testCtrl.doSysCmd(-1, "redo", Vector("", "2"))
       testCtrl.doSysCmd(-1, "undo", Vector("", "2"))
 
-    "should checks version by loading" in:
+    "checks version by loading" in:
       testCtrl.doSysCmd(-1, "save", Vector())
       testCtrl.doSysCmd(-1, "load", Vector("load", "file"))
       testCtrl.doSysCmd(-1, "load", Vector())

@@ -98,4 +98,5 @@ class TUISpec extends AnyWordSpec with Matchers:
     override def generate(): Unit = {}
 
 def buildController(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): ControllerTrait =
-  Config.mkController(xStart, yStart, Config.generateBoard(xSize, ySize, xStart, yStart, bombCount))
+  val out = Config.mkController(xStart, yStart, Config.generateBoard(xSize, ySize, xStart, yStart, bombCount))
+  out.changeState("running"); out
