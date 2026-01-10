@@ -40,7 +40,7 @@ class TUISpec extends AnyWordSpec with Matchers:
     "have right end-msgs" in:
       val w = buildController(10, 10, 5, 5, 91)
       TUIHelp.gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
-      val lBoard = Config.standardBoard(Vector.fill(10, 10)(Config.mkField(true, false, false)))
+      val lBoard = Config.mkBoard(Vector.fill(10, 10)(Config.mkField(true, false, false)))
       val l = Config.mkController(9, 9, lBoard.updateField(1, 1, Config.mkField(false, false, false)))
       TUIHelp.turn(-1, "flag 2 2", l) shouldBe ""
       TUIHelp.turn(-1, "open 2 2", l) shouldBe ""
@@ -59,9 +59,9 @@ class TUISpec extends AnyWordSpec with Matchers:
     "opens a lot of fields when field zero" in:
       val ctrl_ = buildController(20, 20, 1, 1, 100)
       val sub = dummySub(ctrl_)
-      ctrl_.turn(-1, "flag", Try(10), Try(10)).get shouldBe true
-      ctrl_.turn(-1, "open", Try(1), Try(1)).get shouldBe false
-      ctrl_.turn(-1, "flag", Try(1), Try(1)).get shouldBe false
+      ctrl_.turn(-1, "flag", Try(10), Try(10)).isSuccess shouldBe true
+      ctrl_.turn(-1, "open", Try(1), Try(1)).isSuccess shouldBe false
+      ctrl_.turn(-1, "flag", Try(1), Try(1)).isSuccess shouldBe false
       ctrl_.doSysCmd(sub.observerID, "generate", Vector("nothing"))
       ctrl_.removeSub(sub)
 
