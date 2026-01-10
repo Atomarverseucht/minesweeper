@@ -12,7 +12,7 @@ case class OpenFieldCmd(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int
   override def startStep(): Try[String] =
     val size = ctrl.getSize
     Try(ctrl.doSysCmd(observerID, "generate", 
-      Vector("generate", size._1.toString, size._2.toString, x.toString, y.toString, Config.stdBombCount.toString)).get)
+      Vector("generate", size._1.toString, size._2.toString, x.toString, y.toString, Config.bombCount4Generate.toString)).get)
 
   override def doStep(): Try[String] =
     step(true)

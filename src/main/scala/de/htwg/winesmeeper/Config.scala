@@ -17,10 +17,12 @@ object Config {
   def generateBoard (xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): BoardTrait =
     Model.ImplBoard.Board(xSize, ySize, xStart, yStart, bombCount)
 
-  def startBoard: BoardTrait =
-    Model.ImplBoard.Board(Vector.fill(10, 10)(Config.mkField(true, false, false)))
+  def startBoard(xSize: Int, ySize: Int): BoardTrait =
+    Model.ImplBoard.Board(Vector.fill(xSize, ySize)(Config.mkField(true, false, false)))
+    
+  def startBoard: BoardTrait = startBoard(10,10)
 
-  def startController (board: BoardTrait): ControllerTrait =
+  def startController(board: BoardTrait): ControllerTrait =
     ImplController.Controller(board)
 
   def mkUndo(ctrl: ControllerTrait): TurnCmdManagerTrait =
@@ -29,5 +31,5 @@ object Config {
   val standardSysCmdMan: SysCommandManagerTrait =
     ImplSysCommands.SysCommandManager
 
-  val stdBombCount: Int = 10
+  var bombCount4Generate: Int = 10 // is a memory for the generator to know how many bombs they are to generate in future
 }

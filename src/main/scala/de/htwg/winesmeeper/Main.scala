@@ -13,5 +13,5 @@ val initVals = new Array[Int](5)
   new Thread(() => {
   val tui = TUI(ctrl)
   }).start()
-  if GraphicsEnvironment.isHeadless then
+  if !GraphicsEnvironment.isHeadless then
     aView.GUI.GUI(ctrl).main(Array())
