@@ -15,16 +15,18 @@ object GenerateCmd extends SysCommandCORTrait:
   override val shortcut: KeyCode = KeyCode.G
 
   override def execute(observerID: Int, ctrl: ControllerTrait, params: Vector[String]): Option[String] =
-    Try{
+    if params.size >= 5 then Try{
       val gb = Config.generateBoard(params(1).toInt, params(2).toInt, params(3).toInt, params(4).toInt, params(5).toInt)
       ctrl.gb = gb
       ctrl.changeState("running")
-      ctrl.turn(-1, "open", Try(params(3).toInt), Try(params(4).toInt))
+      ctrl.turn(observerID, "open", Try(params(3).toInt), Try(params(4).toInt))
       ctrl.undo.overrideStacks(Stack(), Stack())
     } match
       case Success(_) => Some("Generated!")
       case Failure(_) =>
         ctrl.generate(observerID); None
+    else
+      ctrl.generate(observerID); None
 
   override val helpMsg: String = "generates a new Board"
   override val specHelpMsg: String = """generate:

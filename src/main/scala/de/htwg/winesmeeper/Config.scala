@@ -8,8 +8,8 @@ object Config {
   def mkController (xStart: Int, yStart: Int, board: BoardTrait): ControllerTrait =
     ImplController.Controller(xStart, yStart, board)
 
-  def mkField (isOpened: Boolean, isBomb: Boolean, isFlag: Boolean): FieldTrait =
-    Model.ImplField.Field(isBomb, isOpened, isBomb)
+  def mkField (isBomb: Boolean, isOpened: Boolean,  isFlag: Boolean): FieldTrait =
+    Model.ImplField.Field(isBomb, isOpened, isFlag)
 
   def mkBoard(board: Vector[Vector[FieldTrait]]) : BoardTrait =
     Model.ImplBoard.Board(board)

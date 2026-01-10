@@ -1,8 +1,8 @@
 package de.htwg.winesmeeper.Controller.ImplTurnCommands
 
-import de.htwg.winesmeeper.Controller.{CommandTrait, CommandCORTrait, ControllerTrait, TurnCmdManagerTrait}
+import de.htwg.winesmeeper.Controller.{CommandCORTrait, CommandTrait, ControllerTrait, TurnCmdManagerTrait}
 
-import scala.util.{Success, Try}
+import scala.util.{Failure, Success, Try}
 import scala.collection.mutable.Stack
 
 case class UndoManager (control: ControllerTrait) extends TurnCmdManagerTrait:
@@ -31,6 +31,7 @@ case class UndoManager (control: ControllerTrait) extends TurnCmdManagerTrait:
   override def doCmd(observerID: Int, cmd: String, x: Int, y: Int): Try[String] =
     firstCommandCOR.buildCmd(observerID,cmd, x, y, control) match
       case Success(value) => doStep(value)
+      case Failure(value) => Failure(value)
 
   override def getStacks: (Stack[CommandTrait], Stack[CommandTrait]) = (undoStack.clone, redoStack.clone)
   
@@ -50,6 +51,7 @@ case class UndoManager (control: ControllerTrait) extends TurnCmdManagerTrait:
     val command = firstCommandCOR.buildCmd(observerID, cmd, x, y, control)
     command match
       case Success(value) => value.startStep()
-  
+      case Failure(value) => Failure(value)
+
   def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait] =
     firstCommandCOR.buildCmd(observerID, cmd, x, y, ctrl)
