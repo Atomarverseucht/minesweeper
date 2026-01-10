@@ -1,3 +1,10 @@
+# [1.4.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/1.4.0-dev.1...1.4.0-dev.2) (2026-01-10)
+
+
+### Bug Fixes
+
+* better style ([9817f3c](https://github.com/Atomarverseucht/minesweeper/commit/9817f3cbb485300ee70061477f0eb867c289b479))
+
 # [1.4.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/1.3.2-dev.1...1.4.0-dev.1) (2026-01-09)
 
 
