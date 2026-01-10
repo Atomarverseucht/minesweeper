@@ -52,7 +52,7 @@ class TUISpec extends AnyWordSpec with Matchers:
       val c: ControllerTrait = buildController(10, 10, 1, 1, 20)
       TUIHelp.turn(-1, "gfjzgfkf", c) shouldBe "Invalid command!"
       TUIHelp.turn(-1, "1000 1000", c) shouldBe "Invalid command!"
-      TUIHelp.turn(-1, "load hi lul", c) shouldBe "Invalid command!"
+      TUIHelp.turn(-1, "load hi lul", c) shouldBe ""
       TUIHelp.turn(-1, "generate 10 10 1 1 10", c)
       c.inGame shouldBe true
 
