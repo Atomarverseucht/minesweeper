@@ -1,3 +1,10 @@
+# [1.4.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/1.4.0-dev.2...1.4.0-dev.3) (2026-01-10)
+
+
+### Bug Fixes
+
+* stupidness is now no part of Config.scala ([cf023b7](https://github.com/Atomarverseucht/minesweeper/commit/cf023b7e8fb37334a75c26abc232d2a960b7eecf))
+
 # [1.4.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/1.4.0-dev.1...1.4.0-dev.2) (2026-01-10)
 
 
