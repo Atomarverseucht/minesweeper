@@ -48,7 +48,7 @@ class TUISpec extends AnyWordSpec with Matchers:
       TUIHelp.gameEndMsg(ctrl) shouldBe "???"
       TUIHelp.turn(-1, "open 2 2", l) shouldBe ""
 
-    "checked unvalid turn" in :
+    "checked invalid turn" in :
       val c: ControllerTrait = buildController(10, 10, 1, 1, 20)
       TUIHelp.turn(-1, "gfjzgfkf", c) shouldBe "Invalid command!"
       TUIHelp.turn(-1, "1000 1000", c) shouldBe "Invalid command!"
@@ -98,5 +98,4 @@ class TUISpec extends AnyWordSpec with Matchers:
     override def generate(): Unit = {}
 
 def buildController(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): ControllerTrait =
-  val out = Config.mkController(xStart, yStart, Config.generateBoard(xSize, ySize, xStart, yStart, bombCount))
-  out.changeState("running"); out
+  Config.mkController(xStart, yStart, Config.generateBoard(xSize, ySize, xStart, yStart, bombCount))

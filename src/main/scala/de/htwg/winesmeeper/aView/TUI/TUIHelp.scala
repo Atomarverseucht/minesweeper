@@ -32,7 +32,7 @@ object TUIHelp:
     else
       ctrl.turn(observerID, in(0), Try(in(1).toInt), Try(in(2).toInt)) match {
         case Success(value) => value
-        case Failure(ex) => ex.getMessage
+        case Failure(ex) => "Invalid turn"
       }
 
   def gameEndMsg(ctrl: ControllerTrait): String =

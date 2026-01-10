@@ -10,6 +10,6 @@ val initVals = new Array[Int](5)
   val ctrl = Config.startController(gb)
   new Thread(() => {
   val tui = TUI(ctrl)
-  }).start()/*
-  if scala.util.Try(Class.forName("scalafx.application.JFXApp3")).isSuccess then
-    aView.GUI.GUI(ctrl).main(Array())*/
+  }).start()
+  if scala.util.Try(Class.forName("javafx.application.Platform")).isSuccess then
+    aView.GUI.GUI(ctrl).main(Array())
