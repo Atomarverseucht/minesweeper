@@ -1,3 +1,10 @@
+# [1.4.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/1.3.2-dev.1...1.4.0-dev.1) (2026-01-09)
+
+
+### Features
+
+* start is more intuitive ([5e3cf9f](https://github.com/Atomarverseucht/minesweeper/commit/5e3cf9f8f7823d6c2fc6d141ce4dc709f7dc7c6c))
+
 ## [1.3.2-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/1.3.1...1.3.2-dev.1) (2026-01-09)
 
 
