@@ -1,5 +1,6 @@
 package de.htwg.winesmeeper.Controller
 
+import de.htwg.winesmeeper.Controller.Commands.{SysCommandManagerTrait, TurnCmdManagerTrait}
 import de.htwg.winesmeeper.Model.BoardTrait
 import de.htwg.winesmeeper.Observable
 import javafx.scene.input.KeyCode

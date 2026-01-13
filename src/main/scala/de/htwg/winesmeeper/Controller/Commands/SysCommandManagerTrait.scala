@@ -1,5 +1,6 @@
-package de.htwg.winesmeeper.Controller
+package de.htwg.winesmeeper.Controller.Commands
 
+import de.htwg.winesmeeper.Controller.ControllerTrait
 import javafx.scene.input.KeyCode
 
 trait SysCommandManagerTrait:

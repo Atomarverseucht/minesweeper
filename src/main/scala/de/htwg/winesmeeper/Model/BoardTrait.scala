@@ -13,7 +13,6 @@ trait BoardTrait:
   def getField(x: Int, y: Int): Int
 
   def getFieldAt (indX: Int, indY: Int): FieldTrait
-  
 
   def isVictory: Boolean
 

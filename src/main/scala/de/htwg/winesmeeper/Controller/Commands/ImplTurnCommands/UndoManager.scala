@@ -1,6 +1,7 @@
-package de.htwg.winesmeeper.Controller.ImplTurnCommands
+package de.htwg.winesmeeper.Controller.Commands.ImplTurnCommands
 
-import de.htwg.winesmeeper.Controller.{CommandCORTrait, CommandTrait, ControllerTrait, TurnCmdManagerTrait}
+import de.htwg.winesmeeper.Controller.Commands.{CommandCORTrait, CommandTrait, TurnCmdManagerTrait}
+import de.htwg.winesmeeper.Controller.ControllerTrait
 
 import scala.util.{Failure, Success, Try}
 import scala.collection.mutable.Stack

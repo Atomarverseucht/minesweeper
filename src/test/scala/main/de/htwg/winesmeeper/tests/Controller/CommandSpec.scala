@@ -1,7 +1,7 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
-import de.htwg.winesmeeper.Controller.ImplSysCommands.{LastElemSysCommand, LoadCmd, SysCommandManager}
-import de.htwg.winesmeeper.Controller.ImplTurnCommands.zLastElemCmdCOR
+import de.htwg.winesmeeper.Controller.Commands.ImplTurnCommands.ImplSysCommands.{LastElemSysCommand, LoadCmd, SysCommandManager}
+import de.htwg.winesmeeper.Controller.Commands.ImplTurnCommands.zLastElemCmdCOR
 import main.de.htwg.winesmeeper.tests.aView.buildController
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec

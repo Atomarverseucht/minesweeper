@@ -1,4 +1,6 @@
-package de.htwg.winesmeeper.Controller
+package de.htwg.winesmeeper.Controller.Commands
+
+import de.htwg.winesmeeper.Controller.ControllerTrait
 
 import scala.collection.mutable.Stack
 import scala.util.Try
@@ -28,15 +30,10 @@ trait CommandTrait(val observerID: Int):
   def redoStep(): String
   def startStep(): Try[String]
 
-trait CommandCORTrait extends AbstractCmdCOR: // für Hilfsmethode erbt CommandCOR und SysCommandCOR von einem Interface
+trait CommandCORTrait extends AbstractCmdCOR:
   val cmd: String
   val helpMsg: String
   val next: CommandCORTrait
   def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait]
   def listCmds: List[CommandCORTrait] = this::next.listCmds
   def getCmd(cmd: String): Option[CommandCORTrait] = if cmd == this.cmd then Some(this) else next.getCmd(cmd)
-
-trait AbstractCmdCOR:
-  val cmd: String
-  val helpMsg: String
-  val specHelpMsg: String

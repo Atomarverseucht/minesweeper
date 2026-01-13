@@ -1,11 +1,12 @@
-package de.htwg.winesmeeper.Controller.ImplSysCommands
+package de.htwg.winesmeeper.Controller.Commands.ImplSysCommands
 
-import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCORTrait}
+import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Model.BoardTrait
 import javafx.scene.input.KeyCode
 
 import scala.util.{Failure, Success, Try}
 import de.htwg.winesmeeper.Config
+import de.htwg.winesmeeper.Controller.Commands.SysCommandCORTrait
 
 import scala.collection.mutable.Stack
 

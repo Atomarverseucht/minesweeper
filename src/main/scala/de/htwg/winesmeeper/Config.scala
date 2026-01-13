@@ -1,7 +1,8 @@
 package de.htwg.winesmeeper
 
-import de.htwg.winesmeeper.Controller.{ControllerTrait, ImplController, SysCommandManagerTrait}
-import de.htwg.winesmeeper.Controller.{ImplSysCommands, ImplTurnCommands, TurnCmdManagerTrait}
+import de.htwg.winesmeeper.Controller.Commands.{SysCommandManagerTrait, TurnCmdManagerTrait}
+import de.htwg.winesmeeper.Controller.{ControllerTrait, ImplController}
+import de.htwg.winesmeeper.Controller.Commands.{ImplSysCommands, ImplTurnCommands}
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
 
 object Config {
