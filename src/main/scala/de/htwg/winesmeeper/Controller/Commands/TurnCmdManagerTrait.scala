@@ -4,36 +4,31 @@ import de.htwg.winesmeeper.Controller.ControllerTrait
 
 import scala.collection.mutable.Stack
 import scala.util.Try
+import scala.xml.Node
 
 trait TurnCmdManagerTrait:
   def doCmd(observerID: Int, cmd: String, x: Int, y: Int): Try[String]
-  
   def startCmd(observerID: Int, cmd: String, x: Int, y: Int): Try[String]
-
-  def listCmds: List[CommandCORTrait]
-  
-  def getCmd(cmd: String): Option[CommandCORTrait]
-  
+  def listCmds: List[TurnCommandSingletonTrait]
+  def getCmd(cmd: String): Option[TurnCommandSingletonTrait]
   def redoStep(): Unit
-  
   def undoStep(): Unit
-  
-  def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait]
-  
-  def getStacks: (Stack[CommandTrait], Stack[CommandTrait])
+  def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[TurnCommandTrait]
+  def getStacks: (Stack[TurnCommandTrait], Stack[TurnCommandTrait])
+  def overrideStacks(undoSt: Stack[TurnCommandTrait], redoSt: Stack[TurnCommandTrait]): Unit
 
-  def overrideStacks(undoSt: Stack[CommandTrait], redoSt: Stack[CommandTrait]): Unit
-
-trait CommandTrait(val observerID: Int):
+trait TurnCommandTrait:
   def doStep(): Try[String]
   def undoStep(): String
   def redoStep(): String
   def startStep(): Try[String]
+  def toXML: Node
 
-trait CommandCORTrait extends AbstractCmdCOR:
+trait TurnCommandSingletonTrait extends AbstractCmdCOR:
   val cmd: String
   val helpMsg: String
-  val next: CommandCORTrait
-  def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait]
-  def listCmds: List[CommandCORTrait] = this::next.listCmds
-  def getCmd(cmd: String): Option[CommandCORTrait] = if cmd == this.cmd then Some(this) else next.getCmd(cmd)
+  val next: TurnCommandSingletonTrait
+  def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[TurnCommandTrait]
+  def listCmds: List[TurnCommandSingletonTrait] = this::next.listCmds
+  def getCmd(cmd: String): Option[TurnCommandSingletonTrait] = if cmd == this.cmd then Some(this) else next.getCmd(cmd)
+  def fromXML(xml: Node, ctrl: ControllerTrait): TurnCommandTrait

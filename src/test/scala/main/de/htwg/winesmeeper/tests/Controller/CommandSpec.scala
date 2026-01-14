@@ -1,7 +1,7 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
 import de.htwg.winesmeeper.Controller.Commands.ImplSysCommands.{LastElemSysCommand, LoadCmd, SysCommandManager}
-import de.htwg.winesmeeper.Controller.Commands.ImplTurnCommands.zLastElemCmdCOR
+import de.htwg.winesmeeper.Controller.Commands.ImplTurnCommands.zLastElemCmdSingleton$Turn
 import main.de.htwg.winesmeeper.tests.aView.buildController
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -19,9 +19,9 @@ class CommandSpec extends AnyWordSpec with Matchers:
       testCtrl.doSysCmd(-1, "help", Vector())
       testCtrl.doSysCmd(-1, "help", Vector("", "load"))
     "throw Exceptions" in:
-      zLastElemCmdCOR.buildCmd(-1, "doesn't matter", 5, 5, testCtrl).isFailure shouldBe true
+      zLastElemCmdSingleton$Turn.buildCmd(-1, "doesn't matter", 5, 5, testCtrl).isFailure shouldBe true
       LastElemSysCommand.execute(-1, testCtrl,Vector("invalid")).get shouldBe "No such command!"
-      zLastElemCmdCOR.getCmd("hi") shouldBe None
+      zLastElemCmdSingleton$Turn.getCmd("hi") shouldBe None
 
     "discard with undo" in:
       testCtrl.undo.doCmd(-1, "flag", 9, 9).isSuccess shouldBe true

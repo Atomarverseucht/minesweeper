@@ -2,11 +2,12 @@ package de.htwg.winesmeeper.Controller.Commands.ImplTurnCommands
 
 import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Config
-import de.htwg.winesmeeper.Controller.Commands.{CommandCORTrait, CommandTrait}
+import de.htwg.winesmeeper.Controller.Commands.{TurnCommandSingletonTrait, TurnCommandTrait}
 
 import scala.util.{Failure, Success, Try}
+import scala.xml.Node
 
-case class OpenFieldCmd(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int) extends CommandTrait(observerID_):
+case class OpenFieldCommand(observerID : Int, ctrl: ControllerTrait, x: Int, y: Int) extends TurnCommandTrait:
 
   val isFlag: Boolean = ctrl.gb.getFieldAt(x, y).isFlag
 
@@ -31,27 +32,41 @@ case class OpenFieldCmd(observerID_ : Int, ctrl: ControllerTrait, x: Int, y: Int
     else
       ctrl.gb = gb.updateField(x, y, Config.mkField(f.isBomb, discover, !discover && isFlag))
       if !discover && !ctrl.inGame then ctrl.changeState("running")
-      if f.isBomb && discover then ctrl.changeState("lose");
+      if f.isBomb && discover then ctrl.changeState("lose")
       else if gb.getBombNeighbour(x, y) == 0 then
           for fx <- x - 1 to x + 1
             fy <- y - 1 to y + 1 do
             if gb.in(fx, fy) && !gb.getFieldAt(fx, fy).isOpened == discover then
-              OpenFieldCmd(observerID, ctrl, fx, fy).step(discover)
+              OpenFieldCommand(observerID, ctrl, fx, fy).step(discover)
       if discover && ctrl.isVictory && !f.isBomb then ctrl.changeState("win")
       Success("")
 
   override def toString: String = f"open($observerID, $x, $y)"
 
-object OpenFieldCOR extends CommandCORTrait:
+  override def toXML: Node = 
+    <turn>
+      <cmd>open</cmd>
+      <observer>{observerID}</observer>
+      <x>{x}</x>
+      <y>{y}</y>
+    </turn>
+
+object OpenFieldSingleton extends TurnCommandSingletonTrait:
   override val cmd = "open"
   override val helpMsg = "opens the field of the given coordinate"
-  override val next: CommandCORTrait = zLastElemCmdCOR
+  override val next: TurnCommandSingletonTrait = zLastElemTurnCmdSingleton
   override val specHelpMsg: String =
     """open <x> <y>:
       |  Opens a field and if you hit a bomb, you loose!
       |  But no pressure you can undo your fault!
       |""".stripMargin
 
-  override def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[CommandTrait] =
-    if cmd == this.cmd then Success(OpenFieldCmd(observerID: Int, ctrl, x, y)) 
+  override def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[TurnCommandTrait] =
+    if cmd == this.cmd then Success(OpenFieldCommand(observerID: Int, ctrl, x, y)) 
     else next.buildCmd(observerID: Int, cmd, x, y, ctrl)
+
+  override def fromXML(xml: Node, ctrl: ControllerTrait): TurnCommandTrait =
+    val obsID = (xml \ "observer").head.text.toInt
+    val x = (xml \ "x").head.text.toInt
+    val y = (xml \ "y").head.text.toInt
+    OpenFieldCommand(obsID, ctrl, x, y)

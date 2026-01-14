@@ -3,7 +3,7 @@ package de.htwg.winesmeeper.Controller.Commands.ImplSysCommands
 import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
 import de.htwg.winesmeeper.Config
-import de.htwg.winesmeeper.Controller.Commands.{CommandTrait, SysCommandCORTrait, TurnCmdManagerTrait}
+import de.htwg.winesmeeper.Controller.Commands.{TurnCommandTrait, SysCommandCORTrait, TurnCmdManagerTrait}
 
 import javafx.scene.input.KeyCode
 import java.nio.file.{Files, Paths}
