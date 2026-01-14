@@ -1,3 +1,10 @@
+# [2.0.0-dev.4](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0-dev.3...2.0.0-dev.4) (2026-01-14)
+
+
+### Bug Fixes
+
+* added some metadata ([b1dc1fe](https://github.com/Atomarverseucht/minesweeper/commit/b1dc1feece01c1ab6382187738b12ff350ebce85))
+
 # [2.0.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0-dev.2...2.0.0-dev.3) (2026-01-14)
 
 
