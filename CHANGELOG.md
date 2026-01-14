@@ -1,3 +1,15 @@
+# [2.0.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/1.4.0-dev.5...2.0.0-dev.1) (2026-01-14)
+
+
+### Features
+
+* new save format ([0bbcf01](https://github.com/Atomarverseucht/minesweeper/commit/0bbcf0115dc576441a59c3199e5942fc567811b9))
+
+
+### BREAKING CHANGES
+
+* removed old format, older files aren't supported!
+
 # [1.4.0-dev.5](https://github.com/Atomarverseucht/minesweeper/compare/1.4.0-dev.4...1.4.0-dev.5) (2026-01-13)
 
 # [1.4.0-dev.4](https://github.com/Atomarverseucht/minesweeper/compare/1.4.0-dev.3...1.4.0-dev.4) (2026-01-10)
