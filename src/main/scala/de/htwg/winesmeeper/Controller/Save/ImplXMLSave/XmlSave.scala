@@ -24,4 +24,4 @@ object XmlSave extends SaverTrait:
     save(ctrl, "loadBackup")
     ctrl.gb = ctrl.gb.fromXml(out)
     ctrl.changeState((out \ "state").text)
-    Some(f"Loaded: $fileName.$formatName(v${versionFile})\nFor bringing back the old file, type: 'load loadBackup' \n active version: $version")
+    Some(f"Loaded: $fileName.$formatName (v${versionFile})\n  For bringing back the old file, type: 'load loadBackup'\n  active version: $version")

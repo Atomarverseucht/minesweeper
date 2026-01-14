@@ -2,12 +2,14 @@ package main.de.htwg.winesmeeper.tests.aView
 
 import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
-import de.htwg.winesmeeper.{Observer, Config, start}
+import de.htwg.winesmeeper.{Config, Observer, start}
 import de.htwg.winesmeeper.aView.TUI.TUIHelp
+import de.htwg.winesmeeper.BuildInfo.version
 
 import scala.util.Try
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+
 import java.io.ByteArrayInputStream
 
 class TUISpec extends AnyWordSpec with Matchers:
@@ -52,8 +54,9 @@ class TUISpec extends AnyWordSpec with Matchers:
       val c: ControllerTrait = buildController(10, 10, 1, 1, 20)
       TUIHelp.turn(-1, "gfjzgfkf", c) shouldBe "Invalid command!"
       TUIHelp.turn(-1, "1000 1000", c) shouldBe "Invalid command!"
-      TUIHelp.turn(-1, "load hi lul", c) shouldBe ""
+      TUIHelp.turn(-1, "save hi", c) shouldBe "Board saved"
       TUIHelp.turn(-1, "generate 10 10 1 1 10", c)
+      TUIHelp.turn(-1, "load hi lul", c) shouldBe f"Loaded: winesmeeper-SaveFile.xml (v${version})\n  For bringing back the old file, type: 'load loadBackup'\n  active version: ${version}"
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
