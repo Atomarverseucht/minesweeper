@@ -2,6 +2,7 @@ package de.htwg.winesmeeper.Controller.Commands.ImplSysCommands
 
 import de.htwg.winesmeeper.Controller.Commands.SysCommandCORTrait
 import de.htwg.winesmeeper.Controller.ControllerTrait
+import de.htwg.winesmeeper.Config
 import javafx.scene.input.KeyCode
 
 import scala.util.Try
@@ -20,9 +21,5 @@ object SaveCmd extends SysCommandCORTrait:
       |""".stripMargin
   
   override def execute(observerID: Int, ctrl: ControllerTrait, params: Vector[String]): Option[String] =
-    Files.write(SysCommandManager.savedGame(Try(params(1))), ctrl.toString.getBytes())
+    if params.length >= 2 then Config.saver.save(ctrl, params(1)) else Config.saver.save(ctrl)
     Some("Board saved")
-
-  
-
-  

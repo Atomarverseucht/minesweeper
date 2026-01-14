@@ -1,5 +1,7 @@
 package de.htwg.winesmeeper.Model
 
+import scala.xml.Elem
+
 trait BoardTrait:
 
   def getBoard: Vector[Vector[Int]]
@@ -17,3 +19,7 @@ trait BoardTrait:
   def isVictory: Boolean
 
   def in (x: Int, y: Int): Boolean
+
+  def toXml: Elem
+
+  def fromXml(xml: Elem): BoardTrait

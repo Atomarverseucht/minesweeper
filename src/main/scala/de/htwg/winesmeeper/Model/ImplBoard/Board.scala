@@ -5,6 +5,7 @@ import de.htwg.winesmeeper.Config
 
 import scala.annotation.tailrec
 import scala.util.Random
+import scala.xml.Elem
 
 case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
 
@@ -38,8 +39,6 @@ case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
 
   override def in(x: Int, y: Int): Boolean = x >= 0 && y >= 0 && x < board.length && y < board(0).length
 
-  
-
   override def updateField (indX: Int, indY: Int, field: FieldTrait): BoardTrait =
     new Board(board.updated(indX, board(indX).updated(indY, field)))
 
@@ -47,11 +46,20 @@ case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
 
   override def toString: String = board.mkString(", ")
 
+  override def toXml: Elem =
+    <board>{board.map(row => <row>{row.map(f => f.toXml)}</row>)}</board>
+
+  override def fromXml(xml: Elem): BoardTrait =
+    val boardXml = (xml \ "board").map(b => b \ "row")
+    print("hi")
+    Board(10,10, 1, 1, 10)
+
+
 object Board:
 
-  def maxBombs(xSize: Int, ySize: Int): Int = (xSize * ySize) - 9
+  private def maxBombs(xSize: Int, ySize: Int): Int = (xSize * ySize) - 9
 
-  def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =
+  private def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =
     ((x0-x1).abs <= 1) && ((y0-y1).abs <= 1)
 
   def apply(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): Board =
