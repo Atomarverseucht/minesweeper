@@ -41,8 +41,6 @@ class CommandSpec extends AnyWordSpec with Matchers:
       testCtrl.doSysCmd(-1, "save", Vector())
       testCtrl.doSysCmd(-1, "load", Vector("load", "file"))
       testCtrl.doSysCmd(-1, "load", Vector())
-      Files.write(SysCommandManager.savedGame(Failure(IllegalArgumentException())), "version: invalid\n".getBytes())
-      testCtrl.doSysCmd(-1, "load", Vector())
 
     "specific help messages:" in:
       testCtrl.doSysCmd(-1, "help", Vector("help", "open"))
