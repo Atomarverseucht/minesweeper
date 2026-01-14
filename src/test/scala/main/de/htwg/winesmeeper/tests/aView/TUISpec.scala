@@ -68,11 +68,7 @@ class TUISpec extends AnyWordSpec with Matchers:
   "an User Interface" should:
     "be useable" in:
       val fakeInput =
-        """10
-          |10
-          |5
-          |5
-          |90
+        """open 5 5
           |flag 7 7
           |open.10000usifduoiwstrhfgu9sfh10000
           |flag 9 9
@@ -83,7 +79,7 @@ class TUISpec extends AnyWordSpec with Matchers:
           |undo
           |redo
           |save saveGame
-          |load saveGame forced
+          |load saveGame
           |quit
           |""".stripMargin
 
