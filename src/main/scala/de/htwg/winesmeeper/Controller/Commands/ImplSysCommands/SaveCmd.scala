@@ -14,10 +14,12 @@ object SaveCmd extends SysCommandCORTrait:
   override val shortcut: KeyCode = KeyCode.S
   override val helpMsg: String = "saves your board"
   override val specHelpMsg: String =
-    """save:
+    f"""save:
       |  saves the game at the standard file
       |save <fileName>:
       |  saves game at a given file (without the ending)
+      |
+      |active file format: ${Config.saver.formatName.toUpperCase}
       |""".stripMargin
   
   override def execute(observerID: Int, ctrl: ControllerTrait, params: Vector[String]): Option[String] =

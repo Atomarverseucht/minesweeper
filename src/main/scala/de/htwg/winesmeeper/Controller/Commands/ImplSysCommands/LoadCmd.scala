@@ -17,10 +17,12 @@ object LoadCmd extends SysCommandCORTrait:
   override val next: SysCommandCORTrait = QuitCmd
   override val shortcut: KeyCode = KeyCode.L
   override val specHelpMsg: String =
-    """load:
+    f"""load:
       |  overrides game with the standard file
       |load <fileName>:
       |  overrides game with a given file (without the ending)
+      |
+      |active file format: ${Config.saver.formatName.toUpperCase}
       |""".stripMargin
 
   override def execute(observerID: Int, ctrl: ControllerTrait, params: Vector[String]): Option[String] =
