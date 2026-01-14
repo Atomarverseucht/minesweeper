@@ -46,7 +46,6 @@ class CommandSpec extends AnyWordSpec with Matchers:
 
     "specific help messages:" in:
       testCtrl.doSysCmd(-1, "help", Vector("help", "open"))
-      LoadCmd.getStacks(Failure(IllegalArgumentException()), testCtrl)
 
       testCtrl.undo.getCmd("feuzighoiz") shouldBe None
 
