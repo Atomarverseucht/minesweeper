@@ -10,7 +10,6 @@ minesweeper.iml
 
 minesweeper.iml.metals
 .vscode
-.metals
 
 ### IntelliJ IDEA ###
 .idea/*
@@ -52,8 +51,6 @@ build/
 
 ### Scala ###
 .bsp/
-.bloop
-.metals
 src/main/scala/de/htwg/.metals
 src/main/scala/de/htwg/.scala-build/.bloop
 
