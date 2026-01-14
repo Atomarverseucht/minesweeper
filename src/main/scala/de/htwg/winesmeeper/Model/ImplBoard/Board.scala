@@ -50,10 +50,11 @@ case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
     <board>{board.map(row => <row>{row.map(f => f.toXml)}</row>)}</board>
 
   override def fromXml(xml: Elem): BoardTrait =
-    val boardXml = (xml \ "board").map(b => b \ "row")
-    print("hi")
-    Board(10,10, 1, 1, 10)
-
+    val boardXml = (xml \\ "board").head \\ "row"
+    val fieldXml = boardXml.map(b => b \\ "field")
+    Board(fieldXml.map(rowXml => {
+      rowXml.map(fXml => board(0)(0).fromXml(fXml)).toVector
+    }).toVector)
 
 object Board:
 
