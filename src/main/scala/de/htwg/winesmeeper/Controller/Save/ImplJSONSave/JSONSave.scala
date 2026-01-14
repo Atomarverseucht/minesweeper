@@ -6,6 +6,6 @@ import de.htwg.winesmeeper.Controller.Save.SaverTrait
 object JSONSave extends SaverTrait:
   override val formatName: String = "json"
 
-  override def save(ctrl: ControllerTrait, fileName: String): Unit = ??? 
+  override def save(ctrl: ControllerTrait, fileName: String): Option[String] = ??? 
 
-  override def load(ctrl: ControllerTrait, fileName: String): Unit = ??? 
+  override def load(ctrl: ControllerTrait, fileName: String): Option[String] = ??? 

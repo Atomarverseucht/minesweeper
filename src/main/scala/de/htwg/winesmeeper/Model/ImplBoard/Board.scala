@@ -5,7 +5,7 @@ import de.htwg.winesmeeper.Config
 
 import scala.annotation.tailrec
 import scala.util.Random
-import scala.xml.Elem
+import scala.xml.Node
 
 case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
 
@@ -46,10 +46,12 @@ case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
 
   override def toString: String = board.mkString(", ")
 
-  override def toXml: Elem =
-    <board>{board.map(row => <row>{row.map(f => f.toXml)}</row>)}</board>
+  override def toXml: Node =
+    <board>
+      {board.map(row => <row>{row.map(f => f.toXml)}</row>)}
+    </board>
 
-  override def fromXml(xml: Elem): BoardTrait =
+  override def fromXml(xml: Node): BoardTrait =
     val boardXml = (xml \\ "board").head \\ "row"
     val fieldXml = boardXml.map(b => b \\ "field")
     Board(fieldXml.map(rowXml => {

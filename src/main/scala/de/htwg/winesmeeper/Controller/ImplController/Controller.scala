@@ -38,14 +38,6 @@ case class Controller (var gb: BoardTrait) extends ControllerTrait:
   override def doShortCut(observerID: Int, key: KeyCode): Option[String] = sysCmd.doShortCut(observerID, this, key)
 
   override def isVictory: Boolean = gb.isVictory
-
-  override def toString: String = // wird auch als save-Darstellung verwendet
-    val version = s"version: ${de.htwg.winesmeeper.BuildInfo.version}\n"
-    val stateS = s"state: $gameState\n"
-    val boardS = s"board: $gb\n"
-    val undoStackS = s"undo: §${undo.getStacks._1.mkString(", ")}\n"
-    val redoStackS = s"redo: §${undo.getStacks._2.mkString(", ")}"
-    version + stateS + boardS + undoStackS + redoStackS
   
 object Controller:
   def apply(xStart: Int, yStart: Int, gb: BoardTrait): Controller =

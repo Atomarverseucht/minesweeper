@@ -5,8 +5,6 @@ import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Config
 import javafx.scene.input.KeyCode
 
-import scala.util.Try
-import java.nio.file.Files
 
 object SaveCmd extends SysCommandCORTrait:
   override val next: SysCommandCORTrait = UndoCmd

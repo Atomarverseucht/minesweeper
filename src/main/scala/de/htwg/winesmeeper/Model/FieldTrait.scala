@@ -1,6 +1,6 @@
 package de.htwg.winesmeeper.Model
 
-import scala.xml.{Elem, Node}
+import scala.xml.Node
 
 trait FieldTrait:
   def isFlag: Boolean
@@ -8,7 +8,7 @@ trait FieldTrait:
   def isBomb: Boolean
   
   def isOpened: Boolean
-  
-  def toXml: Elem
-  
+
+  def toXml: Node
+
   def fromXml(elem: Node): FieldTrait

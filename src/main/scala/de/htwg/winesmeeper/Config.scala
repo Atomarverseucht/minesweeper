@@ -37,4 +37,4 @@ object Config:
 
   var bombCount4Generate: Int = 10 // is a memory for the generator to know how many bombs they are to generate in future
 
-  val savePath = ".\\saves\\"
+  val savePath = "./saves/"

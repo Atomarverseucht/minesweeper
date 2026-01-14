@@ -1,6 +1,6 @@
 package de.htwg.winesmeeper.Model
 
-import scala.xml.Elem
+import scala.xml.Node
 
 trait BoardTrait:
 
@@ -20,6 +20,6 @@ trait BoardTrait:
 
   def in (x: Int, y: Int): Boolean
 
-  def toXml: Elem
+  def toXml: Node
 
-  def fromXml(xml: Elem): BoardTrait
+  def fromXml(xml: Node): BoardTrait

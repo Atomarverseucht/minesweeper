@@ -9,9 +9,9 @@ trait SaverTrait:
   private val standardFileName = "winesmeeper-SaveFile"
   val formatName: String
 
-  def save(ctrl: ControllerTrait, fileName: String = standardFileName): Unit
+  def save(ctrl: ControllerTrait, fileName: String = standardFileName): Option[String]
 
-  def load(ctrl: ControllerTrait, fileName: String = standardFileName): Unit
+  def load(ctrl: ControllerTrait, fileName: String = standardFileName): Option[String]
   
   protected def write(file: String, content: String): Unit =
     Files.write(Paths.get(f"${Config.savePath}$file.$formatName"), content.getBytes)

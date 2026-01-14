@@ -26,6 +26,6 @@ object LoadCmd extends SysCommandCORTrait:
       |""".stripMargin
 
   override def execute(observerID: Int, ctrl: ControllerTrait, params: Vector[String]): Option[String] =
-    if params.length >= 2 then Config.saver.load(ctrl, params(1)) else Config.saver.load(ctrl)
+    val out = if params.length >= 2 then Config.saver.load(ctrl, params(1)) else Config.saver.load(ctrl)
     ctrl.notifyObservers()
-    None
+    out
