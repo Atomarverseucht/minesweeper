@@ -39,6 +39,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
 
     "checks version by loading" in:
       testCtrl.doSysCmd(-1, "save", Vector())
+      testCtrl.doSysCmd(-1, "save", Vector("save", "file"))
       testCtrl.doSysCmd(-1, "load", Vector("load", "file"))
       testCtrl.doSysCmd(-1, "load", Vector())
 

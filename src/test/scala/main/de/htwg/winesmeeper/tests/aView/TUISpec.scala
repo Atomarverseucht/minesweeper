@@ -56,7 +56,7 @@ class TUISpec extends AnyWordSpec with Matchers:
       TUIHelp.turn(-1, "1000 1000", c) shouldBe "Invalid command!"
       TUIHelp.turn(-1, "save hi", c) shouldBe "Board saved"
       TUIHelp.turn(-1, "generate 10 10 1 1 10", c)
-      TUIHelp.turn(-1, "load hi lul", c) shouldBe f"Loaded: winesmeeper-SaveFile.xml (v${version})\n  For bringing back the old file, type: 'load loadBackup'\n  active version: ${version}"
+      TUIHelp.turn(-1, "load hi lul", c) shouldBe f"Loaded: hi.xml (v${version})\n  For bringing back the old file, type: 'load loadBackup'\n  active version: ${version}"
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
