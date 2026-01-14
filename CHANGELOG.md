@@ -1,3 +1,10 @@
+# [2.0.0-dev.3](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0-dev.2...2.0.0-dev.3) (2026-01-14)
+
+
+### Bug Fixes
+
+* better help ([2305f9a](https://github.com/Atomarverseucht/minesweeper/commit/2305f9a6037bb04e276c33e09f9e276c5b4c21af))
+
 # [2.0.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0-dev.1...2.0.0-dev.2) (2026-01-14)
 
 
