@@ -1,3 +1,10 @@
+# [2.0.0-dev.2](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0-dev.1...2.0.0-dev.2) (2026-01-14)
+
+
+### Features
+
+* load XML-board ([7403c0c](https://github.com/Atomarverseucht/minesweeper/commit/7403c0c1f2084838b78637ddf0023e5a3874eef6))
+
 # [2.0.0-dev.1](https://github.com/Atomarverseucht/minesweeper/compare/1.4.0-dev.5...2.0.0-dev.1) (2026-01-14)
 
 
