@@ -18,12 +18,6 @@ object SysCommandManager extends SysCommandManagerTrait:
     com match
       case Some(value) => value.execute(observerID, ctrl, params)
       case None => None
-
-  def savedGame(fileName: Try[String]): Path =
-    val fName: String = fileName match
-      case Success(value) => value
-      case Failure(_) => "savedGame"
-    Paths.get(f"./saves/$fName.txt")
     
   override def getSysCmdList: List[SysCommandCORTrait] = firstSysCmd.listCmds
 
