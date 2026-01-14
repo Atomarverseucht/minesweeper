@@ -1,3 +1,10 @@
+# [2.0.0-dev.5](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0-dev.4...2.0.0-dev.5) (2026-01-14)
+
+
+### Features
+
+* XML: undo/redo-Stacks are now saved ([23f9356](https://github.com/Atomarverseucht/minesweeper/commit/23f93568bee166e7eaa0b0bd657b61d9f015381c))
+
 # [2.0.0-dev.4](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0-dev.3...2.0.0-dev.4) (2026-01-14)
 
 
