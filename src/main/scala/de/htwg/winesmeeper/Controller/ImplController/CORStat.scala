@@ -23,13 +23,13 @@ object CORStatLost extends CORStat:
   override val state: Controller => GameState = Lost(_)
 
 object CORStatStart extends CORStat:
-  override val next: CORStat = CORStateEnd
+  override val next: CORStat = CORStatEnd
   override val stateCmd: String = "start"
   override val state: Controller => GameState = Start(_)
 
 
-object CORStateEnd extends CORStat:
-  override val next: CORStat = CORStateEnd
+object CORStatEnd extends CORStat:
+  override val next: CORStat = CORStatEnd
   override val stateCmd: String = "error"
   override val state: Controller => GameState = Lost(_)
   

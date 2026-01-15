@@ -33,7 +33,7 @@ case class OpenFieldCommand(observerID : Int, ctrl: ControllerTrait, x: Int, y: 
     else
       ctrl.gb = gb.updateField(x, y, Config.mkField(f.isBomb, discover, !discover && isFlag))
       if !discover && !ctrl.inGame then ctrl.changeState("running")
-      if f.isBomb && discover then ctrl.changeState("lose")
+      if f.isBomb && discover then ctrl.changeState("lost")
       else if gb.getBombNeighbour(x, y) == 0 then
           for fx <- x - 1 to x + 1
             fy <- y - 1 to y + 1 do

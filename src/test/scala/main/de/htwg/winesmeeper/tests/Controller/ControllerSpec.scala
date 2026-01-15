@@ -1,6 +1,6 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
-import de.htwg.winesmeeper.Controller.ImplController.{Controller, CORStateEnd, Lost}
+import de.htwg.winesmeeper.Controller.ImplController.{Controller, CORStatEnd, Lost}
 import de.htwg.winesmeeper.Model.ImplBoard.Board
 import de.htwg.winesmeeper.Model.ImplField.Field
 import main.de.htwg.winesmeeper.tests.aView.buildController
@@ -46,4 +46,4 @@ class ControllerSpec extends AnyWordSpec with Matchers:
       an[IndexOutOfBoundsException] should be thrownBy ctrl.turn(-1,"open",Try(21787), Try(817297)).get
 
     "have a LastElem" in:
-      CORStateEnd.state(ctrl).gameState shouldBe "lost"
+      CORStatEnd.state(ctrl).gameState shouldBe "lost"
