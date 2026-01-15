@@ -15,7 +15,7 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "minesweeper",
-    version := "2.0.0-dev.6",
+    version := "2.0.0-dev.7",
 
     scalaVersion := scala3Version,
     scalacOptions ++= Seq("-encoding", "utf-8"),
