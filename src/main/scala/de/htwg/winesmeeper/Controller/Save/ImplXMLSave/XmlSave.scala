@@ -49,7 +49,7 @@ object XmlSave extends SaverTrait:
     val state = (out \ "state").text
     SavedData(version, state, board, undoStack, redoStack)
 
-  private def loadCommand(ctrl: ControllerTrait, xml: Node): Option[TurnCommandTrait] =
+  def loadCommand(ctrl: ControllerTrait, xml: Node): Option[TurnCommandTrait] =
     val cmd = (xml \\ "cmd").text.replace(" ", "")
     ctrl.undo.getCmd(cmd) match
       case None => None

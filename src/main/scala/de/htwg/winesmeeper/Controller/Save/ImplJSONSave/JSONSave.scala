@@ -59,7 +59,7 @@ object JSONSave extends SaverTrait:
     stackLoader((out \ "redo-Stack").get, redoStack)
     SavedData(version, state, board, undoStack, redoStack)
 
-  private def loadCommand(ctrl: ControllerTrait, json: JsValue): Option[TurnCommandTrait] =
+  def loadCommand(ctrl: ControllerTrait, json: JsValue): Option[TurnCommandTrait] =
     val cmd: String = (json \\ "cmd").head.as
     println(cmd)
     val out = ctrl.undo.getCmd(cmd) match
