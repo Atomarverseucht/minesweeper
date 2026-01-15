@@ -36,4 +36,4 @@ object SaveSpec extends AnyWordSpec with Matchers:
       JSONSave.load(testCtrl, "test")
       JSONSave.load(testCtrl)
     "Know if something is no cmd" in :
-      XmlSave.loadCommand(testCtrl, Json.obj("cmd" -> "müll"))
+      JSONSave.loadCommand(testCtrl, Json.obj("cmd" -> "müll"))
