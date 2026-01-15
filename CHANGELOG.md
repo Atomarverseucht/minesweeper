@@ -1,3 +1,10 @@
+# [2.0.0-dev.6](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0-dev.5...2.0.0-dev.6) (2026-01-15)
+
+
+### Features
+
+* JSON Save ([67e0510](https://github.com/Atomarverseucht/minesweeper/commit/67e0510d9bd8be5b41b2115acec71cc2f5e96e62))
+
 # [2.0.0-dev.5](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0-dev.4...2.0.0-dev.5) (2026-01-14)
 
 
