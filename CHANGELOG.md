@@ -1,3 +1,10 @@
+# [2.0.0-dev.9](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0-dev.8...2.0.0-dev.9) (2026-01-15)
+
+
+### Bug Fixes
+
+* correct state name ([d27d304](https://github.com/Atomarverseucht/minesweeper/commit/d27d3046184dd10dc7eb5962c59788e1b79718f9))
+
 # [2.0.0-dev.8](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0-dev.7...2.0.0-dev.8) (2026-01-15)
 
 
