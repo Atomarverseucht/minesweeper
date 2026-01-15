@@ -29,11 +29,11 @@ object SaveSpec extends AnyWordSpec with Matchers:
       XmlSave.loadCommand(testCtrl, <cmd>müll</cmd>)
 
   "JSON" should:
-    "be save-able" in :
+    "be save-able" in:
       JSONSave.save(testCtrl, "test")
       JSONSave.save(testCtrl)
-    "be load-able" in :
+    "be load-able" in:
       JSONSave.load(testCtrl, "test")
       JSONSave.load(testCtrl)
-    "Know if something is no cmd" in :
+    "Know if something is no cmd" in:
       JSONSave.loadCommand(testCtrl, Json.obj("cmd" -> "müll"))
