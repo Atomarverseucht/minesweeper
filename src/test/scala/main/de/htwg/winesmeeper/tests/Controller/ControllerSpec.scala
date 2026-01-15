@@ -41,5 +41,4 @@ class ControllerSpec extends AnyWordSpec with Matchers:
       an[IllegalArgumentException] should be thrownBy ctrl.changeState("fzjhtexhzt")
 
     "have a LastElem" in:
-      CORStateEnd.state(ctrl).gameState shouldBe "lost"
-      
+      CORStateEnd.state(ctrl).gameState shouldBe "lose"

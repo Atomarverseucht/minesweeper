@@ -2,7 +2,6 @@ package main.de.htwg.winesmeeper.tests.Controller
 
 import de.htwg.winesmeeper.Controller.Save.ImplXMLSave.XmlSave
 import de.htwg.winesmeeper.Controller.Save.ImplJSONSave.JSONSave
-import de.htwg.winesmeeper.Controller.Save.SaverTrait
 import play.api.libs.json.Json
 import de.htwg.winesmeeper.Config
 import de.htwg.winesmeeper.Controller.ControllerTrait
