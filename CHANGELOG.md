@@ -1,3 +1,10 @@
+# [2.0.0-dev.8](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0-dev.7...2.0.0-dev.8) (2026-01-15)
+
+
+### Features
+
+* JSON loading of stacks ([6909131](https://github.com/Atomarverseucht/minesweeper/commit/6909131c95e3c1525b5ad42cc06b5ebd0ad3c3c9))
+
 # [2.0.0-dev.7](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0-dev.6...2.0.0-dev.7) (2026-01-15)
 
 
