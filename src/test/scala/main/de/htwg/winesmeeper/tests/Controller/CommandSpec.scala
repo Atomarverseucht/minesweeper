@@ -17,6 +17,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
     "safe, load and help" in:
       testCtrl.doSysCmd(-1, "save", Vector())
       testCtrl.doSysCmd(-1, "load", Vector())
+      testCtrl.doSysCmd(-1,"load",Vector("load","efhzgoiuwtgffewzt"))
       testCtrl.doSysCmd(-1, "help", Vector())
       testCtrl.doSysCmd(-1, "help", Vector("", "load"))
     "throw Exceptions" in:
@@ -48,7 +49,6 @@ class CommandSpec extends AnyWordSpec with Matchers:
 
     "specific help messages:" in:
       testCtrl.doSysCmd(-1, "help", Vector("help", "open"))
-
       testCtrl.undo.getCmd("feuzighoiz") shouldBe None
 
     "have a shortcut" in:

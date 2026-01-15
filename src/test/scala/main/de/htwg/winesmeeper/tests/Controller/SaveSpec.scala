@@ -17,6 +17,7 @@ class SaveSpec extends AnyWordSpec with Matchers:
   testCtrl.turn(-1,"flag",Try(9), Try(9))
   testCtrl.turn(-1,"flag",Try(9), Try(8))
   testCtrl.turn(-1,"flag",Try(8), Try(9))
+  testCtrl.doSysCmd(-1,"undo",Vector("undo","2"))
 
   "XML" should:
     "be save-able" in:

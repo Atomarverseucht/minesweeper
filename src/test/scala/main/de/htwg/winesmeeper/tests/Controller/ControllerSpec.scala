@@ -1,6 +1,6 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
-import de.htwg.winesmeeper.Controller.ImplController.Controller
+import de.htwg.winesmeeper.Controller.ImplController.{Controller, CORStateEnd, Lost}
 import de.htwg.winesmeeper.Model.ImplBoard.Board
 import de.htwg.winesmeeper.Model.ImplField.Field
 import main.de.htwg.winesmeeper.tests.aView.buildController
@@ -39,5 +39,7 @@ class ControllerSpec extends AnyWordSpec with Matchers:
     "should have right states" in:
       ctrl.changeState("running")
       an[IllegalArgumentException] should be thrownBy ctrl.changeState("fzjhtexhzt")
-      
+
+    "have a LastElem" in:
+      CORStateEnd.state(ctrl).gameState shouldBe "lost"
       
