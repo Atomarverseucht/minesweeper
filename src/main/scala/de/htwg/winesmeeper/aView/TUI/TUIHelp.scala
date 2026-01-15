@@ -37,7 +37,7 @@ object TUIHelp:
 
   def gameEndMsg(ctrl: ControllerTrait): String =
     val out = ctrl.gameState match
-      case "lose" =>
+      case "lost" =>
         "\u001b[1;31mGame lost\u001b[0m!"
       case "win" =>
         "\u001b[1;32mYou have won\u001b[0m!"

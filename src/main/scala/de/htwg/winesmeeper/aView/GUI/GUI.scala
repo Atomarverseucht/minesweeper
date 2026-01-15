@@ -97,7 +97,7 @@ case class GUI(ctrl: ControllerTrait) extends JFXApp3 with Observer(ctrl):
   private def gameEndMsg: Text =
     val f = Font("Arial", FontWeight.Bold, 30)
     ctrl.gameState match
-      case "lose" =>
+      case "lost" =>
         new Text("Game lost!") {
           fill = Color.DarkRed; font = f}
       case "win" =>
