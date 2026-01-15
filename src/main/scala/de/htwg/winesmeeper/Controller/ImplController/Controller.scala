@@ -44,6 +44,5 @@ object Controller:
     val out = new Controller(gb)
     val undo = Config.mkUndo(out)
     out.changeState("running")
-    for fx <- xStart - 1 to xStart + 1; fy <- yStart - 1 to yStart + 1 do
-      if gb.in(fx, fy) then undo.doCmd(-1,"open", fx, fy)
+    undo.doCmd(-1, "open", xStart, yStart)
     out

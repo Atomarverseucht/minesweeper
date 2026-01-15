@@ -5,17 +5,24 @@ import de.htwg.winesmeeper.Controller.Save.ImplJSONSave.JSONSave
 import play.api.libs.json.Json
 import de.htwg.winesmeeper.Config
 import de.htwg.winesmeeper.Controller.ControllerTrait
+import de.htwg.winesmeeper.Model.BoardTrait
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 import scala.util.Try
 
 class SaveSpec extends AnyWordSpec with Matchers:
-  val testCtrl: ControllerTrait = Config.mkController(1,1,Config.generateBoard(10,10,1,1,90))
-  testCtrl.turn(-1,"flag",Try(9), Try(9))
-  testCtrl.turn(-1,"flag",Try(9), Try(8))
-  testCtrl.turn(-1,"flag",Try(8), Try(8))
-  testCtrl.turn(-1,"flag",Try(8), Try(7))
+  var testBoard: BoardTrait = Config.mkBoard(Vector.fill(10,10)(Config.mkField(true, false, false)))
+  testBoard = testBoard.updateField(1,1,Config.mkField(false, false, false))
+  testBoard = testBoard.updateField(5,5,Config.mkField(false, false, false))
+  testBoard = testBoard.updateField(6,6,Config.mkField(false, false, false))
+  val testCtrl: ControllerTrait = Config.mkController(1, 1, testBoard)
+  testCtrl.turn(-1,"flag", Try(9), Try(9))
+  testCtrl.turn(-1,"flag", Try(9), Try(8))
+  testCtrl.turn(-1,"flag", Try(8), Try(8))
+  testCtrl.turn(-1,"open", Try(6), Try(6))
+  testCtrl.turn(-1,"flag", Try(8), Try(8))
+  testCtrl.turn(-1,"open", Try(5), Try(5))
   testCtrl.doSysCmd(-1,"undo",Vector("undo","2"))
 
   "XML" should:
