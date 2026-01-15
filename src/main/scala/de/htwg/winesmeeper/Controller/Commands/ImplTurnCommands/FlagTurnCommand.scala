@@ -3,7 +3,7 @@ package de.htwg.winesmeeper.Controller.Commands.ImplTurnCommands
 import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Config
 import de.htwg.winesmeeper.Controller.Commands.{TurnCommandSingletonTrait, TurnCommandTrait}
-import play.api.libs.json.{JsObject, Json}
+import play.api.libs.json.{JsObject, JsValue, Json}
 
 import scala.util.{Failure, Success, Try}
 import scala.xml.Node
@@ -57,6 +57,13 @@ object FlagSingleton extends TurnCommandSingletonTrait:
     val obsID = (xml \ "observer").head.text.toInt
     val x = (xml \ "x").head.text.toInt
     val y = (xml \ "y").head.text.toInt
-    println(f"$obsID $x $y")
     FlagTurnCommand(obsID, ctrl, x, y)
+
+  override def fromJSON(json: JsValue, ctrl: ControllerTrait): TurnCommandTrait =
+    FlagTurnCommand(
+      (json \ "observer").as[Int],
+      ctrl,
+      (json \ "x").as[Int],
+      (json \ "y").as[Int]
+    )
 

@@ -38,4 +38,4 @@ object LoadCmd extends SysCommandCORTrait:
         Some(f"Loaded: $file.${Config.saver.formatName} (v${data.version})" +
           f"\n  For bringing back the old file, type: 'load loadBackup'\n  active version: $version")
       case Failure(ex) =>
-        Some(f"File wasn't compatible")
+        Some(f"File wasn't compatible: ${ex.getMessage}")

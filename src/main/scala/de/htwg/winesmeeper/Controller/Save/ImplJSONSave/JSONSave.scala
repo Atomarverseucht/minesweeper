@@ -22,7 +22,8 @@ object JSONSave extends SaverTrait:
       "version" -> version,
       "state" -> ctrl.gameState,
       "board" -> ctrl.gb,
-      "undo-Stack" -> stacks._1.map(c => c.toJSON)
+      "undo-Stack" -> stacks._1.map(c => c.toJSON),
+      "redo-Stack" -> stacks._1.map(c => c.toJSON)
     )
     val json = Json.prettyPrint(jsonObj)
     write(fileName,json)
@@ -47,19 +48,25 @@ object JSONSave extends SaverTrait:
     println(f"v$version")
     val undoStack = Stack[TurnCommandTrait]()
     val redoStack = Stack[TurnCommandTrait]()
-    val stackLoader: (Seq[JsValue], Stack[TurnCommandTrait]) => Unit =
-      (xml, stack) => {}
+    val stackLoader: (JsValue, Stack[TurnCommandTrait]) => Unit =
+      (json, stack) =>
+        json.as[Seq[JsValue]].map(loadCommand(ctrl, _))
+        .filter(_.nonEmpty)
+        .foreach(el => stack.push(el.get))
     val board: BoardTrait = (out \ "board").get.as
     val state: String = (out \ "state").get.as
-    stackLoader(out \\ "undoStack", undoStack)
-    stackLoader(out \\ "redoStack", redoStack)
+    stackLoader((out \ "undo-Stack").get, undoStack)
+    stackLoader((out \ "redo-Stack").get, redoStack)
     SavedData(version, state, board, undoStack, redoStack)
 
-  private def loadCommand(ctrl: ControllerTrait, xml: JsValue): Option[TurnCommandTrait] =
-    val cmd = (xml \\ "cmd").head.toString
-    ctrl.undo.getCmd(cmd) match
+  private def loadCommand(ctrl: ControllerTrait, json: JsValue): Option[TurnCommandTrait] =
+    val cmd: String = (json \\ "cmd").head.as
+    println(cmd)
+    val out = ctrl.undo.getCmd(cmd) match
       case None => None
-      case Some(cmdSingle) => Some(ctrl.undo.buildCmd(0,"open", 1,1, ctrl).get)
+      case Some(cmdSingle) => Some(cmdSingle.fromJSON(json, ctrl))
+
+    out
 
   implicit val boardTraitReads: Reads[BoardTrait] = Reads { board =>
     board.validate[Vector[Vector[FieldTrait]]].map(Config.mkBoard)

@@ -2,6 +2,7 @@ package de.htwg.winesmeeper.Controller.Commands.ImplTurnCommands
 
 import de.htwg.winesmeeper.Controller.Commands.{TurnCommandSingletonTrait, TurnCommandTrait}
 import de.htwg.winesmeeper.Controller.ControllerTrait
+import play.api.libs.json.{JsObject, JsValue}
 
 import scala.util.{Failure, Try}
 import scala.xml.Node
@@ -19,3 +20,5 @@ object zLastElemTurnCmdSingleton extends TurnCommandSingletonTrait:
   override val specHelpMsg: String = ""
 
   override def fromXML(xml: Node, ctrl: ControllerTrait): TurnCommandTrait = throw IllegalArgumentException("No such command!")
+
+  override def fromJSON(json: JsValue, ctrl: ControllerTrait): TurnCommandTrait = throw IllegalArgumentException("No such command!")

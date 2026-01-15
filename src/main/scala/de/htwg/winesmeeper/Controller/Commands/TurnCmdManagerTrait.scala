@@ -34,3 +34,4 @@ trait TurnCommandSingletonTrait extends AbstractCmdCOR:
   def listCmds: List[TurnCommandSingletonTrait] = this::next.listCmds
   def getCmd(cmd: String): Option[TurnCommandSingletonTrait] = if cmd == this.cmd then Some(this) else next.getCmd(cmd)
   def fromXML(xml: Node, ctrl: ControllerTrait): TurnCommandTrait
+  def fromJSON(json: JsValue, ctrl: ControllerTrait): TurnCommandTrait 
