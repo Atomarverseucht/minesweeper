@@ -59,3 +59,8 @@ class CommandSpec extends AnyWordSpec with Matchers:
 
     "have a List" in:
       testCtrl.getSysCmdList
+
+    "have a generate command" in:
+      testCtrl.doSysCmd(-1, "generate", Vector("generate","10","10","10"))
+      testCtrl.doSysCmd(-1, "generate", Vector("generate","10","10","1","1","10"))
+      an[Exception] shouldBe thrownBy(testCtrl.doSysCmd(-1, "generate", Vector("generate")))
