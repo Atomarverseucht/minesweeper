@@ -32,13 +32,18 @@ class ControllerSpec extends AnyWordSpec with Matchers:
       val l = buildController(10, 10, 5, 5, 90)
       l.turn(-1, "open", Try(1524), Try(1243)).isSuccess shouldBe false
       l.turn(-1, "open", Try(1), Try(1)).isSuccess shouldBe true
-      l.gameState shouldBe "lose"
+      l.gameState shouldBe "lost"
       l.getBoard
 
 
     "should have right states" in:
       ctrl.changeState("running")
+      ctrl.inGame shouldBe true
+      ctrl.changeState("lost")
+      ctrl.inGame shouldBe false
       an[IllegalArgumentException] should be thrownBy ctrl.changeState("fzjhtexhzt")
+      ctrl.changeState("start")
+      an[IndexOutOfBoundsException] should be thrownBy ctrl.turn(-1,"open",Try(21787), Try(817297)).get
 
     "have a LastElem" in:
-      CORStateEnd.state(ctrl).gameState shouldBe "lose"
+      CORStateEnd.state(ctrl).gameState shouldBe "lost"
