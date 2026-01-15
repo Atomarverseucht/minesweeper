@@ -2,13 +2,14 @@ package de.htwg.winesmeeper.Model.ImplField
 
 import de.htwg.winesmeeper.Model.FieldTrait
 
-import scala.xml.{Elem, Node, NodeSeq}
+import scala.xml.{Node, NodeSeq}
+import play.api.libs.json._
 
 case class Field (isBomb: Boolean,
                   isOpened: Boolean,
                   isFlag: Boolean = false)
   extends FieldTrait:
-  override def toXml: Elem =
+  override def toXml: Node =
     <field>
       <isBomb> {isBomb} </isBomb>
       <isOpened> {isOpened} </isOpened>

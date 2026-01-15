@@ -1,12 +1,13 @@
 package de.htwg.winesmeeper.Controller.Save.ImplXMLSave
 
 import de.htwg.winesmeeper.Config
-import de.htwg.winesmeeper.Controller.Save.SaverTrait
+import de.htwg.winesmeeper.Controller.Save.{SavedData, SaverTrait}
 import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.BuildInfo.version
 import de.htwg.winesmeeper.Controller.Commands.TurnCommandTrait
+
 import scala.collection.mutable.Stack
-import scala.xml.{XML,Node, NodeSeq}
+import scala.xml.{Node, NodeSeq, XML}
 
 object XmlSave extends SaverTrait:
   override val formatName: String = "xml"
@@ -32,9 +33,9 @@ object XmlSave extends SaverTrait:
     write(fileName, saveString)
     None
 
-  override def load(ctrl: ControllerTrait, fileName: String): Option[String] =
+  override def load(ctrl: ControllerTrait, fileName: String): SavedData =
     val out = (XML.loadFile(f"${Config.savePath}$fileName.$formatName") \\ "minesweeper").head
-    val versionFile = (out \ "version").text
+    val version = (out \ "version").text
     val undoStack = Stack[TurnCommandTrait]()
     val redoStack = Stack[TurnCommandTrait]()
     val stackLoader: (NodeSeq, Stack[TurnCommandTrait]) => Unit =
@@ -44,12 +45,9 @@ object XmlSave extends SaverTrait:
         .foreach(el => stack.push(el.get))
     stackLoader(out \\ "undoStack", undoStack)
     stackLoader(out \\ "redoStack", redoStack)
-    println(undoStack.size)
-    save(ctrl, "loadBackup")
-    ctrl.gb = ctrl.gb.fromXml(out)
-    ctrl.changeState((out \ "state").text)
-    ctrl.undo.overrideStacks(undoStack, redoStack)
-    Some(f"Loaded: $fileName.$formatName (v$versionFile)\n  For bringing back the old file, type: 'load loadBackup'\n  active version: $version")
+    val board = ctrl.gb.fromXml(out)
+    val state = (out \ "state").text
+    SavedData(version, state, board, undoStack, redoStack)
 
   private def loadCommand(ctrl: ControllerTrait, xml: Node): Option[TurnCommandTrait] =
     val cmd = (xml \\ "cmd").text.replace(" ", "")

@@ -11,7 +11,7 @@ trait SaverTrait:
 
   def save(ctrl: ControllerTrait, fileName: String = standardFileName): Option[String]
 
-  def load(ctrl: ControllerTrait, fileName: String = standardFileName): Option[String]
+  def load(ctrl: ControllerTrait, fileName: String = standardFileName): SavedData
   
   protected def write(file: String, content: String): Unit =
     Files.write(Paths.get(f"${Config.savePath}$file.$formatName"), content.getBytes)

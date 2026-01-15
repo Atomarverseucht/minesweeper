@@ -1,5 +1,8 @@
 package de.htwg.winesmeeper.Model
 
+import de.htwg.winesmeeper.Model.ImplField.Field
+import play.api.libs.json.{Json, OWrites}
+
 import scala.xml.Node
 
 trait FieldTrait:

@@ -20,10 +20,10 @@ case class OpenFieldCommand(observerID : Int, ctrl: ControllerTrait, x: Int, y: 
     step(true)
 
   override def undoStep(): String =
-    step(false).get
+    step(false).getOrElse("")
 
   override def redoStep(): String =
-    step(true).get
+    step(true).getOrElse("")
 
   private def step(discover: Boolean): Try[String] =
     val gb = ctrl.gb
@@ -43,7 +43,7 @@ case class OpenFieldCommand(observerID : Int, ctrl: ControllerTrait, x: Int, y: 
 
   override def toString: String = f"open($observerID, $x, $y)"
 
-  override def toXML: Node = 
+  override def toXML: Node =
     <turn>
       <cmd>open</cmd>
       <observer>{observerID}</observer>
@@ -62,7 +62,7 @@ object OpenFieldSingleton extends TurnCommandSingletonTrait:
       |""".stripMargin
 
   override def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[TurnCommandTrait] =
-    if cmd == this.cmd then Success(OpenFieldCommand(observerID: Int, ctrl, x, y)) 
+    if cmd == this.cmd then Success(OpenFieldCommand(observerID: Int, ctrl, x, y))
     else next.buildCmd(observerID: Int, cmd, x, y, ctrl)
 
   override def fromXML(xml: Node, ctrl: ControllerTrait): TurnCommandTrait =

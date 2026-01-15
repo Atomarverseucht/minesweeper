@@ -6,6 +6,7 @@ import de.htwg.winesmeeper.Config
 import scala.annotation.tailrec
 import scala.util.Random
 import scala.xml.Node
+import play.api.libs.json._
 
 case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
 
@@ -59,6 +60,7 @@ case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
     }).toVector)
 
 object Board:
+
 
   private def maxBombs(xSize: Int, ySize: Int): Int = (xSize * ySize) - 9
 
