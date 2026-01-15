@@ -11,7 +11,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import scala.util.Try
 
 class SaveSpec extends AnyWordSpec with Matchers:
-  val testCtrl: ControllerTrait = Config.mkController(1,1,Config.generateBoard(10,10,1,1,10))
+  val testCtrl: ControllerTrait = Config.mkController(1,1,Config.generateBoard(10,10,1,1,90))
   testCtrl.turn(-1,"flag",Try(9), Try(9))
   testCtrl.turn(-1,"flag",Try(9), Try(8))
   testCtrl.turn(-1,"flag",Try(8), Try(8))
