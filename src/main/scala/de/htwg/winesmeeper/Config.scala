@@ -3,7 +3,7 @@ package de.htwg.winesmeeper
 import de.htwg.winesmeeper.Controller.Commands.{SysCommandManagerTrait, TurnCmdManagerTrait}
 import de.htwg.winesmeeper.Controller.{ControllerTrait, ImplController}
 import de.htwg.winesmeeper.Controller.Commands.{ImplSysCommands, ImplTurnCommands}
-import de.htwg.winesmeeper.Controller.Save.{SaverTrait, ImplXMLSave}
+import de.htwg.winesmeeper.Controller.Save.{SaverTrait, ImplXMLSave, ImplJSONSave}
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
 
 object Config:
@@ -30,7 +30,7 @@ object Config:
   def mkUndo(ctrl: ControllerTrait): TurnCmdManagerTrait =
     ImplTurnCommands.UndoManager(ctrl)
 
-  val saver: SaverTrait = ImplXMLSave.XmlSave
+  val saver: SaverTrait = ImplJSONSave.JSONSave
 
   val standardSysCmdMan: SysCommandManagerTrait =
     ImplSysCommands.SysCommandManager

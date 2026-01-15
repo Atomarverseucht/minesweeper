@@ -8,11 +8,11 @@ import scala.util.Random
 import scala.xml.Node
 import play.api.libs.json._
 
-case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
+case class Board (override val board: Vector[Vector[FieldTrait]]) extends BoardTrait(board):
 
   override def getBombNeighbour(x: Int, y: Int): Int =
     (for
-      vx <- -1 to 1;
+      vx <- -1 to 1
       vy <- -1 to 1
     yield {
       val nx = x + vx
@@ -60,8 +60,6 @@ case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
     }).toVector)
 
 object Board:
-
-
   private def maxBombs(xSize: Int, ySize: Int): Int = (xSize * ySize) - 9
 
   private def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =

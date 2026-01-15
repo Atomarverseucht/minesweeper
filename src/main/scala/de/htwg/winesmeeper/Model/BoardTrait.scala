@@ -1,8 +1,9 @@
 package de.htwg.winesmeeper.Model
 
+import play.api.libs.json.{Json, Writes}
 import scala.xml.Node
 
-trait BoardTrait:
+trait BoardTrait(val board: Vector[Vector[FieldTrait]]):
 
   def getBoard: Vector[Vector[Int]]
 
@@ -23,3 +24,4 @@ trait BoardTrait:
   def toXml: Node
 
   def fromXml(xml: Node): BoardTrait
+

@@ -3,6 +3,7 @@ package de.htwg.winesmeeper.Controller.Commands.ImplTurnCommands
 import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Config
 import de.htwg.winesmeeper.Controller.Commands.{TurnCommandSingletonTrait, TurnCommandTrait}
+import play.api.libs.json.{JsObject, Json}
 
 import scala.util.{Failure, Success, Try}
 import scala.xml.Node
@@ -50,6 +51,14 @@ case class OpenFieldCommand(observerID : Int, ctrl: ControllerTrait, x: Int, y: 
       <x>{x}</x>
       <y>{y}</y>
     </turn>
+
+  override def toJSON: JsObject =
+    Json.obj(
+      "cmd" -> "open",
+      "observer" -> observerID,
+      "x" -> x,
+      "y" -> y
+    )
 
 object OpenFieldSingleton extends TurnCommandSingletonTrait:
   override val cmd = "open"

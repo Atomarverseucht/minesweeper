@@ -5,6 +5,7 @@ import de.htwg.winesmeeper.Controller.ControllerTrait
 import scala.collection.mutable.Stack
 import scala.util.Try
 import scala.xml.Node
+import play.api.libs.json._
 
 trait TurnCmdManagerTrait:
   def doCmd(observerID: Int, cmd: String, x: Int, y: Int): Try[String]
@@ -23,6 +24,7 @@ trait TurnCommandTrait:
   def redoStep(): String
   def startStep(): Try[String]
   def toXML: Node
+  def toJSON: JsObject
 
 trait TurnCommandSingletonTrait extends AbstractCmdCOR:
   val cmd: String
