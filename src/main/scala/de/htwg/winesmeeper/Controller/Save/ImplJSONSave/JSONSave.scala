@@ -2,9 +2,16 @@ package de.htwg.winesmeeper.Controller.Save.ImplJSONSave
 
 import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Controller.Save.{SavedData, SaverTrait}
+import de.htwg.winesmeeper.Controller.Commands.TurnCommandTrait
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
 import de.htwg.winesmeeper.BuildInfo.version
+import de.htwg.winesmeeper.Config
+
+import scala.collection.mutable.Stack
+import scala.collection.Seq
 import play.api.libs.json.*
+
+import java.nio.file.{Files, Paths}
 
 object JSONSave extends SaverTrait:
   override val formatName: String = "json"
@@ -21,10 +28,8 @@ object JSONSave extends SaverTrait:
     write(fileName,json)
     None
 
-  override def load(ctrl: ControllerTrait, fileName: String): SavedData = ???
-
   implicit val boardTraitWrites: Writes[BoardTrait] = Writes { board =>
-      Json.toJson(board.board)
+    Json.toJson(board.board)
   }
   implicit val fieldTraitWrites: Writes[FieldTrait] = Writes { field =>
     Json.obj(
@@ -32,4 +37,38 @@ object JSONSave extends SaverTrait:
       "isOpened" -> field.isOpened,
       "isFlag" -> field.isFlag
     )
+  }
+
+  override def load(ctrl: ControllerTrait, fileName: String): SavedData =
+    val input = Files.readString(Paths.get(f"${Config.savePath}$fileName.$formatName"))
+    val out = Json.parse(input)
+
+    val version: String= (out \\ "version").head.as
+    println(f"v$version")
+    val undoStack = Stack[TurnCommandTrait]()
+    val redoStack = Stack[TurnCommandTrait]()
+    val stackLoader: (Seq[JsValue], Stack[TurnCommandTrait]) => Unit =
+      (xml, stack) => {}
+    val board: BoardTrait = (out \ "board").get.as
+    val state: String = (out \ "state").get.as
+    stackLoader(out \\ "undoStack", undoStack)
+    stackLoader(out \\ "redoStack", redoStack)
+    SavedData(version, state, board, undoStack, redoStack)
+
+  private def loadCommand(ctrl: ControllerTrait, xml: JsValue): Option[TurnCommandTrait] =
+    val cmd = (xml \\ "cmd").head.toString
+    ctrl.undo.getCmd(cmd) match
+      case None => None
+      case Some(cmdSingle) => Some(ctrl.undo.buildCmd(0,"open", 1,1, ctrl).get)
+
+  implicit val boardTraitReads: Reads[BoardTrait] = Reads { board =>
+    board.validate[Vector[Vector[FieldTrait]]].map(Config.mkBoard)
+  }
+
+  implicit val fieldTraitReads: Reads[FieldTrait] = Reads { json =>
+    for {
+      isBomb <- (json \ "isBomb").validate[Boolean]
+      isOpened <- (json \ "isOpened").validate[Boolean]
+      isFlag <- (json \ "isFlag").validate[Boolean]
+    } yield Config.mkField(isBomb, isOpened, isFlag)
   }

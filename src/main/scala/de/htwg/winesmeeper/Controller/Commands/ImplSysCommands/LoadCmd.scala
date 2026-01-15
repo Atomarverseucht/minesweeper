@@ -28,13 +28,14 @@ object LoadCmd extends SysCommandCORTrait:
 
   override def execute(observerID: Int, ctrl: ControllerTrait, params: Vector[String]): Option[String] =
     ctrl.doSysCmd(observerID, "save", Vector("", "loadBackup"))
-    val file = if params.length >= 2 then params(0) else Config.savePath
+    val file = if params.length >= 2 then params(1) else Config.standardFileName
     Try(Config.saver.load(ctrl, file)) match
       case Success(data) =>
         ctrl.gb = data.board
         ctrl.changeState(data.state)
         ctrl.undo.overrideStacks(data.undoStack, data.redoStack)
         ctrl.notifyObservers()
-        Some(f"Loaded: . (v)\n  For bringing back the old file, type: 'load loadBackup'\n  active version: $version")
-      case Failure(_) =>
+        Some(f"Loaded: $file.${Config.saver.formatName} (v${data.version})" +
+          f"\n  For bringing back the old file, type: 'load loadBackup'\n  active version: $version")
+      case Failure(ex) =>
         Some(f"File wasn't compatible")
