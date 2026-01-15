@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode
 
 import scala.util.Failure
 import java.nio.file.Files
+import play.api.libs.json.Json
 
 class CommandSpec extends AnyWordSpec with Matchers:
   "The Command" should:
@@ -22,6 +23,8 @@ class CommandSpec extends AnyWordSpec with Matchers:
       zLastElemTurnCmdSingleton.buildCmd(-1, "doesn't matter", 5, 5, testCtrl).isFailure shouldBe true
       LastElemSysCommand.execute(-1, testCtrl,Vector("invalid")).get shouldBe "No such command!"
       zLastElemTurnCmdSingleton.getCmd("hi") shouldBe None
+      an[IllegalArgumentException] shouldBe thrownBy(zLastElemTurnCmdSingleton.fromXML(<test>t</test>, testCtrl))
+      an[IllegalArgumentException] shouldBe thrownBy(zLastElemTurnCmdSingleton.fromJSON(Json.obj("test" -> "t"), testCtrl))
 
     "discard with undo" in:
       testCtrl.undo.doCmd(-1, "flag", 9, 9).isSuccess shouldBe true

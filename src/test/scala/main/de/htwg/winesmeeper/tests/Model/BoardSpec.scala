@@ -26,3 +26,6 @@ class BoardSpec extends AnyWordSpec with Matchers:
             
         "have a closed field" in:
             b.getField(7, 8) shouldBe -1
+
+        "have a String view" in:
+          b.toString

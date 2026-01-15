@@ -61,12 +61,9 @@ object JSONSave extends SaverTrait:
 
   def loadCommand(ctrl: ControllerTrait, json: JsValue): Option[TurnCommandTrait] =
     val cmd: String = (json \\ "cmd").head.as
-    println(cmd)
-    val out = ctrl.undo.getCmd(cmd) match
+    ctrl.undo.getCmd(cmd) match
       case None => None
       case Some(cmdSingle) => Some(cmdSingle.fromJSON(json, ctrl))
-
-    out
 
   implicit val boardTraitReads: Reads[BoardTrait] = Reads { board =>
     board.validate[Vector[Vector[FieldTrait]]].map(Config.mkBoard)
