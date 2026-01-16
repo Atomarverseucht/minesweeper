@@ -9,7 +9,7 @@ printf "\e[1;32m=== SonarQube + Kubernetes full restart ===\e[0m\n"
 # Ensure Minikube is running
 if ! minikube status &>/dev/null; then
   printf "\e[34mStarting minikube...\e[0m\n"
-  minikube start --driver=docker
+  minikube start --driver=docker --cpus=4 --memory=8192
   printf "\e[1;32mdone\e[0m\n"
 else
   printf "\e[1;32mMinikube already running.\e[0m\n"
