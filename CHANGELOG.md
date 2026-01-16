@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0...2.0.1) (2026-01-16)
+
+
+### Bug Fixes
+
+* correct redo-stack ([7c8e100](https://github.com/Atomarverseucht/minesweeper/commit/7c8e10070cb4d95fd72726aecdd9ac5ee5f2c472))
+
 # [2.0.0](https://github.com/Atomarverseucht/minesweeper/compare/1.3.1...2.0.0) (2026-01-16)
 
 
