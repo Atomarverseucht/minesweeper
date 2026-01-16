@@ -42,8 +42,6 @@ case class OpenFieldCommand(observerID : Int, ctrl: ControllerTrait, x: Int, y: 
       if discover && ctrl.isVictory && !f.isBomb then ctrl.changeState("win")
       Success("")
 
-  override def toString: String = f"open($observerID, $x, $y)"
-
   override def toXML: Node =
     <turn>
       <cmd>open</cmd>

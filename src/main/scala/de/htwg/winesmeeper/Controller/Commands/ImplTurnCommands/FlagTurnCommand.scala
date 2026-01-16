@@ -23,8 +23,6 @@ case class FlagTurnCommand(observerID: Int, ctrl: ControllerTrait, x: Int, y: In
 
   override def startStep(): Try[String] = Failure(IllegalArgumentException("You cannot start with the flag command"))
 
-  override def toString: String = f"flag($observerID, $x, $y)"
-
   override def toXML: Node =
     <turn>
       <cmd>flag</cmd>

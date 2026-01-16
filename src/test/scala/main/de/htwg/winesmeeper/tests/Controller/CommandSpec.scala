@@ -34,7 +34,8 @@ class CommandSpec extends AnyWordSpec with Matchers:
 
     "be false with unvalid turns" in:
      testCtrl.undo.doCmd(-1, "error", 9, 9).isSuccess shouldBe false
-     testCtrl.undo.buildCmd(-1, "flag", 9, 9)
+     testCtrl.undo.buildCmd(-1, "flag", 9, 9).isSuccess shouldBe true
+     testCtrl.undo.buildCmd(-1, "fuzt", 9, 9).isSuccess shouldBe false
 
     "have redo" in:
       testCtrl.doSysCmd(-1, "redo", Vector("", "2"))
@@ -64,7 +65,3 @@ class CommandSpec extends AnyWordSpec with Matchers:
       testCtrl.doSysCmd(-1, "generate", Vector("generate","10","10","10"))
       testCtrl.doSysCmd(-1, "generate", Vector("generate","10","10","1","1","10"))
       an[Exception] shouldBe thrownBy(testCtrl.doSysCmd(-1, "generate", Vector("generate")))
-
-    "have a String view" in:
-      OpenFieldCommand(-1, testCtrl, 10, 10).toString
-      FlagTurnCommand(-1, testCtrl, 10, 10).toString
