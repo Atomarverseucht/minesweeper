@@ -1,6 +1,5 @@
 package de.htwg.winesmeeper.Controller.Commands.ImplSysCommands
 
-import de.htwg.winesmeeper.Controller.Commands.ImplTurnCommands.UndoManager
 import de.htwg.winesmeeper.Controller.Commands.SysCommandCORTrait
 import de.htwg.winesmeeper.Controller.ControllerTrait
 import javafx.scene.input.KeyCode
@@ -9,6 +8,7 @@ import scala.util.{Failure, Success, Try}
 
 object RedoCmd extends SysCommandCORTrait:
   override val cmd: String = "redo"
+  override val shortcut: KeyCode = KeyCode.Y
   override val helpMsg: String = "redo your latest undo move"
   override val next: SysCommandCORTrait = SaveCmd
   override val specHelpMsg: String =
@@ -27,7 +27,3 @@ object RedoCmd extends SysCommandCORTrait:
       ctrl.undo.redoStep()
     ctrl.notifyObservers()
     None
-
-  override val shortcut: KeyCode = KeyCode.Y
-
-

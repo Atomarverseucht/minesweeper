@@ -22,7 +22,7 @@ lazy val root = project
     coverageMinimumStmtTotal := 80,
     coverageFailOnMinimum := false,
     coverageHighlighting := true,
-    coverageExcludedPackages := ".*Main.*;.*Routes.*;.*Config.*;",
+    coverageExcludedPackages := "*\\\\/de\\\\/htwg\\\\/winesmeeper\\\\/(?:Main|aView\\\\/(?:TUI|GUI))",
     coverageExcludedFiles := "*Main*",
 
     libraryDependencies += "org.scalafx" %% "scalafx" % "24.0.2-R36",
