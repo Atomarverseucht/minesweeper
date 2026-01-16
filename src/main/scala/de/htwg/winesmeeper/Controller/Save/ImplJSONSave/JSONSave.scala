@@ -23,7 +23,7 @@ object JSONSave extends SaverTrait:
       "state" -> ctrl.gameState,
       "board" -> ctrl.gb,
       "undo-Stack" -> stacks._1.map(c => c.toJSON),
-      "redo-Stack" -> stacks._1.map(c => c.toJSON)
+      "redo-Stack" -> stacks._2.map(c => c.toJSON)
     )
     val json = Json.prettyPrint(jsonObj)
     write(fileName,json)

@@ -50,7 +50,7 @@ lazy val root = project
       case n if n.startsWith("Mac") => "mac"
       case n if n.startsWith("Windows") => "win"
       case _ => throw new Exception("Unknown platform!")
-  }
+    }
 
   sonarProperties ++= Map(
   "sonar.projectKey" -> "winesmeeper",
@@ -70,8 +70,7 @@ lazy val root = project
       "scoverage-report" /
       "scoverage.xml"
     ).getAbsolutePath
-)
-
+  )
 
   val fxVersion = "23"
   Seq("base", "controls", "fxml", "graphics", "media", "swing", "web")
