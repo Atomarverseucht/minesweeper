@@ -9,7 +9,7 @@ import scala.collection.mutable.Stack
 case class UndoManager (control: ControllerTrait) extends TurnCmdManagerTrait:
   private val undoStack: Stack[TurnCommandTrait] = new Stack()
   private val redoStack: Stack[TurnCommandTrait] = new Stack()
-  val firstCommandCOR: TurnCommandSingletonTrait = FlagSingleton
+  private val firstCommandCOR: TurnCommandSingletonTrait = FlagSingleton
   
   private def doStep(cmd: TurnCommandTrait): Try[String] =
     val step = cmd.doStep()

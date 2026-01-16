@@ -8,7 +8,7 @@ import scalafx.application.Platform
 // Data structure for the 5 input values
 case class GeneratorData(val1: String, val2: String, val3: String)
 
-class GeneratorGUI extends Dialog[GeneratorData] {
+class GeneratorGUI extends Dialog[GeneratorData]:
   title = "Board-Generator"
   headerText = "Please enter the required information to generate a board"
 
@@ -45,4 +45,3 @@ class GeneratorGUI extends Dialog[GeneratorData] {
     case `saveButtonType` =>
       GeneratorData(field1.text(), field2.text(), field3.text())
   }
-}
