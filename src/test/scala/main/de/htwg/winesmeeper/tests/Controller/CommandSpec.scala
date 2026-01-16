@@ -35,7 +35,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
     "be false with unvalid turns" in:
      testCtrl.undo.doCmd(-1, "error", 9, 9).isSuccess shouldBe false
      testCtrl.undo.buildCmd(-1, "flag", 9, 9).isSuccess shouldBe true
-     testCtrl.undo.buildCmd(-1, "fuzt", 9, 9).isSuccess shouldBe false
+     testCtrl.undo.startCmd(-1, "fuzt", 9, 9).isSuccess shouldBe false
 
     "have redo" in:
       testCtrl.doSysCmd(-1, "redo", Vector("", "2"))
