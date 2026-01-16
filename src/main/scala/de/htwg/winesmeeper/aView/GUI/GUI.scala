@@ -97,7 +97,7 @@ case class GUI(ctrl: ControllerTrait) extends JFXApp3 with Observer(ctrl):
   private def gameEndMsg: Text =
     val f = Font("Arial", FontWeight.Bold, 30)
     ctrl.gameState match
-      case "lose" =>
+      case "lost" =>
         new Text("Game lost!") {
           fill = Color.DarkRed; font = f}
       case "win" =>
@@ -117,7 +117,7 @@ case class GUI(ctrl: ControllerTrait) extends JFXApp3 with Observer(ctrl):
     val result = dialog.showAndWait()
     result match {
       case Some(data: GeneratorData) =>
-         ctrl.doSysCmd(observerID, "generate", Vector("", data.val1, data.val2, data.val3, data.val4, data.val5))
+         ctrl.doSysCmd(observerID, "generate", Vector("", data.val1, data.val2, data.val3))
       case _ =>
     }
 

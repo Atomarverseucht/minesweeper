@@ -1,9 +1,12 @@
-package de.htwg.winesmeeper.Controller.ImplSysCommands
+package de.htwg.winesmeeper.Controller.Commands.ImplSysCommands
 
-import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCORTrait}
+import de.htwg.winesmeeper.Controller.Commands.SysCommandCORTrait
+import de.htwg.winesmeeper.Controller.ControllerTrait
+import de.htwg.winesmeeper.Config
 import javafx.scene.input.KeyCode
 
 object HelpCmd extends SysCommandCORTrait:
+  override val shortcut: KeyCode = KeyCode.H
   override val cmd: String = "help"
   override val helpMsg: String = "made this message"
   override val next: SysCommandCORTrait = LoadCmd
@@ -27,9 +30,5 @@ object HelpCmd extends SysCommandCORTrait:
    val scString = (for cmd <- sysCmds yield s"  ${cmd.cmd}: ${cmd.helpMsg}").mkString("\n")
    val cmds = ctrl.undo.listCmds
    val cmdString = (for cmd <- cmds yield s"  ${cmd.cmd}: ${cmd.helpMsg}").mkString("\n")
-   s"Commands without parameters:\n$scString \n\nCommands with coordinates:\n$cmdString\n\nFor more help type: help + wanted command"
-
-  override val shortcut: KeyCode = KeyCode.H
-
-
-
+   f"Commands without parameters:\n$scString \n\nCommands with coordinates:\n$cmdString\n\nFor more help type: help + wanted command" +
+    f"\nactive file format: ${Config.saver.formatName.toUpperCase}"

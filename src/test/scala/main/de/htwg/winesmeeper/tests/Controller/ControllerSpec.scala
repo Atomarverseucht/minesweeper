@@ -1,6 +1,6 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
-import de.htwg.winesmeeper.Controller.ImplController.Controller
+import de.htwg.winesmeeper.Controller.ImplController.{Controller, CORStatEnd, Lost}
 import de.htwg.winesmeeper.Model.ImplBoard.Board
 import de.htwg.winesmeeper.Model.ImplField.Field
 import main.de.htwg.winesmeeper.tests.aView.buildController
@@ -26,18 +26,25 @@ class ControllerSpec extends AnyWordSpec with Matchers:
       ctrl.inGame shouldBe true
 
     "should have the right game-state" in:
-      ctrl.gameState shouldBe "running"
+      ctrl.gameState shouldBe "start"
       val w = buildController(10, 10, 5, 5, 91)
       w.gameState shouldBe "win"
       val l = buildController(10, 10, 5, 5, 90)
-      l.turn(-1, "open", Try(1524), Try(1243))
-      l.turn(-1, "open", Try(1), Try(1))
-      l.gameState shouldBe "lose"
+      l.turn(-1, "open", Try(1524), Try(1243)).isSuccess shouldBe false
+      l.turn(-1, "open", Try(1), Try(1)).isSuccess shouldBe true
+      l.gameState shouldBe "lost"
       l.getBoard
 
 
     "should have right states" in:
       ctrl.changeState("running")
+      ctrl.inGame shouldBe true
+      ctrl.changeState("lost")
+      ctrl.inGame shouldBe false
       an[IllegalArgumentException] should be thrownBy ctrl.changeState("fzjhtexhzt")
-      
-      
+      ctrl.changeState("start")
+      an[IndexOutOfBoundsException] should be thrownBy ctrl.turn(-1,"open",Try(21787), Try(817297)).get
+      ctrl.turn(-1, "flag", Try(1), Try(1)).isSuccess shouldBe false
+
+    "have a LastElem" in:
+      CORStatEnd.state(ctrl).gameState shouldBe "lost"

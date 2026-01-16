@@ -1,5 +1,7 @@
-package de.htwg.winesmeeper.Controller.ImplSysCommands
-import de.htwg.winesmeeper.Controller.{ControllerTrait, SysCommandCORTrait, SysCommandManagerTrait}
+package de.htwg.winesmeeper.Controller.Commands.ImplSysCommands
+
+import de.htwg.winesmeeper.Controller.Commands.{AbstractCmdCOR, SysCommandCORTrait, SysCommandManagerTrait}
+import de.htwg.winesmeeper.Controller.ControllerTrait
 import javafx.scene.input.KeyCode
 
 import scala.util.{Failure, Success, Try}
@@ -16,16 +18,10 @@ object SysCommandManager extends SysCommandManagerTrait:
     com match
       case Some(value) => value.execute(observerID, ctrl, params)
       case None => None
-
-  def savedGame(fileName: Try[String]): Path =
-    val fName: String = fileName match
-      case Success(value) => value
-      case Failure(_) => "savedGame"
-    Paths.get(f"./saves/$fName.txt")
     
   override def getSysCmdList: List[SysCommandCORTrait] = firstSysCmd.listCmds
 
-  def getAbstractCmd(cmd: String, ctrl: ControllerTrait): Option[de.htwg.winesmeeper.Controller.AbstractCmdCOR] =
+  def getAbstractCmd(cmd: String, ctrl: ControllerTrait): Option[AbstractCmdCOR] =
     val sysCmd = firstSysCmd.getSysCmd(cmd)
     if sysCmd.nonEmpty then sysCmd
     else ctrl.undo.getCmd(cmd)

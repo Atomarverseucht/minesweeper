@@ -1,19 +1,41 @@
 package de.htwg.winesmeeper
 
-import de.htwg.winesmeeper.Controller.{ControllerTrait, ImplController, SysCommandManagerTrait}
-import de.htwg.winesmeeper.Controller.{ImplSysCommands, ImplTurnCommands, TurnCmdManagerTrait}
+import de.htwg.winesmeeper.Controller.Commands.{SysCommandManagerTrait, TurnCmdManagerTrait}
+import de.htwg.winesmeeper.Controller.{ControllerTrait, ImplController}
+import de.htwg.winesmeeper.Controller.Commands.{ImplSysCommands, ImplTurnCommands}
+import de.htwg.winesmeeper.Controller.Save.{SaverTrait, ImplXMLSave, ImplJSONSave}
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
 
-object Config {
-  val standardController: (Int, Int, BoardTrait) => ControllerTrait = ImplController.Controller(_, _, _)
+object Config:
+  def mkController (xStart: Int, yStart: Int, board: BoardTrait): ControllerTrait =
+    ImplController.Controller(xStart, yStart, board)
 
-  val standardField: (isOpened: Boolean, isBomb: Boolean, isFlag: Boolean) => FieldTrait = Model.ImplField.Field(_, _, _)
+  def mkField (isBomb: Boolean, isOpened: Boolean,  isFlag: Boolean): FieldTrait =
+    Model.ImplField.Field(isBomb, isOpened, isFlag)
 
-  val standardBoard = Model.ImplBoard.Board(_)
+  def mkBoard(board: Vector[Vector[FieldTrait]]) : BoardTrait =
+    Model.ImplBoard.Board(board)
 
-  val standardBoardGenerate = Model.ImplBoard.Board(_, _, _, _, _)
+  def generateBoard (xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): BoardTrait =
+    Model.ImplBoard.Board(xSize, ySize, xStart, yStart, bombCount)
 
-  val standardUndo: ControllerTrait => TurnCmdManagerTrait = ImplTurnCommands.UndoManager(_)
+  def startBoard(xSize: Int, ySize: Int): BoardTrait =
+    Model.ImplBoard.Board(Vector.fill(xSize, ySize)(Config.mkField(true, false, false)))
+    
+  def startBoard: BoardTrait = startBoard(10,10)
 
-  val standardSysCmdMan: SysCommandManagerTrait = ImplSysCommands.SysCommandManager
-}
+  def startController(board: BoardTrait): ControllerTrait =
+    ImplController.Controller(board)
+
+  def mkUndo(ctrl: ControllerTrait): TurnCmdManagerTrait =
+    ImplTurnCommands.UndoManager(ctrl)
+
+  val saver: SaverTrait = ImplJSONSave.JSONSave
+
+  val standardSysCmdMan: SysCommandManagerTrait =
+    ImplSysCommands.SysCommandManager
+
+  var bombCount4Generate: Int = 10 // is a memory for the generator to know how many bombs they are to generate in future
+
+  val savePath = "saves/"
+  val standardFileName = "winesmeeper-SaveFile"

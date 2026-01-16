@@ -5,12 +5,14 @@ import de.htwg.winesmeeper.Config
 
 import scala.annotation.tailrec
 import scala.util.Random
+import scala.xml.Node
+import play.api.libs.json._
 
-case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
+case class Board (override val board: Vector[Vector[FieldTrait]]) extends BoardTrait(board):
 
   override def getBombNeighbour(x: Int, y: Int): Int =
     (for
-      vx <- -1 to 1;
+      vx <- -1 to 1
       vy <- -1 to 1
     yield {
       val nx = x + vx
@@ -38,8 +40,6 @@ case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
 
   override def in(x: Int, y: Int): Boolean = x >= 0 && y >= 0 && x < board.length && y < board(0).length
 
-  
-
   override def updateField (indX: Int, indY: Int, field: FieldTrait): BoardTrait =
     new Board(board.updated(indX, board(indX).updated(indY, field)))
 
@@ -47,11 +47,22 @@ case class Board (board: Vector[Vector[FieldTrait]]) extends BoardTrait:
 
   override def toString: String = board.mkString(", ")
 
+  override def toXml: Node =
+    <board>
+      {board.map(row => <row>{row.map(f => f.toXml)}</row>)}
+    </board>
+
+  override def fromXml(xml: Node): BoardTrait =
+    val boardXml = (xml \\ "board").head \\ "row"
+    val fieldXml = boardXml.map(b => b \\ "field")
+    Board(fieldXml.map(rowXml => {
+      rowXml.map(fXml => board(0)(0).fromXml(fXml)).toVector
+    }).toVector)
+
 object Board:
+  private def maxBombs(xSize: Int, ySize: Int): Int = (xSize * ySize) - 9
 
-  def maxBombs(xSize: Int, ySize: Int): Int = (xSize * ySize) - 9
-
-  def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =
+  private def isNeighbour(x0: Int, y0: Int, x1: Int, y1: Int): Boolean =
     ((x0-x1).abs <= 1) && ((y0-y1).abs <= 1)
 
   def apply(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): Board =
@@ -65,7 +76,7 @@ object Board:
     require(bombCount >= 1 && bombCount <= bMax, s"Bomb Count must be between 1 and $bMax")
 
     val boardv = initField(0, 0, xStart, yStart,
-      Vector.fill(xSize, ySize)(Config.standardField(false, true, false)), bombCount, bMax)
+      Vector.fill(xSize, ySize)(Config.mkField(false, true, false)), bombCount, bMax)
     new Board(boardv)
     
   @tailrec
@@ -75,10 +86,10 @@ object Board:
     else
       val newV =
         if Board.isNeighbour(xStart, yStart, indx, indy) then
-          (false, fieldCount, Config.standardField(false, false, false))
+          (false, fieldCount, Config.mkField(false, false, false))
         else
           val isBomb = Random.nextInt(fieldCount) < bombCount
-          (isBomb, fieldCount - 1, Config.standardField(isBomb, false, false))
+          (isBomb, fieldCount - 1, Config.mkField(isBomb, false, false))
       val nboard = boardv.updated(indx, boardv(indx).updated(indy, newV._3))
       val nbc = if newV._1 then bombCount - 1 else bombCount
       val nextC = if indx + 1 < boardv.length then (indx + 1, indy) else (0, indy + 1)

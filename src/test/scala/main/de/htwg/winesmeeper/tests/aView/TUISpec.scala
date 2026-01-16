@@ -2,12 +2,14 @@ package main.de.htwg.winesmeeper.tests.aView
 
 import de.htwg.winesmeeper.Controller.ControllerTrait
 import de.htwg.winesmeeper.Model.{BoardTrait, FieldTrait}
-import de.htwg.winesmeeper.{Observer, Config, start}
+import de.htwg.winesmeeper.{Config, Observer, start}
 import de.htwg.winesmeeper.aView.TUI.TUIHelp
+import de.htwg.winesmeeper.BuildInfo.version
 
 import scala.util.Try
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+
 import java.io.ByteArrayInputStream
 
 class TUISpec extends AnyWordSpec with Matchers:
@@ -40,50 +42,47 @@ class TUISpec extends AnyWordSpec with Matchers:
     "have right end-msgs" in:
       val w = buildController(10, 10, 5, 5, 91)
       TUIHelp.gameEndMsg(w) shouldBe "\u001b[1;32mYou have won\u001b[0m!"
-      val lBoard = Config.standardBoard(Vector.fill(10, 10)(Config.standardField(true, false, false)))
-      val l = Config.standardController(9, 9, lBoard.updateField(1, 1, Config.standardField(false, false, false)))
-      TUIHelp.turn(-1, "flag 2 2", l) shouldBe ""
-      TUIHelp.turn(-1, "open 2 2", l) shouldBe ""
+      val lBoard = Config.mkBoard(Vector.fill(10, 10)(Config.mkField(true, false, false)))
+      val l = Config.mkController(9, 9, lBoard.updateField(1, 1, Config.mkField(false, false, false)))
+      TUIHelp.turn(-1, "flag 2 2", l) shouldBe "Invalid command!"
+      TUIHelp.turn(-1, "open 2 2", l) shouldBe "Invalid command!"
       TUIHelp.gameEndMsg(l) shouldBe "\u001b[1;31mGame lost\u001b[0m!"
       TUIHelp.gameEndMsg(ctrl) shouldBe "???"
-      TUIHelp.turn(-1, "open 2 2", l) shouldBe ""
+      TUIHelp.turn(-1, "open 2 2", l) shouldBe "Invalid command!"
 
-    "checked unvalid turn" in :
+    "checked invalid turn" in :
       val c: ControllerTrait = buildController(10, 10, 1, 1, 20)
       TUIHelp.turn(-1, "gfjzgfkf", c) shouldBe "Invalid command!"
       TUIHelp.turn(-1, "1000 1000", c) shouldBe "Invalid command!"
-      TUIHelp.turn(-1, "load hi lul", c)
+      TUIHelp.turn(-1, "save hi", c) shouldBe "Board saved"
       TUIHelp.turn(-1, "generate 10 10 1 1 10", c)
+      TUIHelp.turn(-1, "load hi lul", c) shouldBe f"Loaded: hi.${Config.saver.formatName} (v${version})\n  For bringing back the old file, type: 'load loadBackup'\n  active version: ${version}"
       c.inGame shouldBe true
 
     "opens a lot of fields when field zero" in:
       val ctrl_ = buildController(20, 20, 1, 1, 100)
       val sub = dummySub(ctrl_)
-      ctrl_.turn(-1, "flag", Try(10), Try(10)).get shouldBe true
-      ctrl_.turn(-1, "open", Try(1), Try(1)).get shouldBe false
-      ctrl_.turn(-1, "flag", Try(1), Try(1)).get shouldBe false
+      ctrl_.turn(-1, "flag", Try(10), Try(10)).isSuccess shouldBe true
+      ctrl_.turn(-1, "open", Try(1), Try(1)).isSuccess shouldBe false
+      ctrl_.turn(-1, "flag", Try(1), Try(1)).isSuccess shouldBe false
       ctrl_.doSysCmd(sub.observerID, "generate", Vector("nothing"))
       ctrl_.removeSub(sub)
 
   "an User Interface" should:
     "be useable" in:
       val fakeInput =
-        """10
-          |10
-          |5
-          |5
-          |90
+        """open 1 1
           |flag 7 7
           |open.10000usifduoiwstrhfgu9sfh10000
           |flag 9 9
           |flag 8 8
-          |open.1,1
+          |open.9#9
           |help
           |undo
           |undo
           |redo
           |save saveGame
-          |load saveGame forced
+          |load saveGame
           |quit
           |""".stripMargin
 
@@ -98,4 +97,4 @@ class TUISpec extends AnyWordSpec with Matchers:
     override def generate(): Unit = {}
 
 def buildController(xSize: Int, ySize: Int, xStart: Int, yStart: Int, bombCount: Int): ControllerTrait =
-  Config.standardController(xStart, yStart, Config.standardBoardGenerate(xSize, ySize, xStart, yStart, bombCount))
+  Config.mkController(xStart, yStart, Config.generateBoard(xSize, ySize, xStart, yStart, bombCount))
