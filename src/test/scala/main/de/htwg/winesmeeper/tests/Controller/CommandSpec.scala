@@ -1,14 +1,12 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
 import de.htwg.winesmeeper.Controller.Commands.ImplSysCommands.LastElemSysCommand
-import de.htwg.winesmeeper.Controller.Commands.ImplTurnCommands.{zLastElemTurnCmdSingleton, UndoManager}
+import de.htwg.winesmeeper.Controller.Commands.ImplTurnCommands.{zLastElemTurnCmdSingleton, OpenFieldCommand, FlagTurnCommand}
 import main.de.htwg.winesmeeper.tests.aView.buildController
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import javafx.scene.input.KeyCode
 
-import scala.util.Failure
-import java.nio.file.Files
 import play.api.libs.json.Json
 
 class CommandSpec extends AnyWordSpec with Matchers:
@@ -17,7 +15,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
     "safe, load and help" in:
       testCtrl.doSysCmd(-1, "save", Vector())
       testCtrl.doSysCmd(-1, "load", Vector())
-      testCtrl.doSysCmd(-1,"load",Vector("load","efhzgoiuwtgffewzt"))
+      testCtrl.doSysCmd(-1, "load",Vector("load","efhzgoiuwtgffewzt"))
       testCtrl.doSysCmd(-1, "help", Vector())
       testCtrl.doSysCmd(-1, "help", Vector("", "load"))
     "throw Exceptions" in:
@@ -41,6 +39,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
     "have redo" in:
       testCtrl.doSysCmd(-1, "redo", Vector("", "2"))
       testCtrl.doSysCmd(-1, "undo", Vector("", "2"))
+      testCtrl.doSysCmd(-1, "redo", Vector(""))
 
     "checks version by loading" in:
       testCtrl.doSysCmd(-1, "save", Vector())
@@ -65,3 +64,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
       testCtrl.doSysCmd(-1, "generate", Vector("generate","10","10","10"))
       testCtrl.doSysCmd(-1, "generate", Vector("generate","10","10","1","1","10"))
       an[Exception] shouldBe thrownBy(testCtrl.doSysCmd(-1, "generate", Vector("generate")))
+
+    "have a String view" in:
+      OpenFieldCommand(-1, testCtrl, 10, 10).toString
+      FlagTurnCommand(-1, testCtrl, 10, 10).toString

@@ -44,6 +44,7 @@ class ControllerSpec extends AnyWordSpec with Matchers:
       an[IllegalArgumentException] should be thrownBy ctrl.changeState("fzjhtexhzt")
       ctrl.changeState("start")
       an[IndexOutOfBoundsException] should be thrownBy ctrl.turn(-1,"open",Try(21787), Try(817297)).get
+      ctrl.turn(-1, "flag", Try(1), Try(1)).isSuccess shouldBe false
 
     "have a LastElem" in:
       CORStatEnd.state(ctrl).gameState shouldBe "lost"
