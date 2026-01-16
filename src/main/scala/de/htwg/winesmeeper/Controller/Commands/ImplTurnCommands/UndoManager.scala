@@ -30,7 +30,7 @@ case class UndoManager (control: ControllerTrait) extends TurnCmdManagerTrait:
 
 
   override def doCmd(observerID: Int, cmd: String, x: Int, y: Int): Try[String] =
-    firstCommandCOR.buildCmd(observerID,cmd, x, y, control) match
+    buildCmd(observerID,cmd, x, y) match
       case Success(value) => doStep(value)
       case Failure(value) => Failure(value)
 
@@ -54,5 +54,5 @@ case class UndoManager (control: ControllerTrait) extends TurnCmdManagerTrait:
       case Success(value) => value.startStep()
       case Failure(value) => Failure(value)
 
-  def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[TurnCommandTrait] =
-    firstCommandCOR.buildCmd(observerID, cmd, x, y, ctrl)
+  def buildCmd(observerID: Int, cmd: String, x: Int, y: Int): Try[TurnCommandTrait] =
+    firstCommandCOR.buildCmd(observerID, cmd, x, y, control)

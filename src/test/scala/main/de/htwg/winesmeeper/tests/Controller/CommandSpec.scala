@@ -1,7 +1,7 @@
 package main.de.htwg.winesmeeper.tests.Controller
 
-import de.htwg.winesmeeper.Controller.Commands.ImplSysCommands.{LastElemSysCommand}
-import de.htwg.winesmeeper.Controller.Commands.ImplTurnCommands.zLastElemTurnCmdSingleton
+import de.htwg.winesmeeper.Controller.Commands.ImplSysCommands.LastElemSysCommand
+import de.htwg.winesmeeper.Controller.Commands.ImplTurnCommands.{zLastElemTurnCmdSingleton, UndoManager}
 import main.de.htwg.winesmeeper.tests.aView.buildController
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -36,6 +36,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
 
     "be false with unvalid turns" in:
      testCtrl.undo.doCmd(-1, "error", 9, 9).isSuccess shouldBe false
+     testCtrl.undo.buildCmd(-1, "flag", 9, 9)
 
     "have redo" in:
       testCtrl.doSysCmd(-1, "redo", Vector("", "2"))

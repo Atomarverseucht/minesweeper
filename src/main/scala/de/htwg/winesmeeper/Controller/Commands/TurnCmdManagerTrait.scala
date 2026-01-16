@@ -14,7 +14,7 @@ trait TurnCmdManagerTrait:
   def getCmd(cmd: String): Option[TurnCommandSingletonTrait]
   def redoStep(): Unit
   def undoStep(): Unit
-  def buildCmd(observerID: Int, cmd: String, x: Int, y: Int, ctrl: ControllerTrait): Try[TurnCommandTrait]
+  def buildCmd(observerID: Int, cmd: String, x: Int, y: Int): Try[TurnCommandTrait]
   def getStacks: (Stack[TurnCommandTrait], Stack[TurnCommandTrait])
   def overrideStacks(undoSt: Stack[TurnCommandTrait], redoSt: Stack[TurnCommandTrait]): Unit
 
