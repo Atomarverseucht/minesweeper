@@ -1,0 +1,22 @@
+# IDE files
+.bsp/
+.bloop/
+.metals/
+project/metals.sbt
+project/project/metals.sbt
+project/project/project/
+*.metals
+
+# Build artifacts
+target/
+project/target/
+project/project/target/
+
+# Version control
+.git/
+.gitignore
+
+# Other
+*.log
+saves/
+sq-community-build/
