@@ -1,3 +1,39 @@
+## [2.0.1](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0...2.0.1) (2026-01-16)
+
+
+### Bug Fixes
+
+* correct redo-stack ([7c8e100](https://github.com/Atomarverseucht/minesweeper/commit/7c8e10070cb4d95fd72726aecdd9ac5ee5f2c472))
+
+# [2.0.0](https://github.com/Atomarverseucht/minesweeper/compare/1.3.1...2.0.0) (2026-01-16)
+
+
+### Bug Fixes
+
+* added some metadata ([b1dc1fe](https://github.com/Atomarverseucht/minesweeper/commit/b1dc1feece01c1ab6382187738b12ff350ebce85))
+* better help ([2305f9a](https://github.com/Atomarverseucht/minesweeper/commit/2305f9a6037bb04e276c33e09f9e276c5b4c21af))
+* better style ([9817f3c](https://github.com/Atomarverseucht/minesweeper/commit/9817f3cbb485300ee70061477f0eb867c289b479))
+* correct state name ([d27d304](https://github.com/Atomarverseucht/minesweeper/commit/d27d3046184dd10dc7eb5962c59788e1b79718f9))
+* flag bug fixed ([9ee441e](https://github.com/Atomarverseucht/minesweeper/commit/9ee441e5ee50788af36e4785efafc5d1054f7737))
+* stupidness is now no part of Config.scala ([cf023b7](https://github.com/Atomarverseucht/minesweeper/commit/cf023b7e8fb37334a75c26abc232d2a960b7eecf))
+
+
+### Features
+
+* GUI is now using with cmd "generate" the new pseudo-generate system! ([9e3d7be](https://github.com/Atomarverseucht/minesweeper/commit/9e3d7be092e2d627f8d034c09fa93c19ced1a565))
+* JSON Load (without stacks) ([30910d5](https://github.com/Atomarverseucht/minesweeper/commit/30910d5cae64f1c02f9c90eeea9ab8fcf835caf4))
+* JSON loading of stacks ([6909131](https://github.com/Atomarverseucht/minesweeper/commit/6909131c95e3c1525b5ad42cc06b5ebd0ad3c3c9))
+* JSON Save ([67e0510](https://github.com/Atomarverseucht/minesweeper/commit/67e0510d9bd8be5b41b2115acec71cc2f5e96e62))
+* load XML-board ([7403c0c](https://github.com/Atomarverseucht/minesweeper/commit/7403c0c1f2084838b78637ddf0023e5a3874eef6))
+* new save format ([0bbcf01](https://github.com/Atomarverseucht/minesweeper/commit/0bbcf0115dc576441a59c3199e5942fc567811b9))
+* start is more intuitive ([5e3cf9f](https://github.com/Atomarverseucht/minesweeper/commit/5e3cf9f8f7823d6c2fc6d141ce4dc709f7dc7c6c))
+* XML: undo/redo-Stacks are now saved ([23f9356](https://github.com/Atomarverseucht/minesweeper/commit/23f93568bee166e7eaa0b0bd657b61d9f015381c))
+
+
+### BREAKING CHANGES
+
+* removed old format, older files aren't supported!
+
 # [2.0.0-dev.9](https://github.com/Atomarverseucht/minesweeper/compare/2.0.0-dev.8...2.0.0-dev.9) (2026-01-15)
 
 
