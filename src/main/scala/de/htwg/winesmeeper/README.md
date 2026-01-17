@@ -1,12 +1,16 @@
 ## Project Structure:
 
-Main.scala: starting point of the game
-
 ### View: 
     the code, which is dependent on how you want to see the game, only TUI or (if it is supported) also in the GUI
 
 ### Controller:
     the game logic (executing commands like "open", "save", "load" and few more, game-states) 
 
-### Model
+### Model:
     the data structure of the game (the Board)
+    
+Main.scala: starting point of the game
+
+Config.scala: a list of constructors and values used to make Interface Objects or important values to configure the project
+
+Observer.scala: the code how the Controller communicates with the view (abstract)
