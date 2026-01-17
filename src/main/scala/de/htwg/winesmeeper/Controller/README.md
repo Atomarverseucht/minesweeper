@@ -7,8 +7,10 @@
   - the actual gamestate("running", "win", "lost", "start")
 
 ## Command:
-  - Turn-Commands: Commands with coordinates, which is undoable callable with the Turn-Command-Manager
-  - System-Commands: Command with sometimes parameters, which is callable with the SysCmd-Manager
+  - **Turn-Commands:**
+        Commands with coordinates, which is undoable callable with the Turn-Command-Manager
+  - **System-Commands:**
+        Command with sometimes parameters, which is callable with the SysCmd-Manager
   - For an overview type: "help" in the TUI or press the "help" button (GUI) or press STRG+H (GUI)
 
 ## Save:
