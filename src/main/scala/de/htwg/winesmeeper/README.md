@@ -9,8 +9,11 @@
 ### Model:
     the data structure of the game (the Board)
     
-Main.scala: starting point of the game
+#### Main.scala: 
+    starting point of the game
 
-Config.scala: a list of constructors and values used to make Interface Objects or important values to configure the project
+#### Config.scala:
+    a list of constructors and values used to make Interface Objects or important values to configure the project
 
-Observer.scala: the code how the Controller communicates with the view (abstract)
+#### Observer.scala: 
+    the code how the Controller communicates with the view (abstract)
