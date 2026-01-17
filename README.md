@@ -18,9 +18,14 @@ The graphics of the GUI is made by [modelivesky](https://modelivesky.com/), if y
 
 ---
 
-## Features
-- generate a field via I/O (answering questions)
-- opening fields via I/O (coordinates)
+## How to play:
+### TUI:
+  - type "help" for getting a short explanation for each command
+
+### GUI:
+  - The buttons above are for the Sys-Commands
+  - left-click on a field, to open a field
+  - right-click on a field, to flag a field
 
 ## Getting started
 Prerequisites
