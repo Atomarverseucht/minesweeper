@@ -4,8 +4,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/Atomarverseucht/minesweeper/badge.svg?branch=main)](https://coveralls.io/github/Atomarverseucht/minesweeper)
 
 A polished, study-focused implementation of the classic Minesweeper game, written primarily in Scala with a touch of shell tooling. This repository is a joint learning project by [Atomarverseucht](https://github.com/Atomarverseucht) and [Guakocius](https://github.com/Guakocius).<br>
-The graphics of the GUI is made by [modelivesky](https://modelivesky.com/), if you want to download it click [here](https://modelivesky.itch.io/minesweeperpack)<br><br>
-If you want to know how this Project is structured you can see it [here](https://github.com/Atomarverseucht/minesweeper/tree/main/src/main/scala/de/htwg/winesmeeper)
+The graphics of the GUI is made by [modelivesky](https://modelivesky.com/), if you want to download it click [here](https://modelivesky.itch.io/minesweeperpack)<br>
+### If you want to know how this Project is structured you can see it [here](https://github.com/Atomarverseucht/minesweeper/tree/main/src/main/scala/de/htwg/winesmeeper)<br><br>
 
 | Used Languages | Tested Operating Systems | Tech Stack |
 | :--: | :--: | :--: |
@@ -15,7 +15,6 @@ If you want to know how this Project is structured you can see it [here](https:/
 [![Contributing](https://img.shields.io/badge/Contributing-check?style=flat&logo=open-source-initiative)](./CONTRIBUTING.md)
 [![Changelog](https://img.shields.io/badge/Changelog-check?style=flat&logo=open-source-initiative)](./CHANGELOG.md)
 [![Repo Size](https://img.shields.io/github/repo-size/Atomarverseucht/minesweeper?style=flat)](https://github.com/Atomarverseucht/minesweeper)
-[![Stars](https://img.shields.io/github/stars/Atomarverseucht/minesweeper?style=social)](https://github.com/Atomarverseucht/minesweeper/stargazers)
 
 ---
 
@@ -68,5 +67,3 @@ If you saw an issue with our project or you want to have a specific feature you 
   
 ## License
 See the LICENSE file in the repository for licensing information.
-
-Enjoy exploring the code — may your flags be true and your guesses few! ⚑💣
