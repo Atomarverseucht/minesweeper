@@ -4,7 +4,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/Atomarverseucht/minesweeper/badge.svg?branch=main)](https://coveralls.io/github/Atomarverseucht/minesweeper)
 
 A polished, study-focused implementation of the classic Minesweeper game, written primarily in Scala with a touch of shell tooling. This repository is a joint learning project by [Atomarverseucht](https://github.com/Atomarverseucht) and [Guakocius](https://github.com/Guakocius).<br>
-The graphics of the GUI is made by [modelivesky](https://modelivesky.com/), if you want to download it click [here](https://modelivesky.itch.io/minesweeperpack)
+The graphics of the GUI is made by [modelivesky](https://modelivesky.com/), if you want to download it click [here](https://modelivesky.itch.io/minesweeperpack)<br><br>
+If you want to know how this Project is structured you can see it [here](https://github.com/Atomarverseucht/minesweeper/tree/main/src/main/scala/de/htwg/winesmeeper)
 
 | Used Languages | Tested Operating Systems | Tech Stack |
 | :--: | :--: | :--: |
