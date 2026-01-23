@@ -3,6 +3,7 @@ package main.de.htwg.winesmeeper.tests.Controller
 import de.htwg.winesmeeper.Controller.ImplController.{Controller, CORStatEnd, Lost}
 import de.htwg.winesmeeper.Model.ImplBoard.Board
 import de.htwg.winesmeeper.Model.ImplField.Field
+import de.htwg.winesmeeper.Config
 import main.de.htwg.winesmeeper.tests.aView.buildController
 import scala.util.Try
 import org.scalatest.matchers.should.Matchers
@@ -48,3 +49,7 @@ class ControllerSpec extends AnyWordSpec with Matchers:
 
     "have a LastElem" in:
       CORStatEnd.state(ctrl).gameState shouldBe "lost"
+
+    "have a Config" in:
+      val gameBoard = Config.startBoard
+      Config.startController(gameBoard)

@@ -26,7 +26,7 @@ object TUIHelp:
   def turn(observerID: Int, input: String, ctrl: ControllerTrait): String =
     val in = input.split("[^\\w\\d]+").toVector.filter(_.nonEmpty)
     Try(if ctrl isSysCmd(in(0)) then ctrl doSysCmd(observerID, in(0), in) getOrElse ""
-    else ctrl turn(observerID, in(0), Try(in(1).toInt), Try(in(2).toInt)) getOrElse "") getOrElse "Parsing Error"
+    else ctrl turn(observerID, in(0), Try(in(1).toInt), Try(in(2).toInt)) getOrElse "Invalid command!") getOrElse "Parsing Error"
 
   def gameEndMsg(ctrl: ControllerTrait): String =
     val out = ctrl.gameState match

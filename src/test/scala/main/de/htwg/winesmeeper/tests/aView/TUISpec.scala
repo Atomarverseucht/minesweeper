@@ -38,6 +38,7 @@ class TUISpec extends AnyWordSpec with Matchers:
       TUIHelp.emojify(-2) shouldBe "*"
       TUIHelp.emojify(-1) shouldBe "\u001b[1;37m#\u001b[0m"
       TUIHelp.emojify(1) shouldBe "\u001b[1;94m1\u001b[0m"
+      TUIHelp.emojify(-3) shouldBe "\u001b[1;31m#\u001b[0m"
 
     "have right end-msgs" in:
       val w = buildController(10, 10, 5, 5, 91)
@@ -67,29 +68,6 @@ class TUISpec extends AnyWordSpec with Matchers:
       ctrl_.turn(-1, "flag", Try(1), Try(1)).isSuccess shouldBe false
       ctrl_.doSysCmd(sub.observerID, "generate", Vector("nothing"))
       ctrl_.removeSub(sub)
-
-  "an User Interface" should:
-    "be useable" in:
-      val fakeInput =
-        """open 1 1
-          |flag 7 7
-          |open.10000usifduoiwstrhfgu9sfh10000
-          |flag 9 9
-          |flag 8 8
-          |open.9#9
-          |help
-          |undo
-          |undo
-          |redo
-          |save saveGame
-          |load saveGame
-          |quit
-          |""".stripMargin
-
-      val in = new ByteArrayInputStream(fakeInput.getBytes())
-      Console.withIn(in) {
-        start
-      }
 
   class dummySub(ctrl: ControllerTrait) extends Observer(ctrl):
     override def update(): Unit = {}

@@ -9,7 +9,7 @@ The graphics of the GUI is made by [modelivesky](https://modelivesky.com/), if y
 
 | Used Languages | Tested Operating Systems | Tech Stack |
 | :--: | :--: | :--: |
-| ![Scala](https://img.shields.io/badge/Scala-DC322F?style=for-the-badge&logo=scala&logoColor=white) ![Shell](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white) | ![Arch](https://img.shields.io/badge/Arch_Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white) ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white) ![Windows_11](https://img.shields.io/badge/Windows_11-0078d4?style=for-the-badge&logo=windows&logoColor=white) | ![sbt](https://img.shields.io/badge/sbt-0095D5?style=for-the-badge&logo=sbt&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white) ![Kubernetes](https://img.shields.io/badge/Kubernetes-3069DE?style=for-the-badge&logo=kubernetes&logoColor=white) ![SonarQube](https://img.shields.io/badge/Sonarqube-5190cf?style=for-the-badge&logo=sonarqube&logoColor=white) |
+| ![Scala](https://img.shields.io/badge/Scala-DC322F?style=for-the-badge&logo=scala&logoColor=white) ![Shell](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white) | ![Arch](https://img.shields.io/badge/Arch_Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white) ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white) ![Windows_11](https://img.shields.io/badge/Windows_11-0078d4?style=for-the-badge&logo=windows&logoColor=white) | ![sbt](https://img.shields.io/badge/sbt-0095D5?style=for-the-badge&logo=sbt&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white) ![Kubernetes](https://img.shields.io/badge/Kubernetes-3069DE?style=for-the-badge&logo=kubernetes&logoColor=white)
 
 [![License](https://img.shields.io/badge/License-check?style=flat&logo=open-source-initiative)](./LICENSE)
 [![Contributing](https://img.shields.io/badge/Contributing-check?style=flat&logo=open-source-initiative)](./CONTRIBUTING.md)
@@ -54,6 +54,7 @@ sbt run
 # run tests
 sbt test
 ```
+[Project Presentation](https://docs.google.com/presentation/d/e/2PACX-1vQ3QTf37aSHJQf55_W91Vt7d36si6HmKYi8IIh0PVhKAF9CgUceg2b-p-1muynp_DYkcL2-9DX1p_d0/pub?start=true&loop=true&delayms=3000)
 
 ## Contributing
 If you saw an issue with our project or you want to have a specific feature you can:

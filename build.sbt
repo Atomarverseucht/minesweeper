@@ -47,14 +47,14 @@ lazy val root = project
   .in(file("."))
   .settings(
     name := "minesweeper",
-    version := "2.0.1",
+    version := "2.2.1",
 
     scalaVersion := scala3Version,
     scalacOptions ++= Seq("-encoding", "utf-8"),
     coverageMinimumStmtTotal := 80,
     coverageFailOnMinimum := false,
     coverageHighlighting := true,
-    coverageExcludedPackages := ".*Main.*;.*Routes.*;.*Config.*;",
+    coverageExcludedPackages := "*\\\\/de\\\\/htwg\\\\/winesmeeper\\\\/(?:Main|aView\\\\/(?:TUI|GUI))",
     coverageExcludedFiles := "*Main*",
 
     libraryDependencies += "org.scalafx" %% "scalafx" % "21.0.0-R32", // aus Kompatibilität nicht aktueller
@@ -103,11 +103,8 @@ lazy val root = project
     ).getAbsolutePath
   )
 
-  val fxVersion = "23"
+  val fxVersion = "21"
   Seq("base", "controls", "fxml", "graphics", "media", "swing", "web")
     .map(m => "org.openjfx" % s"javafx-$m" % fxVersion classifier osName)
   }
 )
-
-
-

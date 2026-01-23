@@ -70,9 +70,9 @@ object JSONSave extends SaverTrait:
   }
 
   implicit val fieldTraitReads: Reads[FieldTrait] = Reads { json =>
-    for {
+    for
       isBomb <- (json \ "isBomb").validate[Boolean]
       isOpened <- (json \ "isOpened").validate[Boolean]
       isFlag <- (json \ "isFlag").validate[Boolean]
-    } yield Config.mkField(isBomb, isOpened, isFlag)
+    yield Config.mkField(isBomb, isOpened, isFlag)
   }

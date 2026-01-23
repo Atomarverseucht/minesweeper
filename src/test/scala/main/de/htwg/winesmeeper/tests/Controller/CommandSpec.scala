@@ -6,6 +6,7 @@ import main.de.htwg.winesmeeper.tests.aView.buildController
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import javafx.scene.input.KeyCode
+import scala.util.Try
 
 import play.api.libs.json.Json
 
@@ -65,3 +66,7 @@ class CommandSpec extends AnyWordSpec with Matchers:
       testCtrl.doSysCmd(-1, "generate", Vector("generate","10","10","10"))
       testCtrl.doSysCmd(-1, "generate", Vector("generate","10","10","1","1","10"))
       an[Exception] shouldBe thrownBy(testCtrl.doSysCmd(-1, "generate", Vector("generate")))
+
+    "have a start opening turn" in:
+      testCtrl.doSysCmd(-1, "generate", Vector("generate", "10", "10", "10"))
+      testCtrl.turn(-1, "open", Try(5), Try(5))

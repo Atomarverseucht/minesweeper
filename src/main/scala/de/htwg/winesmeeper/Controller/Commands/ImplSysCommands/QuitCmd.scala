@@ -16,9 +16,4 @@ object QuitCmd extends SysCommandCORTrait:
   
   override def execute(observerID: Int, ctrl: ControllerTrait, params: Vector[String]): Option[String] =
     System.exit(0)
-    Some("Successfully quitted the game")
-
-
-
-  
-  
+    None

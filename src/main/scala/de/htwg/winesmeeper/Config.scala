@@ -30,7 +30,7 @@ object Config:
   def mkUndo(ctrl: ControllerTrait): TurnCmdManagerTrait =
     ImplTurnCommands.UndoManager(ctrl)
 
-  val saver: SaverTrait = ImplJSONSave.JSONSave
+  val saver: SaverTrait = ImplXMLSave.XmlSave
 
   val standardSysCmdMan: SysCommandManagerTrait =
     ImplSysCommands.SysCommandManager
